@@ -22,10 +22,19 @@ Live site: https://grantwilk.com/paws-and-effect/
   Phones get a stacked view with the same bars, the same today line, and the
   same detail text.
 
+## Files
+
+| File | What it is |
+|---|---|
+| `index.html` | The whole site. All the CSS and JavaScript are inline. |
+| `favicon.svg` | The tab icon. It has two palettes and changes with the browser theme. |
+| `favicon-32.png`, `apple-touch-icon.png` | Raster copies of the icon, rendered from `favicon.svg`, for browsers that do not accept an SVG icon. |
+| `.nojekyll` | Tells GitHub Pages to copy the files as they are. |
+
 ## Running it locally
 
-The site is one static HTML file with no build step. Open `index.html` in a
-browser, or serve the folder:
+The site has no build step. Open `index.html` in a browser, or serve the
+folder:
 
 ```bash
 python3 -m http.server 8000
