@@ -10,11 +10,10 @@ shapes: a window that opens and closes, a restriction that lifts at a given
 week, and a single dated event. Titles name the window, so you can say it out
 loud: "she is in her fear period", "he started teething".
 
-Advice that is true at every age has no place on a schedule, so the 20 notes of
-that kind sit in a separate list below the chart.
+Advice that is true at every age is not a schedule, so it is not here at all.
 
-All 53 bars and all 20 notes cite the source they came from. The citation is in
-the detail panel, under the description.
+All 53 bars cite the source they came from. The citation is in the detail
+panel, under the description.
 
 Live site: https://grantwilk.com/paws-and-effect/
 
@@ -35,9 +34,6 @@ Live site: https://grantwilk.com/paws-and-effect/
   already filled in with the default. It is the only place the page says
   "start here", and it does not come back after you answer it or skip it.
 - **Sources on every entry.** Open any bar to see where its dates come from.
-- **A separate list of what never changes.** Reward-based training, a lean dog,
-  year-round parasite cover, and the rest sit below the chart, where they are
-  not pretending to have a start date.
 
 ## The six sections
 
@@ -63,8 +59,7 @@ Live site: https://grantwilk.com/paws-and-effect/
 
 The timeline data is the `GROUPS` array near the top of the script in
 `index.html`. Each entry has a title, a start week, an end week, a description,
-optional shape flags, and one or two sources. The `ALWAYS` array below it holds
-the notes that have no dates.
+optional shape flags, and one or two sources.
 
 ## Running it locally
 

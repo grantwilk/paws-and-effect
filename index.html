@@ -580,43 +580,6 @@ h1 em{font-style:normal;color:var(--cat-dev)}
 .sw.shuts{background:var(--cat-dev);box-shadow:4px 0 0 var(--cap),4px 0 0 1px var(--bar-edge)}
 .sw.soft{background:var(--cat-train);opacity:var(--soft-op)}
 .sw.openend{background:linear-gradient(90deg,var(--cat-safe) 60%,transparent)}
-.always{
-  margin-top:26px;padding-top:15px;border-top:1px solid var(--grid-strong);
-}
-.always h2{
-  font-family:var(--sans);font-size:10.5px;font-weight:700;
-  letter-spacing:.19em;text-transform:uppercase;color:var(--ink);
-}
-.always-sub{
-  font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:3px;
-}
-.always-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:13px;
-  align-items:start;
-}
-.always-col{
-  background:var(--inset);border:1px solid var(--grid);border-radius:9px;
-  padding:12px 13px 13px;
-}
-.always-col > h3{
-  font-family:var(--sans);font-size:9.5px;font-weight:700;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
-  padding-bottom:7px;border-bottom:1px solid var(--grid);
-}
-.always-col ul{list-style:none}
-.always-col li{
-  padding:9px 0;border-bottom:1px solid var(--grid);
-  font-size:12.5px;line-height:1.5;color:var(--muted);
-}
-.always-col li:last-child{border-bottom:0;padding-bottom:0}
-.always-col li b{display:block;color:var(--ink);font-weight:600;margin-bottom:1px}
-.always-col .cite{
-  margin-top:4px;padding-top:0;border-top:0;font-size:10.5px;line-height:1.5;
-}
-@media (max-width:760px){
-  .always{margin-top:20px}
-  .always-grid{grid-template-columns:1fr;gap:9px}
-}
 .foot{
   margin-top:16px;padding-top:11px;border-top:1px solid var(--grid-strong);
   font-size:12.5px;color:var(--muted);line-height:1.5;max-width:100ch;
@@ -775,12 +738,6 @@ h1 em{font-style:normal;color:var(--cat-dev)}
     <div id="detailBody" aria-live="polite">
       <p class="idle">Tap any bar to see what it means and what to do.</p>
     </div>
-  </section>
-
-  <section class="always" id="always">
-    <h2>True at every age</h2>
-    <p class="always-sub">None of this has a start week or an end week, so none of it is on the timeline.</p>
-    <div class="always-grid" id="alwaysGrid"></div>
   </section>
 
   <p class="foot">
@@ -1018,69 +975,6 @@ const GROUPS = [
   ]},
 ];
 
-/* True at every age, so none of it belongs on a schedule. */
-const ALWAYS = [
-  {g:"Training", t:"Rewards, never pain or fear",
-   d:"No choke, prong, or shock collars. Dogs trained with punishment show more stress and a more pessimistic outlook, and punishment works no better.",
-   s:[["AVSAB 2021","https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf"],["Castro 2020","https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0225023"]]},
-  {g:"Training", t:"Read the stress signals",
-   d:"Lip licks, yawns, a turned head, a tucked tail, and a stiff body all mean “give me space”. Stop what you are doing when you see them.",
-   s:[["Riemer 2021","https://pubmed.ncbi.nlm.nih.gov/33445559/"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/handling-anxious-patients/"]]},
-  {g:"Training", t:"Never punish a growl",
-   d:"A growl is a warning, and warnings keep people safe. Punish it and a dog can learn to skip it. Forcing an item from the mouth produced aggression in 39 percent of dogs in one survey.",
-   s:[["Herron 2009","https://vmc.vet.osu.edu/sites/default/files/documents/trainingArticle.pdf"],["Jacobs 2018","https://doi.org/10.1016/j.prevetmed.2017.02.005"]]},
-  {g:"Training", t:"Off leash depends on the dog",
-   d:"No respected trainer gates this on an age. Go off the long line only where the dog already comes back first time, around those distractions.",
-   s:[["Stewart, BAT","https://grishastewart.com/ep08/"],["Dunbar","https://www.dogstardaily.com/storefront/after-you-get-your-puppy"]]},
-  {g:"Training", t:"Find a professional early",
-   d:"Anyone can call themself a dog trainer, because the trade has no licence. For fear, aggression, or panic when alone, ask your vet for a board-certified veterinary behaviorist.",
-   s:[["ACVB directory","https://www.dacvb.org/search/"],["AVSAB 2021","https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf"]]},
-  {g:"Training", t:"Self-control arrives late",
-   d:"It improves across the whole first two years and is not finished before then. Build habits instead of testing willpower, and keep the dog under the level of excitement where it can still think.",
-   s:[["Bray 2021","https://pmc.ncbi.nlm.nih.gov/articles/PMC8035344/"]]},
-  {g:"Training", t:"Starting late still works",
-   d:"No single window decides the rest of a dog’s life. Progress is slower after the puppy weeks, and it still works.",
-   s:[["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"],["Merck Vet Manual","https://www.merckvetmanual.com/dog-owners/behavior-of-dogs/normal-social-behavior-in-dogs"]]},
-  {g:"Health & handling", t:"Keep the dog lean",
-   d:"This protects the joints more than any exercise rule here. Dogs fed 25 percent less lived about 1.8 years longer and got hip arthritis about six years later.",
-   s:[["Kealy 2002","https://doi.org/10.2460/javma.2002.220.1315"],["WSAVA chart","https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSDog_Nutrition_250612.pdf"]]},
-  {g:"Health & handling", t:"Year-round parasite cover",
-   d:"After the puppy worming course, the dog needs continuous cover for worms, fleas, ticks, and heartworm, plus a yearly heartworm test.",
-   s:[["CAPC","https://capcvet.org/guidelines/general-guidelines/"],["Heartworm Soc.","https://www.heartwormsociety.org/veterinary-resources/american-heartworm-society-guidelines"]]},
-  {g:"Health & handling", t:"A yearly vet exam, for life",
-   d:"Once the puppy course finishes, the visits do not stop. A yearly exam catches what you cannot see.",
-   s:[["AAHA checklist","https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/"]]},
-  {g:"Health & handling", t:"Brush the teeth daily",
-   d:"Brushing only helps if you do it every day. Most dogs have gum disease by age three.",
-   s:[["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/regular-oral-healthcare/"],["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/preventing-periodontal-disease/"]]},
-  {g:"Health & handling", t:"Pain hides as behavior",
-   d:"In veterinary behavior clinics, roughly one dog in three has a painful condition behind the problem. New growling, hiding, or stair refusal needs an exam first.",
-   s:[["Mills 2020","https://pmc.ncbi.nlm.nih.gov/articles/PMC7071134/"],["AAHA 2019","https://www.aaha.org/resources/life-stage-canine-2019/behavior/"]]},
-  {g:"Health & handling", t:"Keep handling practice going",
-   d:"Handling is not a course you pass once. Without a short session every week or so a dog forgets, and the vet visit becomes a fight.",
-   s:[["Riemer 2021","https://pubmed.ncbi.nlm.nih.gov/33445559/"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/handling-anxious-patients/"]]},
-  {g:"Health & handling", t:"Let the dog say yes",
-   d:"Teach one position that means “I am ready”, such as a chin in your hand, and stop the moment the dog lifts away. Dogs given this choice show fewer stress signs.",
-   s:[["IAABC","https://journal.iaabcfoundation.org/cooperative-care-2/"],["Whole Dog Journal","https://www.whole-dog-journal.com/training/cooperative-care-giving-your-dog-choice-and-control/"]]},
-  {g:"Safety", t:"Heat comes from exercise",
-   d:"Exercise causes far more heat illness than parked cars, and dogs under two carry the highest risk. If you cannot hold your hand on the ground for seven seconds, it is too hot for paws.",
-   s:[["Hall 2020","https://pmc.ncbi.nlm.nih.gov/articles/PMC7459873/"],["AAHA","https://www.aaha.org/resources/how-to-protect-dog-paws-from-hot-pavement/"]]},
-  {g:"Safety", t:"Swallowed objects and poisons",
-   d:"String, socks, and cloth are the worst, because they saw through the gut. Keep medicines, xylitol, chocolate, grapes, onions, and cannabis out of reach.",
-   s:[["Hobday 2014","https://pubmed.ncbi.nlm.nih.gov/25352109/"],["AVMA","https://www.avma.org/resources-tools/pet-owners/petcare/household-hazards"]]},
-  {g:"Safety", t:"Never leave a child alone with a dog",
-   d:"Children are bitten more than any other group, usually at home by a dog they know. Give the dog one place where no child may follow.",
-   s:[["AVMA task force","https://www.avma.org/sites/default/files/2020-03/dogbite.pdf"],["Reisner 2011","https://pubmed.ncbi.nlm.nih.gov/21444335/"]]},
-  {g:"Safety", t:"Guarding can appear at any age",
-   d:"It stays about level from six to eighteen months, so dogs do not grow out of it. Trade for something better instead of taking things away, and call a professional at the first growl.",
-   s:[["Jacobs 2018","https://doi.org/10.1016/j.prevetmed.2017.02.005"],["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"]]},
-  {g:"Safety", t:"Noise fear gets worse with age",
-   d:"This one breaks the pattern of everything above: it grows rather than fades, and onset ranges from eight weeks to old age. Give a safe den and never punish the fear.",
-   s:[["Tiira 2016","https://doi.org/10.1016/j.jveb.2016.06.008"],["Riemer 2023","https://pmc.ncbi.nlm.nih.gov/articles/PMC10705068/"]]},
-  {g:"Safety", t:"Trouble alone is common and quiet",
-   d:"Almost half of six-month-old puppies pace, whine, or circle when left alone, but only about one owner in forty notices a problem. Look for it.",
-   s:[["Dale 2024","https://pmc.ncbi.nlm.nih.gov/articles/PMC11655275/"],["Blackwell 2006","https://pubmed.ncbi.nlm.nih.gov/16632528/"]]},
-];
 
 /* ---------- build the chart, once ----------
    Every bar is positioned as a percentage of its track rather than a pixel
@@ -1369,22 +1263,6 @@ function formatAge(w) {
   return mo.toFixed(1).replace(/\.0$/, '') + ' months';
 }
 
-/* The evergreen notes never change, so this runs once and never re-runs. */
-function renderAlways() {
-  const order = [];
-  const byGroup = new Map();
-  for (const it of ALWAYS) {
-    if (!byGroup.has(it.g)) { byGroup.set(it.g, []); order.push(it.g); }
-    byGroup.get(it.g).push(it);
-  }
-  document.getElementById('alwaysGrid').innerHTML = order.map(g =>
-    '<div class="always-col"><h3>' + esc(g) + '</h3><ul>'
-    + byGroup.get(g).map(it =>
-        '<li><b>' + esc(it.t) + '</b>' + esc(it.d) + citeHtml(it) + '</li>').join('')
-    + '</ul></div>'
-  ).join('');
-}
-
 function render() {
   const w = ageWeeks();
   const ageN = document.getElementById('ageN');
@@ -1561,7 +1439,6 @@ window.addEventListener('resize', () => {
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 
 syncLegend();
-renderAlways();
 render();
 placeLabels();
 requestAnimationFrame(() => { if (!PHONE.matches) goToToday({ instant: true }); });
