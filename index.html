@@ -255,6 +255,11 @@ h1 em{font-style:normal;color:var(--cat-dev)}
   align-items:baseline;justify-content:space-between;
   margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--grid-strong);
 }
+.now-head h2{
+  font-family:var(--sans);
+  font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--now);
+}
 .agenow{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
 .agenow b{
   font-family:var(--display);
@@ -730,7 +735,8 @@ h1 em{font-style:normal;color:var(--cat-dev)}
 
   <section class="now-panel" aria-labelledby="nowHead">
     <div class="now-head">
-      <h2 class="agenow" id="nowHead"><b id="ageN">&mdash;</b><span id="ageS">no date set</span></h2>
+      <h2 id="nowHead">Right now</h2>
+      <p class="agenow"><b id="ageN">&mdash;</b><span id="ageS">no date set</span></p>
     </div>
     <div class="now-cols" id="nowCols"></div>
     <div class="soon" id="soon"></div>
@@ -1386,8 +1392,8 @@ function render() {
 
 
   if (w === null) {
-    ageN.textContent = 'Right now';
-    ageS.textContent = 'enter a date of birth above';
+    ageN.textContent = '\u2014';
+    ageS.textContent = 'no date set';
     canvas.style.setProperty('--today-vis', 'none');
     document.getElementById('nowCols').innerHTML =
       '<div class="now-col empty"><p>Enter a date of birth to see the active stages.</p></div>';
