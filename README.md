@@ -4,7 +4,16 @@ A one-page timeline of a dog's first two years. It shows brain stages, body
 limits, normal bad behavior, where the dog can safely go, and what to train. A
 red line marks today.
 
-Every one of the 76 entries cites the source it came from. The citation is in
+The chart is a schedule, not an advice column. An entry gets a bar only if it
+can say when it becomes true and when it stops being true. That allows three
+shapes: a window that opens and closes, a restriction that lifts at a given
+week, and a single dated event. Titles name the window, so you can say it out
+loud: "she is in her fear period", "he started teething".
+
+Advice that is true at every age has no place on a schedule, so the 20 notes of
+that kind sit in a separate list below the chart.
+
+All 53 bars and all 20 notes cite the source they came from. The citation is in
 the detail panel, under the description.
 
 Live site: https://grantwilk.com/paws-and-effect/
@@ -26,6 +35,9 @@ Live site: https://grantwilk.com/paws-and-effect/
   already filled in with the default. It is the only place the page says
   "start here", and it does not come back after you answer it or skip it.
 - **Sources on every entry.** Open any bar to see where its dates come from.
+- **A separate list of what never changes.** Reward-based training, a lean dog,
+  year-round parasite cover, and the rest sit below the chart, where they are
+  not pretending to have a start date.
 
 ## The six sections
 
@@ -34,9 +46,9 @@ Live site: https://grantwilk.com/paws-and-effect/
 | Brain & stages | Windows in brain development, such as socialization and adolescence. |
 | Body & vet | Vaccines, parasites, teeth, growth plates, weight, and neutering. |
 | What you will see | Normal, unwelcome behavior, and when to expect it. |
-| Body limits & safety | How much the growing body can take, plus heat and poisons. |
+| Body limits & safety | How much the growing body can take, week by week. |
 | Places & other dogs | Where the dog can go, and which dogs it can meet. |
-| Training & household | What to teach, and when to teach it. |
+| Training & household | The window in which to establish each skill. |
 
 ## Files
 
@@ -51,7 +63,8 @@ Live site: https://grantwilk.com/paws-and-effect/
 
 The timeline data is the `GROUPS` array near the top of the script in
 `index.html`. Each entry has a title, a start week, an end week, a description,
-optional shape flags, and one or two sources.
+optional shape flags, and one or two sources. The `ALWAYS` array below it holds
+the notes that have no dates.
 
 ## Running it locally
 

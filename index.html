@@ -575,6 +575,43 @@ h1 em{font-style:normal;color:var(--cat-dev)}
 .sw.shuts{background:var(--cat-dev);box-shadow:4px 0 0 var(--cap),4px 0 0 1px var(--bar-edge)}
 .sw.soft{background:var(--cat-train);opacity:var(--soft-op)}
 .sw.openend{background:linear-gradient(90deg,var(--cat-safe) 60%,transparent)}
+.always{
+  margin-top:26px;padding-top:15px;border-top:1px solid var(--grid-strong);
+}
+.always h2{
+  font-family:var(--sans);font-size:10.5px;font-weight:700;
+  letter-spacing:.19em;text-transform:uppercase;color:var(--ink);
+}
+.always-sub{
+  font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:3px;
+}
+.always-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:13px;
+  align-items:start;
+}
+.always-col{
+  background:var(--inset);border:1px solid var(--grid);border-radius:9px;
+  padding:12px 13px 13px;
+}
+.always-col > h3{
+  font-family:var(--sans);font-size:9.5px;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  padding-bottom:7px;border-bottom:1px solid var(--grid);
+}
+.always-col ul{list-style:none}
+.always-col li{
+  padding:9px 0;border-bottom:1px solid var(--grid);
+  font-size:12.5px;line-height:1.5;color:var(--muted);
+}
+.always-col li:last-child{border-bottom:0;padding-bottom:0}
+.always-col li b{display:block;color:var(--ink);font-weight:600;margin-bottom:1px}
+.always-col .cite{
+  margin-top:4px;padding-top:0;border-top:0;font-size:10.5px;line-height:1.5;
+}
+@media (max-width:760px){
+  .always{margin-top:20px}
+  .always-grid{grid-template-columns:1fr;gap:9px}
+}
 .foot{
   margin-top:16px;padding-top:11px;border-top:1px solid var(--grid-strong);
   font-size:12.5px;color:var(--muted);line-height:1.5;max-width:100ch;
@@ -734,6 +771,12 @@ h1 em{font-style:normal;color:var(--cat-dev)}
     </div>
   </section>
 
+  <section class="always" id="always">
+    <h2>True at every age</h2>
+    <p class="always-sub">None of this has a start week or an end week, so none of it is on the timeline.</p>
+    <div class="always-grid" id="alwaysGrid"></div>
+  </section>
+
   <p class="foot">
     These ages are typical ranges, not deadlines. Small breeds mature near the early end of each range, and giant breeds near the late end. Vaccination dates, spay or neuter dates, and joint readiness are veterinary decisions. They depend on the dog and on your area. Use those bars to start a conversation with your vet, not as instructions. If the dog shows fear or aggression, or bites hard enough to break skin, get a certified trainer or a veterinary behaviorist early.
   </p>
@@ -792,253 +835,245 @@ const store = {
    Renaming one without the other silently loses the color. */
 const GROUPS = [
   { c:"dev", name:"Brain & stages", chip:"Brain & stages", items:[
-    {t:"Do not take a puppy before 8 weeks", a:0, b:8, avoid:true,
-     d:"A puppy learns bite control and dog manners from the mother and the littermates. Dogs taken home at five or six weeks bark more, chew more, and guard food and toys more as adults. Ask to meet the mother and to see where the litter grew up. If a breeder offers a puppy before eight weeks, walk away.",
+    {t:"Still with the litter", a:0, b:8,
+     d:"A puppy learns bite control and dog manners from the mother and the littermates. Dogs taken home at five or six weeks bark more, chew more, and guard food and toys more as adults. If a breeder offers a puppy before eight weeks, walk away.",
      s:[["Pierantoni 2011","https://pubmed.ncbi.nlm.nih.gov/21865608/"],["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"]]},
-    {t:"Socialization: the best window", a:3, b:14,
-     d:"This is the cheapest time to teach a dog that the world is safe. Give calm, good contact with many kinds of people, floors, sounds, and handling. Quality beats quantity. Always let the puppy choose to approach, and never force contact.",
+    {t:"Socialization window", a:3, b:14, shuts:true,
+     d:"The one window on this chart that shuts for good. While it is open, a puppy accepts new things by default. After it closes, new things are suspicious by default, and every lesson costs more repetitions. Give calm, good contact with many kinds of people, floors, sounds, and handling. Let the puppy choose to approach.",
      s:[["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"],["McEvoy 2022","https://pmc.ncbi.nlm.nih.gov/articles/PMC9655304/"]]},
-    {t:"Keep meeting the world, slower now", a:14, b:112, open:true, soft:true,
-     d:"The best window closes, but learning does not stop. After about 14 weeks a dog still learns from new places and people, only more slowly and with more repetitions. Keep going out for life. If the dog is already afraid of something, ask your vet for help instead of more exposure.",
-     s:[["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"],["Merck Vet Manual","https://www.merckvetmanual.com/dog-owners/behavior-of-dogs/normal-social-behavior-in-dogs"]]},
-    {t:"Wary of new things — go gently", a:5, b:12,
-     d:"Caution about new things switches on in this period, and the exact age changes with the breed. A bad scare now can last for years. Do not overwhelm the puppy, and do not force the puppy toward anything. Never punish fear. Let the puppy retreat, then look again, then get a reward.",
+    {t:"Fear period", a:5, b:12,
+     d:"Caution about new things switches on inside the socialization window, and the exact week changes with the breed. A bad scare now can last for years. Do not force the puppy toward anything, and never punish fear. Let the puppy retreat, look again, then get paid.",
      s:[["Morrow 2015","https://pure.psu.edu/en/publications/breed-dependent-differences-in-the-onset-of-fear-related-avoidanc/"],["Freedman 1961","https://pubmed.ncbi.nlm.nih.gov/13701603/"]]},
-    {t:"Puppy follows you — train recall now", a:8, b:20,
-     d:"Young puppies stay near you by instinct, and that instinct fades as confidence grows. Trainers put the easy window at up to four or five months. Use it to pay the puppy hundreds of times for coming to you.",
+    {t:"Easy recall window", a:8, b:20,
+     d:"Young puppies stay near you by instinct. Trainers put the easy window at up to four or five months. Spend it paying the puppy hundreds of times for coming to you, because the instinct fades and the habit is what remains.",
      s:[["Solomon 2019","https://pmc.ncbi.nlm.nih.gov/articles/PMC6532729/"],["McConnell","https://www.patriciamcconnell.com/product/the-puppy-primer/"]]},
-    {t:"Calm window before adolescence", a:16, b:26,
+    {t:"Juvenile period", a:16, b:26,
      d:"Between puppy chaos and adolescence most dogs go through a cooperative patch. Owners rate training as easier at five months than at eight months. Build skills in easy places now, so they are solid before adolescence tests them.",
      s:[["Asher 2020","https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097"],["Harvey 2021","https://www.frontiersin.org/journals/veterinary-science/articles/10.3389/fvets.2021.643085/full"]]},
     {t:"Adolescence", a:26, b:104,
-     d:"The body is grown and the brain is not. Expect selective hearing, bigger reactions, and more interest in the world than in you. The hardest patch is around 8 to 12 months. Most people stop training here, just before training starts to pay off. Ask for less, and pay better.",
+     d:"The body is grown and the brain is not. Expect selective hearing, bigger reactions, and more interest in the world than in you. The hardest patch is around 8 to 12 months. Most people stop training here, just before it starts to pay off.",
      s:[["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/age-and-behavior/"],["Asher 2020","https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097"]]},
-    {t:"Self-control is still growing", a:8, b:112, open:true,
-     d:"Self-control improves across the whole first two years. Until it arrives, build habits instead of testing willpower. Keep the dog under the level of excitement where it can still think. Self-control is also not one single skill, so a dog can be patient about food and hopeless about doorbells.",
-     s:[["Bray 2021","https://pmc.ncbi.nlm.nih.gov/articles/PMC8035344/"]]},
-    {t:"Adult personality settles in", a:52, b:112, open:true,
-     d:"The adult character settles between one and three years. Taste in other dogs often narrows. A dog that loved every dog at eight months can become choosy. This is normal maturity, not a training failure. Most dogs given up for behavior are one to three years old, so get help early.",
+    {t:"Social maturity", a:52, b:112, open:true,
+     d:"The adult character settles between one and three years. Taste in other dogs often narrows. A dog that loved every dog at eight months can become choosy. This is maturity, not a training failure. Most dogs given up for behavior are one to three years old.",
      s:[["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/age-and-behavior/"],["Merck Vet Manual","https://www.merckvetmanual.com/dog-owners/behavior-of-dogs/normal-social-behavior-in-dogs"]]},
-    {t:"Starting late is fine", a:16, b:112, open:true, soft:true,
-     d:"Many people get a dog after the puppy weeks, and no single window decides the rest of a dog’s life. Start with handling, coming when called, time alone, and calm exposure, at whatever pace the dog accepts. Progress is slower than with a puppy, and it still works.",
-     s:[["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"],["Merck Vet Manual","https://www.merckvetmanual.com/dog-owners/behavior-of-dogs/normal-social-behavior-in-dogs"]]},
   ]},
 
   { c:"body", name:"Body & vet", chip:"Body & vet", items:[
-    {t:"Needs far more sleep than you think", a:0, b:26,
-     d:"Owners of 16-week-old puppies report about 11 hours of sleep a day, and true naps are easy to miss. Dogs that sleep too little, and dogs that sleep too much, both show more behavior problems. Give scheduled quiet time in a pen or a crate. An overtired puppy bites more, not less.",
+    {t:"The sleepy months", a:0, b:26,
+     d:"Owners of 16-week-old puppies report about 11 hours of sleep a day, and true naps are easy to miss. Dogs that sleep too little show more behavior problems. Give scheduled quiet time in a pen or a crate. An overtired puppy bites more, not less.",
      s:[["Kinsman 2020","https://pmc.ncbi.nlm.nih.gov/articles/PMC7401528/"],["Tooley 2022","https://pmc.ncbi.nlm.nih.gov/articles/PMC9312228/"]]},
-    {t:"Vet visits: puppy course, then yearly", a:6, b:112, open:true,
-     d:"Book the first visit as soon as the puppy comes home. Expect a checkup every three or four weeks until the vaccine course finishes. Each visit covers an exam, the next vaccines, a wormer, a weight check, and a look in the mouth. After the first year, keep going once a year for life.",
+    {t:"Puppy checkups", a:6, b:20,
+     d:"Book the first visit as soon as the puppy comes home, then expect one every three or four weeks until the vaccine course finishes. Each visit covers an exam, the next vaccines, a wormer, a weight check, and a look in the mouth. After week 20 it drops to once a year.",
      s:[["AAHA checklist","https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/"],["AAHA 2022","https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/recommendations-for-core-and-noncore-canine-vaccines/"]]},
     {t:"Puppy vaccine series", a:6, b:20,
-     d:"The core course starts at 6 to 8 weeks and repeats every 2 to 4 weeks. The last dose must land at 16 weeks or later, and 18 to 20 weeks is preferred where parvovirus is common. Leptospirosis became a core vaccine for most dogs in 2024. Rabies follows the law where you live.",
+     d:"The core course starts at 6 to 8 weeks and repeats every 2 to 4 weeks. The last dose must land at 16 weeks or later, and 18 to 20 weeks is preferred where parvovirus is common. Leptospirosis became core for most dogs in 2024. Rabies follows local law.",
      s:[["AAHA 2022","https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/recommendations-for-core-and-noncore-canine-vaccines/"],["WSAVA 2024","https://wsava.org/global-guidelines/vaccination-guidelines/"]]},
-    {t:"Not fully vaccinated yet", a:0, b:20, avoid:true,
-     d:"Antibody from the mother blocks the early doses, which is why the last dose must come at 16 weeks or later. Allow a week or two after that dose. Until then, stay off dog-park ground, pet-store floors, and away from unknown dogs. Do not stop socializing. Use clean, known places instead.",
+    {t:"Not fully vaccinated", a:0, b:20, avoid:true,
+     d:"Antibody from the mother blocks the early doses, which is why the last dose must come at 16 weeks or later. Allow a week or two after it. Until then, stay off dog-park ground, pet-store floors, and away from unknown dogs. Do not stop socializing. Use clean, known places.",
      s:[["AAHA 2022","https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/recommendations-for-core-and-noncore-canine-vaccines/"],["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"]]},
-    {t:"Worming and parasite control", a:2, b:112, open:true,
-     d:"Most puppies are born with roundworms or hookworms, and some of these worms infect people. Worming starts at two weeks and repeats every two weeks. After that the dog needs year-round cover for worms, fleas, and ticks. Your vet also tests a stool sample several times in the first year.",
+    {t:"Puppy worming course", a:2, b:12,
+     d:"Most puppies are born with roundworms or hookworms, and some of these worms infect people. Worming starts at two weeks and repeats every two weeks until twelve. After that it becomes part of the year-round routine below the chart.",
      s:[["CAPC","https://capcvet.org/guidelines/general-guidelines/"],["AAHA checklist","https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/"]]},
-    {t:"Heartworm prevention", a:4, b:112, open:true,
-     d:"Mosquitoes carry heartworm to dogs. Prevention is cheap and safe. Treatment is neither. Start prevention no later than 8 weeks of age. A first blood test comes about six months after the start, then once a year for life.",
-     s:[["Heartworm Soc.","https://www.heartwormsociety.org/veterinary-resources/american-heartworm-society-guidelines"],["CAPC","https://capcvet.org/guidelines/general-guidelines/"]]},
-    {t:"Microchip and register it", a:8, b:8, mark:true,
-     d:"A vet places a small chip under the skin between the shoulders. Stray dogs with a chip get home about half the time, against about one in five without one. The chip only works if you register your details with the chip company. Update your phone number every time it changes.",
+    {t:"Microchip", a:8, b:8, mark:true,
+     d:"A vet places a chip under the skin between the shoulders. Stray dogs with a chip get home about half the time, against about one in five without one. The chip only works if you register your details with the chip company, and keep the phone number current.",
      s:[["Lord 2009","https://doi.org/10.2460/javma.235.2.160"],["AVMA","https://www.avma.org/resources-tools/pet-owners/petcare/microchipping-animals-faq"]]},
-    {t:"Teething", a:12, b:30,
-     d:"Adult teeth push through from about three months, and the full set arrives at five to seven months. Expect sore gums, blood spots on toys, and hard chewing. Give frozen rubber toys. Watch the mouth every week, because a baby tooth that stays needs the vet as soon as the adult tooth appears.",
-     s:[["dvm360","https://www.dvm360.com/view/tooth-eruption-and-exfoliation-dogs-and-cats"],["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/preventing-periodontal-disease/"]]},
-    {t:"All adult teeth are in by now", a:28, b:28, mark:true,
-     d:"By about seven months every baby tooth should be gone. Check the long canine teeth first, because those are the ones that stay. Two teeth in one socket push the adult tooth out of line and trap food against the gum. Do not wait and watch. Book the vet.",
-     s:[["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/preventing-periodontal-disease/"],["dvm360","https://www.dvm360.com/view/tooth-eruption-and-exfoliation-dogs-and-cats"]]},
-    {t:"Start brushing the teeth", a:28, b:112, open:true,
-     d:"Wait for the adult teeth before you start. Brushing during teething hurts, and one bad session can put a dog off for years. Brushing only helps if you do it daily. Most dogs have gum disease by age three. Ask about a first cleaning under anesthetic by one to two years old.",
-     s:[["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/regular-oral-healthcare/"],["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/preventing-periodontal-disease/"]]},
-    {t:"Bladder control still maturing", a:0, b:26,
-     d:"Young puppies cannot hold on for long, and accidents are not disobedience. No reliable formula exists for how long a puppy can wait. Popular rules of thumb are not backed by veterinary evidence. Go out often, and always after sleeping, eating, drinking, and playing.",
+    {t:"First heartworm dose", a:8, b:8, mark:true,
+     d:"Mosquitoes carry heartworm to dogs. Prevention is cheap and safe. Treatment is neither. Start no later than eight weeks of age. A first blood test comes about six months later, then once a year for life.",
+     s:[["Heartworm Soc.","https://www.heartwormsociety.org/veterinary-resources/american-heartworm-society-guidelines"],["CAPC","https://capcvet.org/guidelines/general-guidelines/"]]},
+    {t:"Weak bladder control", a:0, b:26,
+     d:"Young puppies cannot hold on for long, and accidents are not disobedience. No reliable formula exists for how long a puppy can wait, and the popular rules of thumb are not backed by veterinary evidence. Go out often, and always after sleeping, eating, drinking, and playing.",
      s:[["Overall, DACVB","https://www.karenoverall.com/protocol-for-basic-manners-training-and-housetraining-for-new-dogs-and-puppies/"],["AAHA checklist","https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/"]]},
-    {t:"Growth plates (soft bone) still open", a:0, b:56,
-     d:"Growth plates are soft zones near the ends of the long bones, and they are easy to injure. In an average dog most close by 6 to 12 months, and closure is earlier in small dogs, not later. Some giant breeds run to 18 months. Your vet decides when the bones are done, not a calendar.",
+    {t:"Teething", a:12, b:30,
+     d:"Adult teeth push through from about three months, and the full set arrives at five to seven months. Expect sore gums, blood spots on toys, and hard chewing. Give frozen rubber toys. Do not brush during this window, because one painful session can put a dog off for years.",
+     s:[["dvm360","https://www.dvm360.com/view/tooth-eruption-and-exfoliation-dogs-and-cats"],["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/preventing-periodontal-disease/"]]},
+    {t:"Adult teeth all in", a:28, b:28, mark:true,
+     d:"By about seven months every baby tooth should be gone. Check the long canine teeth first, because those are the ones that stay. Two teeth in one socket need the vet, not a wait-and-see. This is also the week daily tooth brushing starts, and it only helps if you do it daily.",
+     s:[["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/preventing-periodontal-disease/"],["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/regular-oral-healthcare/"]]},
+    {t:"Growth plates open", a:0, b:56,
+     d:"Growth plates are soft zones near the ends of the long bones, and they are easy to injure. In an average dog most close by 6 to 12 months, and closure is earlier in small dogs, not later. Some giant breeds run to 18 months. Your vet decides when the bones are done.",
      s:[["von Pfeil 2009","https://pubmed.ncbi.nlm.nih.gov/19866441/"],["Today’s Vet Practice","https://todaysveterinarypractice.com/orthopedics/juvenile-orthopedic-disease-in-dogs-cats-part-1-musculoskeletal-development-pediatric-bone-diseases/"]]},
-    {t:"Puberty, marking, and first heat", a:20, b:104,
-     d:"Small breeds can reach puberty at five months. Giant breeds may not get there until after 18 months. Expect marking, roaming, and mounting in males, and a first heat in females. This happens whether or not you plan to neuter, so plan for the behavior before it arrives.",
+    {t:"Puberty", a:20, b:104,
+     d:"Small breeds can reach puberty at five months. Giant breeds may not get there until after 18 months. Expect marking, roaming, and mounting in males, and a first heat in females. This happens whether or not you plan to neuter.",
      s:[["Gobello 2014","https://pubmed.ncbi.nlm.nih.gov/25251604/"],["AAHA 2019","https://www.aaha.org/resources/life-stage-canine-2019/spay-and-neuter-timing/"]]},
-    {t:"Spay or neuter: talk with your vet", a:16, b:112, open:true, soft:true,
-     d:"There is no single right age, and experts disagree. AAHA suggests about 5 to 6 months for small dogs, and after growth stops for large ones. A large breed study advises waiting past two years for some breeds. There is no known benefit to waiting for a first heat. Ask about your dog.",
+    {t:"Spay or neuter decision", a:16, b:104, soft:true,
+     d:"There is no single right age, and experts disagree. AAHA suggests about 5 to 6 months for small dogs, and after growth stops for large ones. A large breed study advises waiting past two years for some breeds. There is no known benefit to waiting for a first heat.",
      s:[["AAHA 2019","https://www.aaha.org/resources/life-stage-canine-2019/spay-and-neuter-timing/"],["Hart 2020","https://doi.org/10.3389/fvets.2020.00388"]]},
     {t:"Switch to adult food", a:48, b:70,
-     d:"Feed a growth diet until the skeleton finishes. That is about one year for small and medium dogs, and about 15 to 18 months for large breeds, up to 24 months for giants. Large-breed puppy food controls calcium and calories, because these puppies cannot regulate calcium themselves.",
+     d:"Feed a growth diet until the skeleton finishes. That is about one year for small and medium dogs, about 15 to 18 months for large breeds, and up to 24 months for giants. Large-breed puppy food controls calcium and calories, because these puppies cannot regulate calcium themselves.",
      s:[["AAHA 2021","https://www.aaha.org/resources/2021-aaha-nutrition-and-weight-management-guidelines/age-specific-and-breed-specific-diets/"]]},
-    {t:"Keep the dog lean", a:8, b:112, open:true,
-     d:"A lean body protects the joints more than any exercise rule on this page. In a lifelong study, dogs fed 25 percent less lived about 1.8 years longer, and got hip arthritis about six years later. Learn to feel the ribs and to see a waist from above. Check every month while the dog grows.",
-     s:[["Kealy 2002","https://doi.org/10.2460/javma.2002.220.1315"],["WSAVA chart","https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSDog_Nutrition_250612.pdf"]]},
-    {t:"Behavior change? Check for pain first", a:0, b:112, open:true,
-     d:"A sudden change in behavior can mean pain. In veterinary behavior clinics, roughly one dog in three has a painful condition behind the problem. New growling, hiding, stair refusal, or a short temper needs a physical exam first. Do not start a training plan for a medical problem.",
-     s:[["Mills 2020","https://pmc.ncbi.nlm.nih.gov/articles/PMC7071134/"],["AAHA 2019","https://www.aaha.org/resources/life-stage-canine-2019/behavior/"]]},
   ]},
 
   { c:"seen", name:"What you will see (normal)", chip:"What you will see", items:[
-    {t:"Nipping and mouthing your hands", a:8, b:40,
-     d:"Puppies explore with the mouth, and puppy teeth hurt. Owner reports stay flat from six to nine months, and only drop clearly after twelve. Do not expect this to end at five months. Redirect onto a toy, end the game when teeth touch skin, and check first whether the puppy is overtired.",
+    {t:"Nipping and mouthing", a:8, b:40,
+     d:"Puppies explore with the mouth, and puppy teeth hurt. Owner reports stay flat from six to nine months and only drop clearly after twelve, so do not expect this to end at five months. Redirect onto a toy, end the game when teeth touch skin, and check first whether the puppy is overtired.",
      s:[["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"],["Tooley 2022","https://pmc.ncbi.nlm.nih.gov/articles/PMC9312228/"]]},
     {t:"Destructive chewing", a:12, b:65,
-     d:"Chewing stays high through the first year and eases during the second. Manage it instead of fighting it. Give legal chews, use a pen or a crate when nobody can watch, and put shoes away. Under-exercised and bored dogs chew more, so meet the need before you police the behavior.",
+     d:"Chewing stays high through the first year and eases during the second. Manage it instead of fighting it. Give legal chews, use a pen or a crate when nobody can watch, and put shoes away. Under-exercised and bored dogs chew more.",
      s:[["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"],["Lord 2020","https://doi.org/10.1016/j.applanim.2020.105147"]]},
-    {t:"Stops coming when called", a:30, b:70,
+    {t:"Mounting and humping", a:8, b:65,
+     d:"Mounting appears in puppy play from a few weeks old, and owner complaints peak around six months. The cause is usually excitement or stress, not dominance. Interrupt calmly and give the dog something else to do.",
+     s:[["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"]]},
+    {t:"Marking begins", a:20, b:112, open:true,
+     d:"Marking is a small, deliberate pee on an upright object, and it is communication, not a house-training failure. It appears around five months and keeps increasing through about fifteen months. Clean with an enzyme cleaner and never punish it. Ask your vet if it starts indoors.",
+     s:[["McGuire 2016","https://doi.org/10.1016/j.applanim.2016.06.001"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/behavioral-development-in-dogs/"]]},
+    {t:"Recall breaks down", a:30, b:70,
      d:"Owner-reported recall problems rise from about seven months, peak near twelve months, and settle by about eighteen. This is the classic adolescent wobble and it is normal. Go back to a long line, pay much better, and do not call the dog when you know it will not come.",
      s:[["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"],["Asher 2020","https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097"]]},
-    {t:"Acts like you are a stranger", a:30, b:56,
-     d:"Around eight months many dogs stop listening to the person they live with, while still working well for other people. It feels personal. It is not. One study found the effect had passed by twelve months. Keep training through it, raise the value of the rewards, and do not punish.",
+    {t:"Selective deafness", a:30, b:56,
+     d:"Around eight months many dogs stop listening to the person they live with, while still working well for other people. It feels personal. It is not. One study found the effect had passed by twelve months. Keep training through it and raise the value of the rewards.",
      s:[["Asher 2020","https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097"],["Owczarczak 2023","https://pmc.ncbi.nlm.nih.gov/articles/PMC10252082/"]]},
-    {t:"Marking: small pees on objects", a:20, b:112, open:true,
-     d:"Marking is a small, deliberate pee on an upright object, and it is communication, not a house-training failure. Leg lifting and marking keep increasing through about fifteen months, and then continue for life. Clean with an enzyme cleaner. Never punish it. Ask your vet if it starts indoors.",
-     s:[["McGuire 2016","https://doi.org/10.1016/j.applanim.2016.06.001"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/behavioral-development-in-dogs/"]]},
-    {t:"New fears, barking and lunging", a:26, b:112, open:true,
-     d:"Fear and reactive behavior are still rising at eighteen months in cohort data, so this does not reliably fade on its own. Every rehearsal makes it stronger, so avoiding the trigger for a while is part of the treatment. Keep enough distance that the dog can still eat. Get help early.",
+    {t:"Adolescent reactivity", a:26, b:112, open:true,
+     d:"Fear and reactive behavior start rising in adolescence. Cohort data shows them still rising at eighteen months, so this does not reliably fade on its own. Every rehearsal makes it stronger. Keep enough distance that the dog can still eat, and get help early.",
      s:[["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"],["Riemer 2023","https://pmc.ncbi.nlm.nih.gov/articles/PMC10705068/"]]},
-    {t:"Guarding food, toys or spots", a:8, b:112, open:true,
-     d:"Guarding stays about level from six to eighteen months, so dogs do not grow out of it. Trade for something better instead of taking things away. Taking the food bowl at mealtimes makes guarding worse, and teaching a solid “drop it” makes it better. Call a professional at the first growl.",
-     s:[["Jacobs 2018","https://doi.org/10.1016/j.prevetmed.2017.02.005"],["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"]]},
-    {t:"Humping (mounting) when excited", a:8, b:65,
-     d:"Mounting appears in puppy play from a few weeks old, and owner complaints are highest at around six months. The cause is usually excitement or stress, not dominance. Interrupt calmly, and give the dog something else to do. If it becomes constant, treat it as a sign of stress.",
-     s:[["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"]]},
-    {t:"Left alone and cannot settle", a:8, b:112, open:true,
-     d:"Almost half of six-month-old puppies pace, whine, or circle when left alone, but only about one owner in forty calls it a problem. The signs are quiet, so look for them. Build alone time in small steps, give an enclosed space, and protect night sleep. Ask your vet early if distress is strong.",
-     s:[["Dale 2024","https://pmc.ncbi.nlm.nih.gov/articles/PMC11655275/"],["Asher 2020","https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097"]]},
-    {t:"Fear of fireworks and loud noise", a:8, b:112, open:true,
-     d:"This one breaks the pattern of the rest of this page, because it gets worse with age, not better. Reports run from about one dog in four upward. Onset ranges from eight weeks to old age, so no week number fits. Give a safe den, never punish the fear, and make a plan before the season.",
-     s:[["Tiira 2016","https://doi.org/10.1016/j.jveb.2016.06.008"],["Riemer 2023","https://pmc.ncbi.nlm.nih.gov/articles/PMC10705068/"]]},
   ]},
 
   { c:"safe", name:"Body limits and safety", chip:"Body limits & safety", items:[
-    {t:"Outings at your puppy’s own pace", a:8, b:52,
-     d:"The popular “five minutes per month of age” rule has no study behind it, and nobody has measured a safe dose. Let the puppy set the pace, and prefer free movement on soft, uneven ground over steady marching on a lead. Split activity into short sessions with real rest between them.",
-     s:[["Vet Ireland J.","https://www.veterinaryirelandjournal.com/small-animal/392-guidelines-for-exercising-pups-separating-myths-from-science"],["Krontveit 2012","https://doi.org/10.2460/ajvr.73.6.838"]]},
-    {t:"No stairs yet — carry your puppy", a:0, b:12, avoid:true,
-     d:"In a study of 501 large-breed puppies, daily stair use in the first three months raised the odds of hip dysplasia by about two times. The study asked only whether the puppy used stairs, so up and down were not separated. Carry the puppy, and block the staircase with a gate.",
+    {t:"No stairs yet", a:0, b:12, avoid:true,
+     d:"In a study of 501 large-breed puppies, daily stair use in the first three months raised the odds of hip dysplasia by about two times. Carry the puppy and gate the staircase. After twelve weeks no measured stair habit was linked to hip dysplasia, so ordinary household stairs are then fine.",
      s:[["Krontveit 2012","https://doi.org/10.2460/ajvr.73.6.838"]]},
-    {t:"Everyday stairs are fine now", a:12, b:112, open:true,
-     d:"After three months no measured exercise habit was linked to hip dysplasia, including daily lead walks on hard ground. Normal household stairs are fine. Avoid long flights taken at speed as a game, and put a runner on slippery treads. Follow your vet if the dog has a known joint problem.",
-     s:[["Krontveit 2012","https://doi.org/10.2460/ajvr.73.6.838"],["von Pfeil 2009","https://pubmed.ncbi.nlm.nih.gov/19866441/"]]},
-    {t:"Free running on soft, uneven ground", a:3, b:112, open:true,
-     d:"This is the one exercise habit with a measured benefit. Off-lead exercise on soft, moderately rough ground in the first three months was linked to about a third of the hip dysplasia risk. Choose grass, sand, and gentle slopes. Limit hard, repeated ball chasing, which points the other way.",
+    {t:"Soft-ground play window", a:3, b:12,
+     d:"This is the one exercise habit with a measured benefit, and the measured window is the first three months. Off-lead exercise on soft, moderately rough ground in that window was linked to about a third of the hip dysplasia risk. Choose grass, sand, and gentle slopes over hard, repeated ball chasing.",
      s:[["Krontveit 2012","https://doi.org/10.2460/ajvr.73.6.838"],["Sallander 2006","https://pubmed.ncbi.nlm.nih.gov/16772494/"]]},
-    {t:"Traction on indoor floors", a:0, b:52,
+    {t:"Slippery floors", a:0, b:52,
      d:"Smooth floors make a puppy skid, and a skid twists the hips. In a study of Boxer puppies, slippery flooring was linked to about 1.6 times the odds of later lameness from hip dysplasia. Put rugs or runners where the puppy runs, turns, and lands, and by the door where greetings happen.",
      s:[["van Hagen 2005","https://doi.org/10.2460/ajvr.2005.66.307"],["PDSA","https://www.pdsa.org.uk/pet-help-and-advice/looking-after-your-pet/puppies-dogs/exercising-your-puppy"]]},
-    {t:"Swimming, supervised", a:18, b:112, open:true,
-     d:"Wait for full vaccination, because water and shorelines carry disease. Use a life vest at first. Start where the dog can stand, and always show a clear way out. Never leave a dog alone near water, including a home pool. Swimming is widely believed to be gentle on joints, though studies in growing dogs are lacking.",
+    {t:"Puppy-pace exercise", a:8, b:52,
+     d:"The popular five-minutes-per-month rule has no study behind it, and nobody has measured a safe dose. Let the puppy set the pace, and prefer free movement on soft, uneven ground over steady marching on a lead. Split activity into short sessions with real rest between them.",
+     s:[["Vet Ireland J.","https://www.veterinaryirelandjournal.com/small-animal/392-guidelines-for-exercising-pups-separating-myths-from-science"],["Krontveit 2012","https://doi.org/10.2460/ajvr.73.6.838"]]},
+    {t:"No road running or long hikes", a:8, b:52, avoid:true,
+     d:"Running beside a person or a bicycle means many identical strides on hard ground, with no chance for the dog to stop. Growing bone does not handle that well. Most dogs finish growing near twelve months, and giant breeds later. Ask your vet, then add about ten percent distance a week.",
+     s:[["von Pfeil 2009","https://pubmed.ncbi.nlm.nih.gov/19866441/"],["Vet Ireland J.","https://www.veterinaryirelandjournal.com/small-animal/392-guidelines-for-exercising-pups-separating-myths-from-science"]]},
+    {t:"Swimming", a:18, b:112, open:true,
+     d:"Wait until a week or two after the final vaccine dose, because water and shorelines carry disease. Use a life vest at first, start where the dog can stand, and always show a clear way out. Never leave a dog alone near water, including a home pool.",
      s:[["AAHA","https://www.aaha.org/resources/dive-into-safety-water-safety-tips-for-pets/"]]},
-    {t:"Running with you — not yet", a:8, b:52, avoid:true,
-     d:"Running beside a person or a bicycle means many identical strides on hard ground, with no chance for the dog to stop. Growing bone does not handle that well. This applies from the day the puppy arrives, not only from twelve months. Free play at the dog’s own pace is fine.",
-     s:[["von Pfeil 2009","https://pubmed.ncbi.nlm.nih.gov/19866441/"],["Vet Ireland J.","https://www.veterinaryirelandjournal.com/small-animal/392-guidelines-for-exercising-pups-separating-myths-from-science"]]},
-    {t:"Start running with you", a:52, b:112, open:true,
-     d:"Most dogs finish growing near twelve months, and giant breeds run later. Ask your vet before you start, then build up slowly. Add about ten percent distance a week. Use soft ground where you can, and stop at the first sign of limping or of a dog that lags behind.",
-     s:[["von Pfeil 2009","https://pubmed.ncbi.nlm.nih.gov/19866441/"],["Vet Ireland J.","https://www.veterinaryirelandjournal.com/small-animal/392-guidelines-for-exercising-pups-separating-myths-from-science"]]},
-    {t:"Hiking longer distances", a:52, b:112, open:true,
-     d:"Long days out suit a grown dog. Build distance over weeks, not in one weekend. Carry water and check the paws for cuts and worn pads. Watch the heat closely, because exercise, not parked cars, causes most heat illness in dogs.",
-     s:[["Hall 2020","https://pmc.ncbi.nlm.nih.gov/articles/PMC7459873/"],["Vet Ireland J.","https://www.veterinaryirelandjournal.com/small-animal/392-guidelines-for-exercising-pups-separating-myths-from-science"]]},
-    {t:"Full-height jumping and agility", a:78, b:112, open:true,
+    {t:"Full-height jumping", a:78, b:112, open:true,
      d:"The running, turning, and handler-following parts of dog sports can start much earlier. Full-height jumps, weave poles, and hard turns wait until your vet confirms the bones have finished growing. Studies disagree about the best starting age, so ask an instructor who trains young dogs carefully.",
      s:[["Markley 2022","https://doi.org/10.3389/fvets.2021.791617"],["Inkilä 2022","https://pubmed.ncbi.nlm.nih.gov/35158551/"]]},
-    {t:"Heat and hot ground", a:0, b:112, open:true,
-     d:"Exercise causes far more heat illness in dogs than hot cars do, and dogs under two years old carry the highest risk. Walk early or late in warm weather. Press the back of your hand on the ground for seven seconds. If you cannot hold it there, it is too hot for paws.",
-     s:[["Hall 2020","https://pmc.ncbi.nlm.nih.gov/articles/PMC7459873/"],["AAHA","https://www.aaha.org/resources/how-to-protect-dog-paws-from-hot-pavement/"]]},
-    {t:"Swallowed objects and poisons", a:8, b:112, open:true,
-     d:"A swallowed object often means surgery. String, socks, and cloth are the worst kind, because they saw through the gut. Do not give fabric to chew, including frozen washcloths. Keep medicines, xylitol gum, chocolate, grapes, onions, and cannabis out of reach. Save a poison line in your phone.",
-     s:[["Hobday 2014","https://pubmed.ncbi.nlm.nih.gov/25352109/"],["AVMA","https://www.avma.org/resources-tools/pet-owners/petcare/household-hazards"]]},
   ]},
 
   { c:"places", name:"Places and other dogs", chip:"Places & other dogs", items:[
-    {t:"Carry your puppy outside", a:3, b:18,
-     d:"Carrying gives the world without the ground. Sit on a bench and let the puppy watch traffic, crowds, umbrellas, and wheelie bins from your arms. Keep sessions short and happy. This is the safest way to use the socialization window before the vaccine course finishes.",
+    {t:"Outings in your arms", a:3, b:18,
+     d:"Carrying gives the world without the ground. Sit on a bench and let the puppy watch traffic, crowds, umbrellas, and wheelie bins from your arms. This is the safest way to use the socialization window before the vaccine course finishes. Keep sessions short and happy.",
      s:[["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"],["Ohio State CVM","https://vet.osu.edu/sites/default/files/documents/balancing-puppy-socialization-with-infectious-disease-prevention.pdf"]]},
-    {t:"Puppy class with vaccinated dogs", a:7, b:16, shuts:true,
+    {t:"Puppy class", a:7, b:16, shuts:true,
      d:"A good class can start at 7 to 8 weeks, with one set of vaccines given at least a week before. In a clean class with screened puppies, the risk of poor socialization is larger than the small risk of disease. A class at twenty weeks is not a late version of this. The chance has gone.",
      s:[["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"],["Stepita 2013","https://doi.org/10.5326/jaaha-ms-5825"]]},
-    {t:"Play with other puppies", a:8, b:52,
-     d:"Play with other puppies teaches bite control and dog body language, and it builds balance. Choose playmates of similar size and similar style. Keep the group small, and pause the game every minute or two so both dogs settle. Use healthy, known dogs. This is not the same as a dog park.",
+    {t:"Puppy-to-puppy play", a:8, b:52,
+     d:"Play with other puppies teaches bite control and dog body language, and it builds balance. Choose playmates of similar size and similar style, keep the group small, and pause the game every minute or two so both dogs settle. Use healthy, known dogs.",
      s:[["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"],["Sommerville 2017","https://doi.org/10.1016/j.applanim.2017.09.007"]]},
-    {t:"Pet stores and busy dog areas", a:20, b:112, open:true,
-     d:"Wait until a week or two after the final vaccine dose. Ground where many unknown dogs have been is the main risk, so floors and grass verges matter more than the air. Keep first visits short. Leave before the dog gets overwhelmed, not after.",
-     s:[["AAHA 2022","https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/recommendations-for-core-and-noncore-canine-vaccines/"],["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"]]},
-    {t:"Dog parks — not yet", a:0, b:52, avoid:true,
-     d:"Dog parks have no screening, no supervision, and no easy way to leave early. Parasite testing at recreational dog sites across the United States found gut parasites at most of them. A bad experience with a rude adult dog can undo months of work. Use known, matched playmates instead.",
+    {t:"No dog parks yet", a:0, b:52, avoid:true,
+     d:"Dog parks have no screening, no supervision, and no easy way to leave early. Parasite testing at recreational dog sites across the United States found gut parasites at most of them. Even after a year a dog park is an option, never a milestone, and many well-adjusted dogs should never go to one.",
      s:[["DOGPARCS 2020","https://doi.org/10.1186/s13071-020-04147-6"],["Rahim 2017","https://doi.org/10.1007/s10900-017-0428-2"]]},
-    {t:"Dog park, only if it suits the dog", a:52, b:112, open:true, soft:true,
-     d:"A dog park is an option, not a milestone. Many well-adjusted dogs should never go to one. Watch your own dog: loose body, short play bursts, easy breaks. If your dog hides, bullies, or cannot settle, that is your answer. Walks and matched playdates do the same job with less risk.",
-     s:[["Rahim 2017","https://doi.org/10.1007/s10900-017-0428-2"],["DOGPARCS 2020","https://doi.org/10.1186/s13071-020-04147-6"]]},
+    {t:"Pet stores and busy dog areas", a:20, b:112, open:true,
+     d:"Wait until a week or two after the final vaccine dose. Ground where many unknown dogs have been is the main risk, so floors and grass verges matter more than the air. Keep first visits short, and leave before the dog gets overwhelmed.",
+     s:[["AAHA 2022","https://www.aaha.org/resources/2022-aaha-canine-vaccination-guidelines/recommendations-for-core-and-noncore-canine-vaccines/"],["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"]]},
     {t:"Boarding, daycare, or a groomer", a:16, b:112, open:true,
      d:"Visit first without leaving the dog. Ask how they group dogs, how they break up play, and what they do when a dog is frightened. Walk away from anywhere that uses scruffing, pinning, or shouting. One short trial day tells you more than any brochure.",
      s:[["AVSAB 2021","https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/handling-anxious-patients/"]]},
-    {t:"Two years is not the finish", a:112, b:112, mark:true,
-     d:"Nothing on this page ends at two years. Coming when called, handling, teeth, weight, and time alone all need upkeep for life. Book the yearly exam, keep measuring the food, and keep training in new places. A finished dog is a maintained dog.",
-     s:[["AAHA 2019","https://www.aaha.org/resources/life-stage-canine-2019/behavior/"],["AAHA checklist","https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/"]]},
   ]},
 
   { c:"train", name:"Training and household", chip:"Training & household", items:[
-    {t:"Train with rewards, not punishment", a:3, b:112, open:true,
-     d:"Pay with food, play, or praise for the behavior you want. Do not use pain, fear, or force, and do not use choke, prong, or shock collars. Dogs trained with punishment show more stress and a more pessimistic outlook, and punishment works no better. This rule governs everything below.",
-     s:[["AVSAB 2021","https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf"],["Castro 2020","https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0225023"]]},
-    {t:"Read the dog’s stress signals", a:3, b:112, open:true,
-     d:"Learn what your dog looks like just before it gets frightened. Lip licks, yawns, a turned head, a tucked tail, and a stiff body all mean “give me space”. Stop what you are doing when you see them. This one skill makes most of the other advice on this page work.",
-     s:[["Riemer 2021","https://pubmed.ncbi.nlm.nih.gov/33445559/"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/handling-anxious-patients/"]]},
-    {t:"Handling and grooming", a:3, b:16,
-     d:"Gentle daily handling from the first weeks produces calmer adult dogs. Much of this is the breeder’s job before you get the puppy. From the first week home, touch paws, ears, mouth, and tail every day, and pay for each one. Show the brush before you use it.",
+    {t:"Handling window", a:3, b:16,
+     d:"Gentle daily handling in the first weeks produces calmer adult dogs, and much of it is the breeder’s job before you get the puppy. From the first week home, touch paws, ears, mouth, and tail every day, and pay for each one. Show the brush before you use it.",
      s:[["Gazzano 2008","https://doi.org/10.1016/j.applanim.2007.05.007"],["Larlham","https://dogmantics.com/firstweekhome/"]]},
-    {t:"Let the dog say yes to handling", a:8, b:112, open:true,
-     d:"Teach one simple position that means “I am ready”, such as a chin resting in your hand. Touch, brush, or clip only while the dog holds it. Stop the moment the dog lifts away, and start again when the dog comes back. Dogs given this choice show fewer stress signs during nail trims.",
-     s:[["IAABC","https://journal.iaabcfoundation.org/cooperative-care-2/"],["Whole Dog Journal","https://www.whole-dog-journal.com/training/cooperative-care-giving-your-dog-choice-and-control/"]]},
-    {t:"Keep handling practice weekly", a:16, b:112, open:true,
-     d:"Handling is not a puppy course you pass once. Without practice a dog forgets, and the vet visit becomes a fight. Keep a short weekly session for paws, ears, mouth, and being held still. This is ordinary upkeep, like brushing teeth, not an optional extra.",
-     s:[["Riemer 2021","https://pubmed.ncbi.nlm.nih.gov/33445559/"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/handling-anxious-patients/"]]},
-    {t:"Toilet training on a schedule", a:8, b:26,
-     d:"Take the puppy to the same spot outdoors after every sleep, meal, drink, and game. Pay the moment the puppy finishes, while you are both still outside. Use a pen or a crate when nobody can watch. Puppies with poor toilet training at 16 weeks struggle more with being alone later.",
-     s:[["Dunbar","https://www.dogstardaily.com/storefront/you-get-your-puppy"],["Dale 2024","https://pmc.ncbi.nlm.nih.gov/articles/PMC11655275/"]]},
-    {t:"Name response and coming to you", a:8, b:20,
-     d:"Start in the first week home. Say the name once, then pay. Then run backwards and pay when the puppy follows. Do this in easy places, hundreds of times, while the puppy still wants to stay near you. Never use the name to call the dog to something unpleasant.",
-     s:[["Larlham","https://dogmantics.com/firstweekhome/"],["McConnell","https://www.patriciamcconnell.com/product/the-puppy-primer/"]]},
-    {t:"Learning to be alone, in steps", a:8, b:112, open:true,
-     d:"Time alone is a trained skill. Dogs that learn it early, in small steps, cope better. Start with seconds behind a gate while you are in sight, then build. Keep departures and returns calm and boring. Give an enclosed space and protect night sleep. This needs upkeep for life.",
-     s:[["DeMartini","https://malenademartini.com/puppies-alone-time-is-a-skill/"],["Dale 2024","https://pmc.ncbi.nlm.nih.gov/articles/PMC11655275/"]]},
-    {t:"Sit, down, and first easy tricks", a:8, b:26,
-     d:"Trainers teach sit and down in the first week home. Guide the dog into place with food, mark the moment it is right with a short word such as “yes”, and pay at once. Keep every session to a few minutes, and stop while the dog still wants more.",
-     s:[["Dunbar","https://www.dogstardaily.com/storefront/you-get-your-puppy"],["McConnell","https://www.patriciamcconnell.com/product/the-puppy-primer/"]]},
-    {t:"Settle on a bed and stay there", a:8, b:112, open:true,
-     d:"Pay the dog for lying on a bed, first for seconds and later for long stretches. Add a clear release word so the dog knows when it is over. Build up to a settle while you eat, while visitors arrive, and in a cafe. Reward the loose, relaxed body, not only the position.",
-     s:[["Larlham","https://dogmantics.com/firstweekhome/"],["Overall, DACVB","https://www.karenoverall.com/protocol-for-relaxation-behavior-modification-tier-1/"]]},
-    {t:"Teach “leave it” and “drop it”", a:8, b:112, open:true,
-     d:"“Leave it” means do not pick that up. “Drop it” means let go of what is in your mouth. Always swap for something better, never snatch. A reliable “drop it” is linked to less guarding. These stay safety cues for life, so keep them fresh.",
-     s:[["McDevitt","https://www.cleanrun.com/product/control_unleashed_book_2_the_puppy_program/index.cfm"],["Jacobs 2018","https://doi.org/10.1016/j.prevetmed.2017.02.005"]]},
-    {t:"Never punish a growl", a:8, b:112, open:true,
-     d:"A growl is a warning, and warnings keep people safe. Punish the growl and a dog can learn to skip it and bite with no signal. In one survey, forcing an item from the mouth produced aggression in 39 percent of dogs. Move away, remove the pressure, write it down, then get help.",
-     s:[["Herron 2009","https://vmc.vet.osu.edu/sites/default/files/documents/trainingArticle.pdf"],["Jacobs 2018","https://doi.org/10.1016/j.prevetmed.2017.02.005"]]},
-    {t:"Teach children the rules", a:8, b:112, open:true,
-     d:"Children are bitten more than any other group, and usually at home by a dog they know. Never leave a child alone with a dog, however gentle it seems. Teach children to leave the dog alone while it eats, chews, or sleeps. Give the dog one place where no child may follow.",
-     s:[["AVMA task force","https://www.avma.org/sites/default/files/2020-03/dogbite.pdf"],["Reisner 2011","https://pubmed.ncbi.nlm.nih.gov/21444335/"]]},
-    {t:"Walking without pulling", a:8, b:112, open:true,
-     d:"Start indoors in the first week, with a harness and a lead the puppy simply wears. A dog pulls because pulling works, so stop when the lead goes tight and move again when it loosens. Trainers disagree about when to add real walks. Expect to redo all of it in adolescence.",
-     s:[["Larlham","https://dogmantics.com/firstweekhome/"],["Garrett","https://dogsthat.com/podcast/166/"]]},
-    {t:"Car rides, built up slowly", a:8, b:112, open:true,
-     d:"Start with meals in a parked car with the engine off. Then add the engine, then a one-minute drive, then a short drive somewhere good. Use a crate or a crash-tested harness in the back. Dogs that only ride to the vet learn to dread the car, so mix in good destinations.",
-     s:[["Dunbar","https://www.dogstardaily.com/storefront/after-you-get-your-puppy"],["Mariti 2012","https://pubmed.ncbi.nlm.nih.gov/22550124/"]]},
-    {t:"Come when called, with distractions", a:16, b:112, open:true,
-     d:"Work through easy, medium, and hard distractions on a long line. Pay more for a harder recall, not less. Keep one emergency word that you use only in a real emergency, and always pay it enormously. Never punish a slow return, because the dog remembers the ending, not the delay.",
-     s:[["Garrett","https://dogsthat.com/podcast/166/"],["Fenzi Academy","https://www.fenzidogsportsacademy.com/blog/e313-julie-daniels-and-sharon-carroll-the-science-strategy-behind-raising-adolescent-dogs"]]},
-    {t:"Re-teach cues in every new place", a:26, b:104,
-     d:"Dogs do not generalise well, and an adolescent dog generalises worse. A dog that sits perfectly in the kitchen may not sit in a car park. This is not defiance. Take each known cue back to easy, in each new place, and pay well. One study saw plain obedience recover by twelve months. Trainers report the wider wobble running to two years.",
-     s:[["Fenzi Academy","https://www.fenzidogsportsacademy.com/courses/10-course-descriptions/38833-bh190-adolescent-minds-and-manners"],["Asher 2020","https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097"]]},
-    {t:"Off leash: the dog sets the date", a:16, b:112, open:true,
-     d:"No respected trainer gates this on a birthday. The gate is what the dog does in that exact place. Work on a long line first. Go off it only where the dog already comes back first time, around those distractions. A quiet field at six months beats a busy park at two years.",
-     s:[["Stewart, BAT","https://grishastewart.com/ep08/"],["Dunbar","https://www.dogstardaily.com/storefront/after-you-get-your-puppy"]]},
-    {t:"Basket muzzle, taught with food", a:8, b:112, open:true,
-     d:"A muzzle is for injuries, emergency vet visits, and the law in some places. Teach it long before you need it, inside the socialization window. Feed through a basket muzzle so the dog walks into it. A dog that first meets a muzzle in a crisis learns to fear it.",
+    {t:"Muzzle introduction", a:8, b:16,
+     d:"Teach this inside the socialization window, long before an injury or an emergency makes it urgent. Feed through a basket muzzle so the dog walks into it. A dog that first meets a muzzle in a crisis learns to fear it.",
      s:[["Muzzle Up!","https://muzzleupproject.com/2019/08/muzzle-training-a-proactive-approach/"],["Cornell vet","https://www.vet.cornell.edu/departments-centers-and-institutes/riney-canine-health-center/canine-health-information/basket-muzzle-training"]]},
-    {t:"Find a qualified professional", a:8, b:112, open:true,
-     d:"Anyone can call themself a dog trainer, because the trade has no licence. Look for a certified trainer who uses rewards only. For fear, aggression, or panic when alone, ask your vet to refer you to a board-certified veterinary behaviorist. Find that person before you need them.",
-     s:[["ACVB directory","https://www.dacvb.org/search/"],["AVSAB 2021","https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf"]]},
+    {t:"House training", a:8, b:26,
+     d:"Take the puppy to the same spot outdoors after every sleep, meal, drink, and game. Pay the moment the puppy finishes, while you are both still outside. Use a pen or a crate when nobody can watch. Bladder control matures at about six months, which is when this usually finishes.",
+     s:[["Dunbar","https://www.dogstardaily.com/storefront/you-get-your-puppy"],["Overall, DACVB","https://www.karenoverall.com/protocol-for-basic-manners-training-and-housetraining-for-new-dogs-and-puppies/"]]},
+    {t:"Recall foundation", a:8, b:20,
+     d:"Start in the first week home, while the easy recall window is open. Say the name once, then pay. Then run backwards and pay when the puppy follows. Do this in easy places, hundreds of times. Never use the name to call the dog to something unpleasant.",
+     s:[["Larlham","https://dogmantics.com/firstweekhome/"],["McConnell","https://www.patriciamcconnell.com/product/the-puppy-primer/"]]},
+    {t:"First cues", a:8, b:20,
+     d:"Trainers teach both in the first week home. Guide the dog into place with food, mark the moment it is right with a short word such as “yes”, and pay at once. Keep every session to a few minutes, and stop while the dog still wants more.",
+     s:[["Dunbar","https://www.dogstardaily.com/storefront/you-get-your-puppy"],["McConnell","https://www.patriciamcconnell.com/product/the-puppy-primer/"]]},
+    {t:"Car training", a:8, b:20,
+     d:"Start with meals in a parked car with the engine off. Then add the engine, then a one-minute drive, then a short drive somewhere good. Use a crate or a crash-tested harness. Dogs that only ride to the vet learn to dread the car.",
+     s:[["Dunbar","https://www.dogstardaily.com/storefront/after-you-get-your-puppy"],["Mariti 2012","https://pubmed.ncbi.nlm.nih.gov/22550124/"]]},
+    {t:"Alone-time training", a:8, b:26,
+     d:"Time alone is a trained skill, and dogs that learn it early in small steps cope better. Start with seconds behind a gate while you are in sight, then build. Keep departures and returns boring. Almost half of six-month-old puppies still struggle, and the signs are quiet.",
+     s:[["DeMartini","https://malenademartini.com/puppies-alone-time-is-a-skill/"],["Dale 2024","https://pmc.ncbi.nlm.nih.gov/articles/PMC11655275/"]]},
+    {t:"Settle on a mat", a:8, b:30,
+     d:"Pay the dog for lying on a bed, first for seconds and later for long stretches, and add a clear release word. Build up to a settle while you eat, while visitors arrive, and in a cafe. Reward the loose, relaxed body, not only the position.",
+     s:[["Larlham","https://dogmantics.com/firstweekhome/"],["Overall, DACVB","https://www.karenoverall.com/protocol-for-relaxation-behavior-modification-tier-1/"]]},
+    {t:"Leave it and drop it", a:8, b:30,
+     d:"“Leave it” means do not pick that up. “Drop it” means let go of what is in your mouth. Always swap for something better, never snatch. A reliable drop is linked to less guarding later, which is why this belongs early.",
+     s:[["McDevitt","https://www.cleanrun.com/product/control_unleashed_book_2_the_puppy_program/index.cfm"],["Jacobs 2018","https://doi.org/10.1016/j.prevetmed.2017.02.005"]]},
+    {t:"Loose-lead foundation", a:8, b:30,
+     d:"Start indoors in the first week, with a harness and a lead the puppy simply wears. A dog pulls because pulling works, so stop when the lead goes tight and move again when it loosens. Trainers disagree about when to add real walks outdoors.",
+     s:[["Larlham","https://dogmantics.com/firstweekhome/"],["Garrett","https://dogsthat.com/podcast/166/"]]},
+    {t:"Recall proofing", a:16, b:52,
+     d:"Once the easy window closes, recall has to be paid for. Work through easy, medium, and hard distractions on a long line, and pay more for a harder recall, not less. Keep one emergency word for real emergencies only, and always pay it enormously.",
+     s:[["Garrett","https://dogsthat.com/podcast/166/"],["Fenzi Academy","https://www.fenzidogsportsacademy.com/blog/e313-julie-daniels-and-sharon-carroll-the-science-strategy-behind-raising-adolescent-dogs"]]},
+    {t:"Adolescent re-teach", a:26, b:104,
+     d:"Dogs do not generalise well, and an adolescent dog generalises worse. A dog that sits perfectly in the kitchen may not sit in a car park. This is not defiance. One study saw plain obedience recover by twelve months, while trainers report the wider wobble running to two years.",
+     s:[["Fenzi Academy","https://www.fenzidogsportsacademy.com/courses/10-course-descriptions/38833-bh190-adolescent-minds-and-manners"],["Asher 2020","https://royalsocietypublishing.org/doi/10.1098/rsbl.2020.0097"]]},
   ]},
+];
+
+/* True at every age, so none of it belongs on a schedule. */
+const ALWAYS = [
+  {g:"Training", t:"Rewards, never pain or fear",
+   d:"No choke, prong, or shock collars. Dogs trained with punishment show more stress and a more pessimistic outlook, and punishment works no better.",
+   s:[["AVSAB 2021","https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf"],["Castro 2020","https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0225023"]]},
+  {g:"Training", t:"Read the stress signals",
+   d:"Lip licks, yawns, a turned head, a tucked tail, and a stiff body all mean “give me space”. Stop what you are doing when you see them.",
+   s:[["Riemer 2021","https://pubmed.ncbi.nlm.nih.gov/33445559/"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/handling-anxious-patients/"]]},
+  {g:"Training", t:"Never punish a growl",
+   d:"A growl is a warning, and warnings keep people safe. Punish it and a dog can learn to skip it. Forcing an item from the mouth produced aggression in 39 percent of dogs in one survey.",
+   s:[["Herron 2009","https://vmc.vet.osu.edu/sites/default/files/documents/trainingArticle.pdf"],["Jacobs 2018","https://doi.org/10.1016/j.prevetmed.2017.02.005"]]},
+  {g:"Training", t:"Off leash depends on the dog",
+   d:"No respected trainer gates this on an age. Go off the long line only where the dog already comes back first time, around those distractions.",
+   s:[["Stewart, BAT","https://grishastewart.com/ep08/"],["Dunbar","https://www.dogstardaily.com/storefront/after-you-get-your-puppy"]]},
+  {g:"Training", t:"Find a professional early",
+   d:"Anyone can call themself a dog trainer, because the trade has no licence. For fear, aggression, or panic when alone, ask your vet for a board-certified veterinary behaviorist.",
+   s:[["ACVB directory","https://www.dacvb.org/search/"],["AVSAB 2021","https://avsab.org/wp-content/uploads/2021/08/AVSAB-Humane-Dog-Training-Position-Statement-2021.pdf"]]},
+  {g:"Training", t:"Self-control arrives late",
+   d:"It improves across the whole first two years and is not finished before then. Build habits instead of testing willpower, and keep the dog under the level of excitement where it can still think.",
+   s:[["Bray 2021","https://pmc.ncbi.nlm.nih.gov/articles/PMC8035344/"]]},
+  {g:"Training", t:"Starting late still works",
+   d:"No single window decides the rest of a dog’s life. Progress is slower after the puppy weeks, and it still works.",
+   s:[["AVSAB","https://avsab.org/wp-content/uploads/2024/12/Puppy-Socialization-Position-Statement-FINAL.pdf"],["Merck Vet Manual","https://www.merckvetmanual.com/dog-owners/behavior-of-dogs/normal-social-behavior-in-dogs"]]},
+  {g:"Health & handling", t:"Keep the dog lean",
+   d:"This protects the joints more than any exercise rule here. Dogs fed 25 percent less lived about 1.8 years longer and got hip arthritis about six years later.",
+   s:[["Kealy 2002","https://doi.org/10.2460/javma.2002.220.1315"],["WSAVA chart","https://wsava.org/wp-content/uploads/2025/06/WSAVA_BCSCat_BCSDog_Nutrition_250612.pdf"]]},
+  {g:"Health & handling", t:"Year-round parasite cover",
+   d:"After the puppy worming course, the dog needs continuous cover for worms, fleas, ticks, and heartworm, plus a yearly heartworm test.",
+   s:[["CAPC","https://capcvet.org/guidelines/general-guidelines/"],["Heartworm Soc.","https://www.heartwormsociety.org/veterinary-resources/american-heartworm-society-guidelines"]]},
+  {g:"Health & handling", t:"A yearly vet exam, for life",
+   d:"Once the puppy course finishes, the visits do not stop. A yearly exam catches what you cannot see.",
+   s:[["AAHA checklist","https://www.aaha.org/resources/life-stage-canine-2019/life-stage-checklist/"]]},
+  {g:"Health & handling", t:"Brush the teeth daily",
+   d:"Brushing only helps if you do it every day. Most dogs have gum disease by age three.",
+   s:[["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/regular-oral-healthcare/"],["AAHA dental","https://www.aaha.org/resources/2019-aaha-dental-care-guidelines-for-dogs-and-cats/preventing-periodontal-disease/"]]},
+  {g:"Health & handling", t:"Pain hides as behavior",
+   d:"In veterinary behavior clinics, roughly one dog in three has a painful condition behind the problem. New growling, hiding, or stair refusal needs an exam first.",
+   s:[["Mills 2020","https://pmc.ncbi.nlm.nih.gov/articles/PMC7071134/"],["AAHA 2019","https://www.aaha.org/resources/life-stage-canine-2019/behavior/"]]},
+  {g:"Health & handling", t:"Keep handling practice going",
+   d:"Handling is not a course you pass once. Without a short session every week or so a dog forgets, and the vet visit becomes a fight.",
+   s:[["Riemer 2021","https://pubmed.ncbi.nlm.nih.gov/33445559/"],["AAHA 2015","https://www.aaha.org/resources/2015-aaha-canine-and-feline-behavior-management-guidelines/handling-anxious-patients/"]]},
+  {g:"Health & handling", t:"Let the dog say yes",
+   d:"Teach one position that means “I am ready”, such as a chin in your hand, and stop the moment the dog lifts away. Dogs given this choice show fewer stress signs.",
+   s:[["IAABC","https://journal.iaabcfoundation.org/cooperative-care-2/"],["Whole Dog Journal","https://www.whole-dog-journal.com/training/cooperative-care-giving-your-dog-choice-and-control/"]]},
+  {g:"Safety", t:"Heat comes from exercise",
+   d:"Exercise causes far more heat illness than parked cars, and dogs under two carry the highest risk. If you cannot hold your hand on the ground for seven seconds, it is too hot for paws.",
+   s:[["Hall 2020","https://pmc.ncbi.nlm.nih.gov/articles/PMC7459873/"],["AAHA","https://www.aaha.org/resources/how-to-protect-dog-paws-from-hot-pavement/"]]},
+  {g:"Safety", t:"Swallowed objects and poisons",
+   d:"String, socks, and cloth are the worst, because they saw through the gut. Keep medicines, xylitol, chocolate, grapes, onions, and cannabis out of reach.",
+   s:[["Hobday 2014","https://pubmed.ncbi.nlm.nih.gov/25352109/"],["AVMA","https://www.avma.org/resources-tools/pet-owners/petcare/household-hazards"]]},
+  {g:"Safety", t:"Never leave a child alone with a dog",
+   d:"Children are bitten more than any other group, usually at home by a dog they know. Give the dog one place where no child may follow.",
+   s:[["AVMA task force","https://www.avma.org/sites/default/files/2020-03/dogbite.pdf"],["Reisner 2011","https://pubmed.ncbi.nlm.nih.gov/21444335/"]]},
+  {g:"Safety", t:"Guarding can appear at any age",
+   d:"It stays about level from six to eighteen months, so dogs do not grow out of it. Trade for something better instead of taking things away, and call a professional at the first growl.",
+   s:[["Jacobs 2018","https://doi.org/10.1016/j.prevetmed.2017.02.005"],["Generation Pup","https://pmc.ncbi.nlm.nih.gov/articles/PMC12024356/"]]},
+  {g:"Safety", t:"Noise fear gets worse with age",
+   d:"This one breaks the pattern of everything above: it grows rather than fades, and onset ranges from eight weeks to old age. Give a safe den and never punish the fear.",
+   s:[["Tiira 2016","https://doi.org/10.1016/j.jveb.2016.06.008"],["Riemer 2023","https://pmc.ncbi.nlm.nih.gov/articles/PMC10705068/"]]},
+  {g:"Safety", t:"Trouble alone is common and quiet",
+   d:"Almost half of six-month-old puppies pace, whine, or circle when left alone, but only about one owner in forty notices a problem. Look for it.",
+   s:[["Dale 2024","https://pmc.ncbi.nlm.nih.gov/articles/PMC11655275/"],["Blackwell 2006","https://pubmed.ncbi.nlm.nih.gov/16632528/"]]},
 ];
 
 /* ---------- build the chart, once ----------
@@ -1328,6 +1363,22 @@ function formatAge(w) {
   return mo.toFixed(1).replace(/\.0$/, '') + ' months';
 }
 
+/* The evergreen notes never change, so this runs once and never re-runs. */
+function renderAlways() {
+  const order = [];
+  const byGroup = new Map();
+  for (const it of ALWAYS) {
+    if (!byGroup.has(it.g)) { byGroup.set(it.g, []); order.push(it.g); }
+    byGroup.get(it.g).push(it);
+  }
+  document.getElementById('alwaysGrid').innerHTML = order.map(g =>
+    '<div class="always-col"><h3>' + esc(g) + '</h3><ul>'
+    + byGroup.get(g).map(it =>
+        '<li><b>' + esc(it.t) + '</b>' + esc(it.d) + citeHtml(it) + '</li>').join('')
+    + '</ul></div>'
+  ).join('');
+}
+
 function render() {
   const w = ageWeeks();
   const ageN = document.getElementById('ageN');
@@ -1504,6 +1555,7 @@ window.addEventListener('resize', () => {
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 
 syncLegend();
+renderAlways();
 render();
 placeLabels();
 requestAnimationFrame(() => { if (!PHONE.matches) goToToday({ instant: true }); });
