@@ -23,41 +23,53 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Barlow+Semi+Condensed:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Barlow+Semi+Condensed:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&display=swap" rel="stylesheet">
 <style>
 /* ============================ tokens ============================ */
+/* Three theme states. No data-theme attribute means "follow the system", so
+   the dark palette is written twice: once behind prefers-color-scheme for the
+   auto state, and once behind [data-theme="dark"] for the explicit choice.
+   The explicit block must stay last so a manual choice beats the system.
+   light-dark() would collapse the two, but it fails closed on browsers older
+   than mid-2024 by dropping the background entirely, so this stays literal. */
 :root{
+  --sans:"Barlow Semi Condensed",system-ui,-apple-system,sans-serif;
+  --display:"Archivo",system-ui,-apple-system,sans-serif;
+  --serif:"Source Serif 4",Georgia,serif;
+
   --paper:#EDF0EA;
   --panel:#F7F9F4;
   --inset:#FFFFFF;
   --grid:#D8DED2;
-  --grid2:#C3CCBB;
+  --grid-strong:#C3CCBB;
   --line:#151E19;
   --ink:#151E19;
   --muted:#5C6A60;
 
-  --dev:#2E4A7D;
-  --body:#2F6B4F;
-  --seen:#A8442A;
-  --safe:#7A5B12;
-  --train:#5B3A73;
+  --cat-dev:#2E4A7D;
+  --cat-body:#2F6B4F;
+  --cat-seen:#A8442A;
+  --cat-safe:#7A5B12;
+  --cat-train:#5B3A73;
   --now:#C8102E;
 
-  --barink:#FFFFFF;
-  --barbd:rgba(0,0,0,.28);
-  --grptint:rgba(0,0,0,.05);
-  --softop:.42;
-  --hatchA:#9A2B18;
-  --hatchB:#7C2114;
-  --hatchink:#FFFFFF;
-  --nowink:#FFFFFF;
+  --bar-ink:#FFFFFF;
+  --bar-edge:rgba(0,0,0,.28);
+  --group-tint:rgba(0,0,0,.05);
+  --soft-op:.42;
+  --soft-mix:44%;
+  --hatch-a:#9A2B18;
+  --hatch-b:#7C2114;
+  --hatch-ink:#FFFFFF;
+  --now-ink:#FFFFFF;
   --shadow:rgba(20,30,24,.26);
 
-  --ppw:12px;
+  --week-w:12px;
   --lane:30px;
-  --labw:250px;
-  --trackw:calc(112 * var(--ppw));
-  --rulerh:52px;
+  --label-w:250px;
+  --track-w:calc(112 * var(--week-w));
+  --ruler-h:52px;
 }
 :root[data-theme="dark"]{ color-scheme:dark }
 @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ color-scheme:dark } }
@@ -70,26 +82,27 @@
     --panel:#1C201A;
     --inset:#252A22;
     --grid:#2E3429;
-    --grid2:#404737;
+    --grid-strong:#404737;
     --line:#5A6353;
     --ink:#E9EEE3;
     --muted:#9DAA97;
 
-    --dev:#7BA5EC;
-    --body:#4FBE8B;
-    --seen:#EE8862;
-    --safe:#D8AC3E;
-    --train:#B98CDE;
+    --cat-dev:#7BA5EC;
+    --cat-body:#4FBE8B;
+    --cat-seen:#EE8862;
+    --cat-safe:#D8AC3E;
+    --cat-train:#B98CDE;
     --now:#FF6072;
 
-    --barink:#11140F;
-    --barbd:rgba(0,0,0,.42);
-    --grptint:rgba(255,255,255,.06);
-    --softop:.5;
-    --hatchA:#E1795F;
-    --hatchB:#B75740;
-    --hatchink:#1A0B07;
-    --nowink:#2B0308;
+    --bar-ink:#11140F;
+    --bar-edge:rgba(0,0,0,.42);
+    --group-tint:rgba(255,255,255,.06);
+    --soft-op:.5;
+    --soft-mix:52%;
+    --hatch-a:#E1795F;
+    --hatch-b:#B75740;
+    --hatch-ink:#1A0B07;
+    --now-ink:#2B0308;
     --shadow:rgba(0,0,0,.55);
   }
 }
@@ -98,40 +111,41 @@
   --panel:#1C201A;
   --inset:#252A22;
   --grid:#2E3429;
-  --grid2:#404737;
+  --grid-strong:#404737;
   --line:#5A6353;
   --ink:#E9EEE3;
   --muted:#9DAA97;
 
-  --dev:#7BA5EC;
-  --body:#4FBE8B;
-  --seen:#EE8862;
-  --safe:#D8AC3E;
-  --train:#B98CDE;
+  --cat-dev:#7BA5EC;
+  --cat-body:#4FBE8B;
+  --cat-seen:#EE8862;
+  --cat-safe:#D8AC3E;
+  --cat-train:#B98CDE;
   --now:#FF6072;
 
-  --barink:#11140F;
-  --barbd:rgba(0,0,0,.42);
-  --grptint:rgba(255,255,255,.06);
-  --softop:.5;
-  --hatchA:#E1795F;
-  --hatchB:#B75740;
-  --hatchink:#1A0B07;
-  --nowink:#2B0308;
+  --bar-ink:#11140F;
+  --bar-edge:rgba(0,0,0,.42);
+  --group-tint:rgba(255,255,255,.06);
+  --soft-op:.5;
+  --soft-mix:52%;
+  --hatch-a:#E1795F;
+  --hatch-b:#B75740;
+  --hatch-ink:#1A0B07;
+  --now-ink:#2B0308;
   --shadow:rgba(0,0,0,.55);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
+button,input,.bar,.mark{touch-action:manipulation}
 html{-webkit-text-size-adjust:100%}
 body{
   background:var(--paper); color:var(--ink);
-  font-family:"Source Serif 4",Georgia,serif;
+  font-family:var(--serif);
   line-height:1.5;
   padding:22px 20px 60px;
   -webkit-tap-highlight-color:transparent;
 }
 .shell{max-width:1500px;margin:0 auto}
-.cond{font-family:"Barlow Semi Condensed",system-ui,-apple-system,sans-serif}
 
 :where(button,input,summary):focus-visible{
   outline:2.5px solid var(--now);outline-offset:2px;border-radius:3px;
@@ -144,18 +158,18 @@ body{
   border-bottom:3px solid var(--line);padding-bottom:14px;
 }
 .eyebrow{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--dev);margin-bottom:4px;
+  color:var(--cat-dev);margin-bottom:4px;
 }
 h1{
-  font-family:"Archivo",system-ui,sans-serif;
+  font-family:var(--display);
   font-size:clamp(28px,4.6vw,46px);font-weight:800;letter-spacing:-.03em;line-height:.95;
 }
-h1 em{font-style:normal;color:var(--dev)}
+h1 em{font-style:normal;color:var(--cat-dev)}
 .sub{font-size:14px;color:var(--muted);margin-top:7px;max-width:52ch}
 .stamp{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
   color:var(--muted);margin-top:8px;
 }
@@ -164,17 +178,17 @@ h1 em{font-style:normal;color:var(--dev)}
 .controls{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
 .ctl{display:flex;flex-direction:column;gap:4px}
 .ctl label{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
 }
 .dobrow{display:flex;gap:6px;align-items:stretch}
 .ctl input[type=date]{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:15px;padding:7px 9px;border:1.5px solid var(--line);border-radius:3px;
   background:var(--inset);color:var(--ink);min-height:38px;
 }
 .mini{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12px;font-weight:600;letter-spacing:.04em;
   padding:0 10px;min-height:38px;cursor:pointer;
   border:1.5px solid var(--line);border-radius:3px;
@@ -186,16 +200,16 @@ h1 em{font-style:normal;color:var(--dev)}
   padding:6px 13px 7px;min-width:132px;
 }
 .agebox .n{
-  font-family:"Archivo",system-ui,sans-serif;
+  font-family:var(--display);
   font-size:25px;font-weight:800;line-height:1;color:var(--now);letter-spacing:-.02em;
 }
 .agebox .s{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12px;color:var(--muted);letter-spacing:.05em;margin-top:2px;
 }
 #theme{
   display:flex;align-items:center;gap:6px;
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12.5px;font-weight:600;letter-spacing:.06em;
   padding:0 11px;min-height:38px;cursor:pointer;
   border:1.5px solid var(--line);border-radius:3px;
@@ -211,51 +225,76 @@ h1 em{font-style:normal;color:var(--dev)}
   border-radius:4px;padding:14px 16px 15px;
 }
 .now-head{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
   color:var(--now);margin-bottom:9px;
 }
-.now-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px 22px}
+/* Multi-column rather than grid: the five groups have very different
+   lengths, and a grid leaves a ragged hole under the short ones. */
+.now-cols{columns:215px;column-gap:22px}
+.now-col{break-inside:avoid;margin-bottom:14px}
+.now-col{color:var(--ink)}
 .now-col h4{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
-  margin-bottom:5px;padding-bottom:3px;border-bottom:1px solid var(--grid2);
+  margin-bottom:5px;padding-bottom:3px;border-bottom:1px solid var(--grid-strong);
 }
 .now-col ul{list-style:none;font-size:13.5px;line-height:1.42}
+.now-col[data-c="dev"] h4,.now-col[data-c="dev"] li:before{color:var(--cat-dev)}
+.now-col[data-c="body"] h4,.now-col[data-c="body"] li:before{color:var(--cat-body)}
+.now-col[data-c="seen"] h4,.now-col[data-c="seen"] li:before{color:var(--cat-seen)}
+.now-col[data-c="safe"] h4,.now-col[data-c="safe"] li:before{color:var(--cat-safe)}
+.now-col[data-c="train"] h4,.now-col[data-c="train"] li:before{color:var(--cat-train)}
+.now-col li:before{background:currentColor}
+/* "Safe to do" legitimately contains rows that are not safe yet, so those
+   carry the same striped cue the chart uses. */
+.now-col li.wait em{
+  font-family:var(--sans);font-style:normal;
+  font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--hatch-ink);margin-left:7px;padding:1px 6px 2px;border-radius:2px;
+  background:repeating-linear-gradient(-45deg,var(--hatch-a) 0 5px,var(--hatch-b) 5px 10px);
+}
 .now-col li{padding:2px 0 2px 12px;position:relative}
 .now-col li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.55}
 .now-col.empty p{font-size:13px;color:var(--muted);font-style:italic}
 .soon{
-  margin-top:12px;padding-top:11px;border-top:1px solid var(--grid2);
+  margin-top:12px;padding-top:11px;border-top:1px solid var(--grid-strong);
   font-size:13.5px;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:baseline;
 }
 .soon b{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
 }
 .soon span{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
-  font-size:13px;background:var(--inset);border:1px solid var(--grid2);border-radius:3px;padding:3px 8px;
+  font-family:var(--sans);
+  font-size:13px;background:var(--inset);border:1px solid var(--grid-strong);border-radius:3px;padding:3px 8px;
 }
 .soon span i{font-style:normal;color:var(--now);font-weight:700}
 
 /* ============================ toolbar ============================ */
 .toolbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:20px 0 9px}
 .filt{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12.5px;font-weight:600;letter-spacing:.04em;
   padding:6px 11px;min-height:34px;border-radius:3px;cursor:pointer;
   border:1.5px solid currentColor;background:transparent;
 }
+.filt[data-c="dev"]{color:var(--cat-dev)}
+.filt[data-c="body"]{color:var(--cat-body)}
+.filt[data-c="seen"]{color:var(--cat-seen)}
+.filt[data-c="safe"]{color:var(--cat-safe)}
+.filt[data-c="train"]{color:var(--cat-train)}
 .filt[aria-pressed="false"]{opacity:.34}
 .spacer{flex:1}
 .jump{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12.5px;font-weight:600;padding:6px 11px;min-height:34px;cursor:pointer;
   border:1.5px solid var(--line);background:var(--ink);color:var(--paper);border-radius:3px;
 }
+.wide-only{display:none}
+@media (min-width:761px){.wide-only{display:inline}}
 .hint{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12px;color:var(--muted);letter-spacing:.03em;
 }
 
@@ -265,28 +304,32 @@ h1 em{font-style:normal;color:var(--dev)}
   overflow:auto;max-height:74vh;position:relative;
   overscroll-behavior-x:contain;
 }
-.canvas{position:relative;width:calc(var(--labw) + var(--trackw));min-width:100%}
+.canvas{position:relative;width:calc(var(--label-w) + var(--track-w));min-width:100%}
 
 .row{display:flex;height:var(--lane);align-items:center}
 .row.grp{height:29px}
 .lab{
-  width:var(--labw);min-width:var(--labw);
+  width:var(--label-w);min-width:var(--label-w);
   position:sticky;left:0;z-index:8;
   background:var(--panel);
   border-right:2px solid var(--line);
   padding:0 10px 0 13px;
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:13px;line-height:1.12;
   display:flex;align-items:center;height:100%;
   overflow:hidden;hyphens:auto;
 }
+.row:not(.grp):not(.ruler) .lab{
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  line-clamp:2;align-content:center;
+}
 .row.grp .lab{
   font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--barink);
+  color:var(--bar-ink);
 }
 .track{
   position:relative;height:100%;
-  width:var(--trackw);min-width:var(--trackw);
+  width:var(--track-w);min-width:var(--track-w);
 }
 
 /* today line, drawn per track so it survives both layouts */
@@ -297,7 +340,7 @@ h1 em{font-style:normal;color:var(--dev)}
 }
 
 /* ruler */
-.ruler{position:sticky;top:0;z-index:10;display:flex;height:var(--rulerh)}
+.ruler{position:sticky;top:0;z-index:10;display:flex;height:var(--ruler-h)}
 .ruler .lab{
   z-index:11;border-bottom:2px solid var(--line);
   font-weight:700;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
@@ -305,7 +348,7 @@ h1 em{font-style:normal;color:var(--dev)}
 .ruler .track{background:var(--panel);border-bottom:2px solid var(--line)}
 .mo{
   position:absolute;top:3px;
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12.5px;font-weight:700;color:var(--ink);
   transform:translateX(-50%);white-space:nowrap;
 }
@@ -315,28 +358,34 @@ h1 em{font-style:normal;color:var(--dev)}
 .mo.edge-end{transform:translateX(-100%);padding-right:3px}
 .wk{
   position:absolute;bottom:4px;
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:11px;color:var(--muted);
   transform:translateX(-50%);white-space:nowrap;
 }
-.rtick{position:absolute;bottom:0;width:1px;height:7px;background:var(--grid2)}
+.rtick{position:absolute;bottom:0;width:1px;height:7px;background:var(--grid-strong)}
 .todaytag{
   position:absolute;top:21px;left:var(--today,50%);
   transform:translateX(-50%);z-index:12;
-  background:var(--now);color:var(--nowink);
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  background:var(--now);color:var(--now-ink);
+  font-family:var(--sans);
   font-size:11.5px;font-weight:700;letter-spacing:.08em;
   padding:2px 7px 3px;border-radius:3px;white-space:nowrap;
   display:var(--today-vis,block);pointer-events:none;
 }
 
 /* group header colour */
-.grp[data-c="dev"] .lab{background:var(--dev)}
-.grp[data-c="body"] .lab{background:var(--body)}
-.grp[data-c="seen"] .lab{background:var(--seen)}
-.grp[data-c="safe"] .lab{background:var(--safe)}
-.grp[data-c="train"] .lab{background:var(--train)}
-.grp .track{background:var(--grptint);border-top:1px solid var(--grid2);border-bottom:1px solid var(--grid2)}
+[data-c="dev"].tint{color:var(--cat-dev)}
+[data-c="body"].tint{color:var(--cat-body)}
+[data-c="seen"].tint{color:var(--cat-seen)}
+[data-c="safe"].tint{color:var(--cat-safe)}
+[data-c="train"].tint{color:var(--cat-train)}
+
+.grp[data-c="dev"] .lab{background:var(--cat-dev)}
+.grp[data-c="body"] .lab{background:var(--cat-body)}
+.grp[data-c="seen"] .lab{background:var(--cat-seen)}
+.grp[data-c="safe"] .lab{background:var(--cat-safe)}
+.grp[data-c="train"] .lab{background:var(--cat-train)}
+.grp .track{background:var(--group-tint);border-top:1px solid var(--grid-strong);border-bottom:1px solid var(--grid-strong)}
 
 /* four-week gridlines, fluid at any track width */
 .row:not(.grp):not(.ruler) .track{
@@ -348,9 +397,9 @@ h1 em{font-style:normal;color:var(--dev)}
   position:absolute;top:50%;transform:translateY(-50%);
   height:17px;min-width:8px;border-radius:2.5px;cursor:pointer;
   display:flex;align-items:center;padding:0 7px;
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
-  font-size:12px;font-weight:600;color:var(--barink);white-space:nowrap;
-  border:1px solid var(--barbd);
+  font-family:var(--sans);
+  font-size:12px;font-weight:600;color:var(--bar-ink);white-space:nowrap;
+  border:1px solid var(--bar-edge);
   transition:filter .12s, outline-color .12s;
   outline:2px solid transparent;outline-offset:1px;
   overflow:hidden;
@@ -360,15 +409,24 @@ h1 em{font-style:normal;color:var(--dev)}
 .bar .bt{overflow:hidden;text-overflow:clip}
 .bar:hover{filter:brightness(1.14)}
 .bar.sel{outline-color:var(--ink)}
-.bar[data-c="dev"]{background:var(--dev)}
-.bar[data-c="body"]{background:var(--body)}
-.bar[data-c="seen"]{background:var(--seen)}
-.bar[data-c="safe"]{background:var(--safe)}
-.bar[data-c="train"]{background:var(--train)}
-.bar.soft{opacity:var(--softop)}
+.bar[data-c="dev"]{background:var(--cat-dev)}
+.bar[data-c="body"]{background:var(--cat-body)}
+.bar[data-c="seen"]{background:var(--cat-seen)}
+.bar[data-c="safe"]{background:var(--cat-safe)}
+.bar[data-c="train"]{background:var(--cat-train)}
+.bar.soft{opacity:var(--soft-op)}
+@supports (background:color-mix(in oklab,red 50%,blue)){
+  .bar.soft{opacity:1;color:var(--ink);border-color:var(--grid-strong)}
+  .bar.soft[data-c="dev"]{background:color-mix(in oklab,var(--cat-dev) var(--soft-mix),var(--panel))}
+  .bar.soft[data-c="body"]{background:color-mix(in oklab,var(--cat-body) var(--soft-mix),var(--panel))}
+  .bar.soft[data-c="seen"]{background:color-mix(in oklab,var(--cat-seen) var(--soft-mix),var(--panel))}
+  .bar.soft[data-c="safe"]{background:color-mix(in oklab,var(--cat-safe) var(--soft-mix),var(--panel))}
+  .bar.soft[data-c="train"]{background:color-mix(in oklab,var(--cat-train) var(--soft-mix),var(--panel))}
+  .sw.soft{opacity:1;background:color-mix(in oklab,var(--cat-train) var(--soft-mix),var(--panel))}
+}
 .bar.avoid{
-  background:repeating-linear-gradient(-45deg,var(--hatchA) 0 6px,var(--hatchB) 6px 12px);
-  color:var(--hatchink);
+  background:repeating-linear-gradient(-45deg,var(--hatch-a) 0 6px,var(--hatch-b) 6px 12px);
+  color:var(--hatch-ink);
 }
 .bar.open{
   border-right:none;
@@ -381,8 +439,9 @@ h1 em{font-style:normal;color:var(--dev)}
 }
 .blabel-out{
   position:absolute;top:50%;transform:translateY(-50%);
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12px;color:var(--muted);white-space:nowrap;pointer-events:none;
+  background:var(--panel);padding:1px 4px;border-radius:2px;
 }
 .mark{
   position:absolute;top:50%;width:11px;height:11px;padding:0;
@@ -390,8 +449,8 @@ h1 em{font-style:normal;color:var(--dev)}
   border:1.5px solid var(--panel);cursor:pointer;
 }
 .mark:before{content:"";position:absolute;top:-9px;bottom:-9px;left:-9px;right:-9px}
-.mark[data-c="body"]{background:var(--body)}
-.mark[data-c="dev"]{background:var(--dev)}
+.mark[data-c="body"]{background:var(--cat-body)}
+.mark[data-c="dev"]{background:var(--cat-dev)}
 
 /* ============================ detail ============================ */
 .detail{
@@ -399,11 +458,16 @@ h1 em{font-style:normal;color:var(--dev)}
   padding:14px 16px;min-height:92px;position:relative;
 }
 .detail .dh{
-  font-family:"Archivo",system-ui,sans-serif;
+  font-family:var(--display);
   font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px;padding-right:34px;
 }
+.detail .dm[data-c="dev"]{color:var(--cat-dev)}
+.detail .dm[data-c="body"]{color:var(--cat-body)}
+.detail .dm[data-c="seen"]{color:var(--cat-seen)}
+.detail .dm[data-c="safe"]{color:var(--cat-safe)}
+.detail .dm[data-c="train"]{color:var(--cat-train)}
 .detail .dm{
-  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-family:var(--sans);
   font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
   color:var(--muted);margin-bottom:8px;
 }
@@ -412,24 +476,41 @@ h1 em{font-style:normal;color:var(--dev)}
 #detailClose{
   display:none;position:absolute;top:9px;right:9px;
   width:32px;height:32px;border-radius:50%;cursor:pointer;
-  border:1.5px solid var(--grid2);background:var(--inset);color:var(--ink);
+  border:1.5px solid var(--grid-strong);background:var(--inset);color:var(--ink);
   font-size:19px;line-height:1;
 }
 
 /* ============================ legend / footer ============================ */
+/* The legend sits above the chart, because below a two-year chart on a phone
+   nobody scrolls far enough to find out what a striped bar means. It collapses
+   on phones and opens on wider screens; the JS sets `open` to match. */
 .legend{
-  margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:10px 24px;border-top:1.5px solid var(--line);padding-top:12px;
+  margin:14px 0 10px;border:1.5px solid var(--line);border-radius:4px;
+  background:var(--panel);padding:0 14px;
+}
+.legend summary{
+  font-family:var(--sans);
+  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;padding:10px 0;list-style-position:inside;
+}
+.legend[open] summary{border-bottom:1px solid var(--grid-strong);margin-bottom:11px}
+.legend-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:10px 24px;padding-bottom:13px;
 }
 .lg{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--muted)}
 .lg b{color:var(--ink)}
-.sw{width:26px;min-width:26px;height:13px;border-radius:2.5px;margin-top:3px;border:1px solid var(--barbd)}
-.sw.avoid{background:repeating-linear-gradient(-45deg,var(--hatchA) 0 5px,var(--hatchB) 5px 10px)}
-.sw.shuts{background:var(--dev);box-shadow:3px 0 0 var(--now)}
-.sw.soft{background:var(--train);opacity:var(--softop)}
-.sw.openend{background:linear-gradient(90deg,var(--safe) 60%,transparent)}
+.sw{width:26px;min-width:26px;height:13px;border-radius:2.5px;margin-top:3px;border:1px solid var(--bar-edge)}
+.sw.dia{
+  width:13px;min-width:13px;height:13px;border-radius:0;margin:4px 7px 0 6px;
+  background:var(--cat-body);border:1.5px solid var(--panel);transform:rotate(45deg);
+}
+.sw.avoid{background:repeating-linear-gradient(-45deg,var(--hatch-a) 0 5px,var(--hatch-b) 5px 10px)}
+.sw.shuts{background:var(--cat-dev);box-shadow:3px 0 0 var(--now)}
+.sw.soft{background:var(--cat-train);opacity:var(--soft-op)}
+.sw.openend{background:linear-gradient(90deg,var(--cat-safe) 60%,transparent)}
 .foot{
-  margin-top:16px;padding-top:11px;border-top:1px solid var(--grid2);
+  margin-top:16px;padding-top:11px;border-top:1px solid var(--grid-strong);
   font-size:12.5px;color:var(--muted);line-height:1.5;max-width:100ch;
 }
 .foot a{color:var(--muted)}
@@ -445,7 +526,6 @@ h1 em{font-style:normal;color:var(--dev)}
   .ctl input[type=date]{width:100%}
   .agebox{flex:1 1 130px}
 
-  .hint{display:none}
   .toolbar{gap:6px}
   .filt{flex:1 1 auto;text-align:center}
 
@@ -466,7 +546,12 @@ h1 em{font-style:normal;color:var(--dev)}
   }
   .row .track{
     width:100%;min-width:0;height:22px;
-    border:1px solid var(--grid2);border-radius:3px;background-color:var(--panel);
+    border:1px solid var(--grid-strong);border-radius:3px;background-color:var(--panel);
+  }
+  /* quarterly, not every four weeks: a dense grid at this width looks like a
+     loading skeleton rather than a scale */
+  .row:not(.grp):not(.ruler) .track{
+    background-image:repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px calc(100% / 8));
   }
   .bar .bt,.blabel-out{display:none}
   .bar{height:14px;border-radius:2px}
@@ -525,17 +610,20 @@ h1 em{font-style:normal;color:var(--dev)}
         <label for="dob">Date of birth</label>
         <div class="dobrow">
           <input type="date" id="dob" value="2026-05-18">
-          <button class="mini" id="dobReset" type="button" title="Back to May 18, 2026">Reset</button>
+          <button class="mini" id="dobReset" type="button" title="Back to May 18, 2026" aria-label="Reset date of birth to May 18, 2026">Reset</button>
         </div>
       </div>
       <div class="agebox">
         <div class="n" id="ageN">&mdash;</div>
         <div class="s" id="ageS">&nbsp;</div>
       </div>
-      <button id="theme" type="button" aria-label="Change color theme">
-        <svg viewBox="0 0 24 24" aria-hidden="true" id="themeIcon"></svg>
-        <span id="themeLabel">Auto</span>
-      </button>
+      <div class="ctl">
+        <label for="theme">Theme</label>
+        <button id="theme" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" id="themeIcon"></svg>
+          <span id="themeLabel">Auto</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -546,31 +634,35 @@ h1 em{font-style:normal;color:var(--dev)}
   </section>
 
   <div class="toolbar" id="toolbar">
-    <button class="filt" data-c="dev"   type="button" aria-pressed="true" style="color:var(--dev)">Brain &amp; stages</button>
-    <button class="filt" data-c="body"  type="button" aria-pressed="true" style="color:var(--body)">Body &amp; vet</button>
-    <button class="filt" data-c="seen"  type="button" aria-pressed="true" style="color:var(--seen)">What you&rsquo;ll see</button>
-    <button class="filt" data-c="safe"  type="button" aria-pressed="true" style="color:var(--safe)">Safe to do</button>
-    <button class="filt" data-c="train" type="button" aria-pressed="true" style="color:var(--train)">Training plan</button>
+    <button class="filt" data-c="dev"   type="button" aria-pressed="true">Brain &amp; stages</button>
+    <button class="filt" data-c="body"  type="button" aria-pressed="true">Body &amp; vet</button>
+    <button class="filt" data-c="seen"  type="button" aria-pressed="true">What you&rsquo;ll see</button>
+    <button class="filt" data-c="safe"  type="button" aria-pressed="true">Safe to do</button>
+    <button class="filt" data-c="train" type="button" aria-pressed="true">Training plan</button>
     <span class="spacer"></span>
-    <span class="hint">Scroll sideways &middot; tap any bar</span>
+    <span class="hint"><span class="wide-only">Scroll sideways &middot; </span>tap any bar for details</span>
     <button class="jump" id="jump" type="button">Go to today</button>
   </div>
+
+  <details class="legend" id="legend">
+    <summary>What the bars and symbols mean</summary>
+    <div class="legend-grid">
+      <div class="lg"><span class="sw shuts"></span><span><b>Red end cap</b> &mdash; this window closes for good. You cannot redo it later.</span></div>
+      <div class="lg"><span class="sw avoid"></span><span><b>Striped</b> &mdash; not yet. Wait until the bar ends.</span></div>
+      <div class="lg"><span class="sw openend"></span><span><b>Faded right edge</b> &mdash; continues past two years.</span></div>
+      <div class="lg"><span class="sw soft"></span><span><b>Pale</b> &mdash; keep it going, but it is no longer the main job.</span></div>
+      <div class="lg"><span class="sw dia"></span><span><b>Diamond</b> &mdash; a single milestone, not a stretch of time.</span></div>
+    </div>
+  </details>
 
   <div class="chart" id="chart">
     <div class="canvas" id="canvas"></div>
   </div>
 
-  <section class="detail" id="detail" aria-live="polite">
+  <section class="detail" id="detail" role="region" aria-label="Details" aria-live="polite">
     <button id="detailClose" type="button" aria-label="Close">&times;</button>
     <p class="idle">Tap any bar to see what it means and what to do about it.</p>
   </section>
-
-  <div class="legend">
-    <div class="lg"><span class="sw shuts"></span><span><b>Red end cap</b> &mdash; this window closes for good. You cannot redo it later.</span></div>
-    <div class="lg"><span class="sw avoid"></span><span><b>Hatched</b> &mdash; not yet. Wait until the bar ends.</span></div>
-    <div class="lg"><span class="sw openend"></span><span><b>Faded right edge</b> &mdash; continues past two years.</span></div>
-    <div class="lg"><span class="sw soft"></span><span><b>Pale</b> &mdash; keep it going, but it is no longer the main job.</span></div>
-  </div>
 
   <p class="foot">
     Ages are typical ranges, not deadlines. Small breeds mature toward the early end and giant breeds toward the late end, sometimes past it. Vaccination timing, spay or neuter timing, and joint readiness are veterinary decisions that depend on your dog and your area, so treat those bars as conversation starters with your vet, not instructions. For fear, aggression, or biting that breaks skin, get a certified trainer or a veterinary behaviorist involved early rather than waiting it out.
@@ -595,6 +687,17 @@ const store = {
   del(k){ try { localStorage.removeItem(k); } catch(e){} }
 };
 
+/* Timeline content. One object per bar.
+     t      title, shown on the bar and in the detail panel
+     a, b   start and end, in WEEKS from birth (0 to 112)
+     d      the detail text
+     mark   a single point in time, drawn as a diamond instead of a bar
+     avoid  striped: do not do this yet, wait until b
+     shuts  red end cap: this window closes for good at b
+     open   continues past b, drawn with a faded right edge
+     soft   pale: still worth doing, no longer the main job
+   The group key `c` IS a CSS custom-property suffix: c:'dev' resolves to
+   var(--cat-dev). Renaming one without the other silently loses the color. */
 const GROUPS = [
   { c:'dev', name:'Brain & stages', items:[
     {t:'Socialization window', a:3, b:16, shuts:true,
@@ -722,81 +825,94 @@ const GROUPS = [
   ]},
 ];
 
-/* ---------- build chart ----------
-   Everything is positioned as a percentage of the track, so the same DOM
-   works for the wide scrolling timeline and the stacked phone layout. */
+/* ---------- build the chart, once ----------
+   Every bar is positioned as a percentage of its track rather than a pixel
+   offset, so one DOM serves both the wide scrolling timeline and the stacked
+   phone layout with no second render path. Two consequences:
+     - 112 is also encoded in CSS as --track-w and as the calc(100%/28)
+       gridline step. Change WEEKS and you must change both.
+     - a percentage width is not known until layout, so whether a title fits
+       inside its bar has to be measured afterwards. See placeLabels(). */
 const canvas = document.getElementById('canvas');
 const pct = w => (w / WEEKS) * 100;
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const idOf = (group, index) => group.c + '-' + index;
 
+/* Only these months keep their ruler label on a phone; the CSS hides the
+   rest with .ruler .mo:not(.major). */
 const MAJOR_MONTHS = new Set([0, 6, 12, 18, 24]);
-let html = '';
 
-// ruler
-const months = [];
-for (let m = 0; m * MONTH <= WEEKS; m++) {
-  if (m > 12 && m % 3 !== 0) continue;
-  months.push(m);
-}
-html += '<div class="row ruler"><div class="lab">Age</div><div class="track">';
-months.forEach((m, i) => {
-  const text = m === 0 ? 'birth' : (m < 24 ? m + ' mo' : '2 yr');
-  let cls = 'mo';
-  if (MAJOR_MONTHS.has(m)) cls += ' major';
-  if (i === 0) cls += ' edge-start';
-  else if (i === months.length - 1 && pct(m * MONTH) > 94) cls += ' edge-end';
-  html += '<div class="' + cls + '" style="left:' + pct(m * MONTH).toFixed(3) + '%">' + text + '</div>';
-});
-for (let w = 0; w <= WEEKS; w += 2) {
-  const tall = w % 8 === 0;
-  html += '<div class="rtick" style="left:' + pct(w).toFixed(3) + '%' + (tall ? ';height:11px' : '') + '"></div>';
-  if (tall) html += '<div class="wk" style="left:' + pct(w).toFixed(3) + '%">wk ' + w + '</div>';
-}
-html += '<div class="todaytag" id="todayTag"></div>';
-html += '</div></div>';
+function buildChartHTML() {
+  let html = '';
 
-GROUPS.forEach(g => {
-  html += '<div class="row grp" data-c="' + g.c + '" data-grp="' + g.c + '">'
-        + '<div class="lab">' + esc(g.name) + '</div><div class="track"></div></div>';
+  const months = [];
+  for (let m = 0; m * MONTH <= WEEKS; m++) {
+    if (m > 12 && m % 3 !== 0) continue;
+    months.push(m);
+  }
 
-  g.items.forEach((it, ii) => {
-    const id = g.c + '-' + ii;
-    const left = pct(it.a).toFixed(3);
-    const title = esc(it.t);
-    let inner;
-
-    if (it.mark) {
-      inner = '<button class="mark" type="button" data-c="' + g.c + '" data-id="' + id + '"'
-            + ' style="left:' + left + '%" aria-label="' + title + '"></button>'
-            + '<div class="blabel-out" style="left:calc(' + left + '% + 11px)">' + title + '</div>';
-    } else {
-      let cls = 'bar';
-      if (it.avoid) cls += ' avoid';
-      if (it.open)  cls += ' open';
-      if (it.shuts) cls += ' shuts';
-      if (it.soft)  cls += ' soft';
-      const wdt = pct(Math.max(it.b - it.a, 0)).toFixed(3);
-      inner = '<button class="' + cls + '" type="button" data-c="' + g.c + '" data-id="' + id + '"'
-            + ' style="left:' + left + '%;width:' + wdt + '%"><span class="bt">' + title + '</span></button>'
-            + '<div class="blabel-out" data-for="' + id + '" style="left:calc(' + left + '% + ' + wdt + '% + 7px)">' + title + '</div>';
-    }
-
-    html += '<div class="row" data-grp="' + g.c + '">'
-          + '<div class="lab" title="' + title + '">' + title + '</div>'
-          + '<div class="track">' + inner + '</div></div>';
+  html += '<div class="row ruler"><div class="lab">Age</div><div class="track">';
+  months.forEach((m, i) => {
+    const text = m === 0 ? 'birth' : (m < 24 ? m + ' mo' : '2 yr');
+    let cls = 'mo';
+    if (MAJOR_MONTHS.has(m)) cls += ' major';
+    if (i === 0) cls += ' edge-start';
+    else if (i === months.length - 1 && pct(m * MONTH) > 94) cls += ' edge-end';
+    html += '<div class="' + cls + '" style="left:' + pct(m * MONTH).toFixed(3) + '%">' + text + '</div>';
   });
-});
+  for (let w = 0; w <= WEEKS; w += 2) {
+    const tall = w % 8 === 0;
+    html += '<div class="rtick" style="left:' + pct(w).toFixed(3) + '%' + (tall ? ';height:11px' : '') + '"></div>';
+    if (tall) html += '<div class="wk" style="left:' + pct(w).toFixed(3) + '%">wk ' + w + '</div>';
+  }
+  html += '<div class="todaytag" id="todayTag"></div></div></div>';
 
-canvas.innerHTML = html;
+  GROUPS.forEach(g => {
+    html += '<div class="row grp" data-c="' + g.c + '" data-grp="' + g.c + '">'
+          + '<div class="lab">' + esc(g.name) + '</div><div class="track"></div></div>';
+
+    g.items.forEach((it, ii) => {
+      const id = idOf(g, ii);
+      const left = pct(it.a).toFixed(3);
+      const title = esc(it.t);
+      let inner;
+
+      if (it.mark) {
+        inner = '<button class="mark" type="button" data-c="' + g.c + '" data-id="' + id + '"'
+              + ' style="left:' + left + '%" aria-label="' + title + '"></button>'
+              + '<div class="blabel-out" style="left:calc(' + left + '% + 11px)">' + title + '</div>';
+      } else {
+        let cls = 'bar';
+        if (it.avoid) cls += ' avoid';
+        if (it.open)  cls += ' open';
+        if (it.shuts) cls += ' shuts';
+        if (it.soft)  cls += ' soft';
+        const wdt = pct(Math.max(it.b - it.a, 0)).toFixed(3);
+        inner = '<button class="' + cls + '" type="button" data-c="' + g.c + '" data-id="' + id + '"'
+              + ' style="left:' + left + '%;width:' + wdt + '%"><span class="bt">' + title + '</span></button>'
+              + '<div class="blabel-out" data-for="' + id + '" style="left:calc(' + left + '% + ' + wdt + '% + 7px)">' + title + '</div>';
+      }
+
+      html += '<div class="row" data-grp="' + g.c + '">'
+            + '<div class="lab" title="' + title + '">' + title + '</div>'
+            + '<div class="track">' + inner + '</div></div>';
+    });
+  });
+
+  return html;
+}
+
+canvas.innerHTML = buildChartHTML();
 
 /* ---------- bar label placement ----------
    A title sits inside its bar when it fits, and beside the bar when it does
-   not. Widths are percentages now, so this has to be measured after layout
-   and again whenever the chart is resized. */
+   not. Widths are percentages, so this has to be measured after layout and
+   again whenever the chart is resized. The measurer must stay typographically
+   identical to .bar, or every fit decision is wrong. */
 const bars = Array.from(canvas.querySelectorAll('.bar'));
 const measure = document.createElement('span');
 measure.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;'
-  + 'font-family:"Barlow Semi Condensed",system-ui,sans-serif;font-size:12px;font-weight:600';
+  + 'font-family:var(--sans);font-size:12px;font-weight:600';
 document.body.appendChild(measure);
 
 function placeLabels() {
@@ -812,12 +928,13 @@ function placeLabels() {
 }
 
 /* ---------- lookup ---------- */
-const BYID = {};
-GROUPS.forEach(g => g.items.forEach((it, ii) => { BYID[g.c + '-' + ii] = Object.assign({}, it, { group: g.name, c: g.c }); }));
+const ITEMS_BY_ID = {};
+GROUPS.forEach(g => g.items.forEach((it, ii) => {
+  ITEMS_BY_ID[idOf(g, ii)] = Object.assign({}, it, { group: g.name, c: g.c });
+}));
 
 /* ---------- detail ---------- */
 const detail = document.getElementById('detail');
-const detailClose = document.getElementById('detailClose');
 
 function fmtRange(it) {
   if (it.mark) return 'about week ' + it.a;
@@ -826,21 +943,29 @@ function fmtRange(it) {
   return s + '  ·  ' + trim(it.a) + ' to ' + trim(it.b) + ' months';
 }
 
+let lastSelected = null;
+
 function select(id, el) {
   canvas.querySelectorAll('.sel').forEach(b => b.classList.remove('sel'));
   if (el) el.classList.add('sel');
-  const it = BYID[id];
+  const it = ITEMS_BY_ID[id];
   if (!it) return;
+  lastSelected = el;
   detail.innerHTML = '<button id="detailClose" type="button" aria-label="Close">&times;</button>'
     + '<div class="dh">' + esc(it.t) + '</div>'
-    + '<div class="dm" style="color:var(--' + it.c + ')">' + esc(it.group) + ' &nbsp;·&nbsp; ' + fmtRange(it) + '</div>'
+    + '<div class="dm" data-c="' + it.c + '">' + esc(it.group) + ' &nbsp;·&nbsp; ' + fmtRange(it) + '</div>'
     + '<p>' + esc(it.d) + '</p>';
   detail.classList.add('open');
+  if (PHONE.matches) detail.querySelector('#detailClose').focus();
+  else detail.scrollIntoView({ block: 'nearest' });
 }
 
 function closeDetail() {
+  if (!detail.classList.contains('open')) return;
   detail.classList.remove('open');
   canvas.querySelectorAll('.sel').forEach(b => b.classList.remove('sel'));
+  if (lastSelected && document.contains(lastSelected)) lastSelected.focus();
+  lastSelected = null;
 }
 
 canvas.addEventListener('click', e => {
@@ -872,7 +997,7 @@ const ICONS = {
   light: '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>',
   dark:  '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/>'
 };
-const ORDER = ['auto', 'light', 'dark'];
+const THEME_ORDER = ['auto', 'light', 'dark'];
 
 function paintTheme(mode) {
   if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
@@ -883,14 +1008,26 @@ function paintTheme(mode) {
 }
 
 let themeMode = store.get(KEY_THEME);
-if (ORDER.indexOf(themeMode) < 0) themeMode = 'auto';
+if (THEME_ORDER.indexOf(themeMode) < 0) themeMode = 'auto';
 paintTheme(themeMode);
 
 themeBtn.addEventListener('click', () => {
-  themeMode = ORDER[(ORDER.indexOf(themeMode) + 1) % ORDER.length];
+  themeMode = THEME_ORDER[(THEME_ORDER.indexOf(themeMode) + 1) % THEME_ORDER.length];
   if (themeMode === 'auto') store.del(KEY_THEME); else store.set(KEY_THEME, themeMode);
   paintTheme(themeMode);
 });
+
+/* ---------- legend ---------- */
+const legend = document.getElementById('legend');
+let legendTouched = false;
+let legendAuto = null;
+legend.addEventListener('toggle', () => { if (legend.open !== legendAuto) legendTouched = true; });
+function syncLegend() {
+  if (legendTouched) return;
+  legendAuto = !PHONE.matches;
+  legend.open = legendAuto;
+}
+PHONE.addEventListener('change', syncLegend);
 
 /* ---------- date, today line, right now ---------- */
 const dob = document.getElementById('dob');
@@ -915,7 +1052,7 @@ function ageWeeks() {
   return (Date.now() - b.getTime()) / (1000 * 60 * 60 * 24 * 7);
 }
 
-function label(w) {
+function formatAge(w) {
   if (w < 0) return 'not born yet';
   const mo = w / MONTH;
   if (mo < 3) return w.toFixed(1).replace(/\.0$/, '') + ' weeks';
@@ -926,8 +1063,6 @@ function render() {
   const w = ageWeeks();
   const ageN = document.getElementById('ageN');
   const ageS = document.getElementById('ageS');
-  const nowCols = document.getElementById('nowCols');
-  const soon = document.getElementById('soon');
 
   stamp.innerHTML = 'Today is <i>' + startOfToday().toLocaleDateString(undefined,
     { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + '</i>';
@@ -936,51 +1071,74 @@ function render() {
     ageN.textContent = '—';
     ageS.textContent = 'pick a date';
     canvas.style.setProperty('--today-vis', 'none');
-    nowCols.innerHTML = '<div class="now-col empty"><p>Set a date of birth to see active stages.</p></div>';
-    soon.innerHTML = '';
+    document.getElementById('nowCols').innerHTML =
+      '<div class="now-col empty"><p>Set a date of birth to see active stages.</p></div>';
+    document.getElementById('soon').innerHTML = '';
     return;
   }
 
-  ageN.textContent = label(w);
+  ageN.textContent = formatAge(w);
   ageS.textContent = w < 0 ? 'due soon' : 'old today';
 
   if (w >= 0 && w <= WEEKS) {
     canvas.style.setProperty('--today-vis', 'block');
     canvas.style.setProperty('--today', pct(w).toFixed(3) + '%');
-    todayTag.textContent = 'TODAY · ' + label(w);
+    todayTag.textContent = 'TODAY · ' + formatAge(w);
     placeTodayTag(w);
   } else {
     canvas.style.setProperty('--today-vis', 'none');
   }
 
-  // active phases
-  const cols = {};
+  renderNowColumns(w);
+  renderComingUp(w);
+}
+
+function renderNowColumns(w) {
+  const cols = [];
   GROUPS.forEach(g => {
-    const act = g.items.filter(it => it.mark ? false : (w >= it.a && w < it.b));
-    if (act.length) cols[g.c] = { name: g.name, items: act };
+    const active = g.items.filter(it => !it.mark && w >= it.a && w < it.b);
+    if (active.length) cols.push({ c: g.c, name: g.name, items: active });
   });
 
-  nowCols.innerHTML = Object.entries(cols).map(([c, v]) =>
-    '<div class="now-col" style="color:var(--' + c + ')"><h4>' + esc(v.name) + '</h4><ul>'
-    + v.items.map(i => '<li><span style="color:var(--ink)">' + esc(i.t) + '</span></li>').join('')
+  document.getElementById('nowCols').innerHTML = cols.map(v =>
+    '<div class="now-col" data-c="' + v.c + '"><h4>' + esc(v.name) + '</h4><ul>'
+    + v.items.map(i => '<li' + (i.avoid ? ' class="wait"' : '') + '>'
+        + '<span>' + esc(i.t) + '</span>'
+        + (i.avoid ? '<em>wait</em>' : '') + '</li>').join('')
     + '</ul></div>'
   ).join('') || '<div class="now-col empty"><p>'
     + (w < 0 ? 'Nothing yet. She has not been born.' : 'Past two years. She is all grown up.')
     + '</p></div>';
+}
 
-  // next boundaries
+/* "can start" and "ends" mean opposite things depending on whether a bar is a
+   skill window, a phase she goes through, or a restriction. Pick the verb from
+   the category so the chip reads as a sentence about the puppy. */
+const STARTS = { dev: 'starts', body: 'starts', seen: 'may start', safe: 'you can start', train: 'you can start' };
+
+function eventText(it, group, isStart) {
+  const name = it.t.replace(/\s*[\u2014-]\s*not yet$/i, '');
+  if (it.avoid) return name + (isStart ? ' \u2014 avoid from here' : ' \u2014 restriction lifts');
+  return name + (isStart ? ' \u2014 ' + STARTS[group] : ' \u2014 ends');
+}
+
+function renderComingUp(w) {
   const events = [];
   GROUPS.forEach(g => g.items.forEach(it => {
-    if (it.a > w) events.push({ w: it.a, txt: (it.avoid ? 'starts: ' : 'can start: ') + it.t });
-    if (it.b > w && !it.open && !it.mark) events.push({ w: it.b, txt: (it.avoid ? 'cleared: ' : 'ends: ') + it.t });
+    if (it.a > w) events.push({ w: it.a, txt: eventText(it, g.c, true) });
+    if (it.b > w && !it.open && !it.mark) events.push({ w: it.b, txt: eventText(it, g.c, false) });
   }));
-  events.sort((a, b) => a.w - b.w);
+  events.sort((x, y) => x.w - y.w);
+
   const seen = new Set();
   const next = events.filter(e => { if (seen.has(e.txt)) return false; seen.add(e.txt); return true; }).slice(0, 5);
-  soon.innerHTML = next.length
-    ? '<b>Coming up</b>' + next.map(e =>
-        '<span><i>' + (Math.round(e.w - w) < 1 ? 'now' : '+' + Math.round(e.w - w) + ' wk')
-        + '</i> &nbsp;' + esc(e.txt) + '</span>').join('')
+
+  document.getElementById('soon').innerHTML = next.length
+    ? '<b>Coming up</b>' + next.map(e => {
+        const wks = Math.round(e.w - w);
+        const when = wks < 1 ? 'This week' : (wks === 1 ? 'In 1 week' : 'In ' + wks + ' weeks');
+        return '<span><i>' + when + '</i> &nbsp;' + esc(e.txt) + '</span>';
+      }).join('')
     : '';
 }
 
@@ -996,17 +1154,17 @@ function placeTodayTag(w) {
   todayTag.style.left = x.toFixed(1) + 'px';
 }
 
-function goToToday() {
+function goToToday(behavior) {
   const w = ageWeeks();
-  if (w === null) return;
+  if (w === null || w < 0) return;
   if (PHONE.matches) {
-    chart.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    chart.scrollIntoView({ behavior: behavior || 'smooth', block: 'start' });
     return;
   }
   const trackW = canvas.querySelector('.ruler .track').clientWidth;
   const labW = canvas.querySelector('.ruler .lab').clientWidth;
   const x = labW + trackW * (w / WEEKS);
-  chart.scrollTo({ left: Math.max(0, x - chart.clientWidth * 0.32), behavior: 'smooth' });
+  chart.scrollTo({ left: Math.max(0, x - chart.clientWidth * 0.32), behavior: behavior || 'smooth' });
 }
 
 dob.addEventListener('change', () => {
@@ -1046,16 +1204,10 @@ window.addEventListener('resize', () => {
 });
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 
+syncLegend();
 render();
 placeLabels();
-requestAnimationFrame(() => {
-  if (PHONE.matches) return;
-  const w = ageWeeks();
-  if (w === null || w < 0) return;
-  const trackW = canvas.querySelector('.ruler .track').clientWidth;
-  const labW = canvas.querySelector('.ruler .lab').clientWidth;
-  chart.scrollTo({ left: Math.max(0, labW + trackW * (w / WEEKS) - chart.clientWidth * 0.32) });
-});
+requestAnimationFrame(() => { if (!PHONE.matches) goToToday('auto'); });
 </script>
 </body>
 </html>
