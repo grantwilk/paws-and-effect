@@ -1,0 +1,7 @@
+.DS_Store
+node_modules/
+*.log
+
+# The original single-file draft that index.html was built from. Kept on disk
+# as a reference, not published.
+puppy-master-plan.html

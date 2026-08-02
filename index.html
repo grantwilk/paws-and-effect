@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paws and Effect — A Puppy's First Two Years</title>
+<meta name="description" content="A week-by-week timeline of a puppy's first two years: brain stages, body limits, normal bad behavior, what is physically safe to do, and what to train.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#EDF0EA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141713" media="(prefers-color-scheme: dark)">
+<meta property="og:title" content="Paws and Effect — A Puppy's First Two Years">
+<meta property="og:description" content="What she can handle, week by week.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
+<script>
+  /* Runs before first paint so the page never flashes the wrong theme. */
+  (function () {
+    try {
+      var t = localStorage.getItem('pae.theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+/* ============================ tokens ============================ */
+:root{
+  --paper:#EDF0EA;
+  --panel:#F7F9F4;
+  --inset:#FFFFFF;
+  --grid:#D8DED2;
+  --grid2:#C3CCBB;
+  --line:#151E19;
+  --ink:#151E19;
+  --muted:#5C6A60;
+
+  --dev:#2E4A7D;
+  --body:#2F6B4F;
+  --seen:#A8442A;
+  --safe:#7A5B12;
+  --train:#5B3A73;
+  --now:#C8102E;
+
+  --barink:#FFFFFF;
+  --barbd:rgba(0,0,0,.28);
+  --grptint:rgba(0,0,0,.05);
+  --softop:.42;
+  --hatchA:#9A2B18;
+  --hatchB:#7C2114;
+  --hatchink:#FFFFFF;
+  --nowink:#FFFFFF;
+  --shadow:rgba(20,30,24,.26);
+
+  --ppw:12px;
+  --lane:30px;
+  --labw:250px;
+  --trackw:calc(112 * var(--ppw));
+  --rulerh:52px;
+}
+:root[data-theme="dark"]{ color-scheme:dark }
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ color-scheme:dark } }
+
+/* Dark palette. Category hues are lifted out of the muddy range and the bar
+   text flips to near-black, because the fills are now the light element. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#141713;
+    --panel:#1C201A;
+    --inset:#252A22;
+    --grid:#2E3429;
+    --grid2:#404737;
+    --line:#5A6353;
+    --ink:#E9EEE3;
+    --muted:#9DAA97;
+
+    --dev:#7BA5EC;
+    --body:#4FBE8B;
+    --seen:#EE8862;
+    --safe:#D8AC3E;
+    --train:#B98CDE;
+    --now:#FF6072;
+
+    --barink:#11140F;
+    --barbd:rgba(0,0,0,.42);
+    --grptint:rgba(255,255,255,.06);
+    --softop:.5;
+    --hatchA:#E1795F;
+    --hatchB:#B75740;
+    --hatchink:#1A0B07;
+    --nowink:#2B0308;
+    --shadow:rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141713;
+  --panel:#1C201A;
+  --inset:#252A22;
+  --grid:#2E3429;
+  --grid2:#404737;
+  --line:#5A6353;
+  --ink:#E9EEE3;
+  --muted:#9DAA97;
+
+  --dev:#7BA5EC;
+  --body:#4FBE8B;
+  --seen:#EE8862;
+  --safe:#D8AC3E;
+  --train:#B98CDE;
+  --now:#FF6072;
+
+  --barink:#11140F;
+  --barbd:rgba(0,0,0,.42);
+  --grptint:rgba(255,255,255,.06);
+  --softop:.5;
+  --hatchA:#E1795F;
+  --hatchB:#B75740;
+  --hatchink:#1A0B07;
+  --nowink:#2B0308;
+  --shadow:rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Source Serif 4",Georgia,serif;
+  line-height:1.5;
+  padding:22px 20px 60px;
+  -webkit-tap-highlight-color:transparent;
+}
+.shell{max-width:1500px;margin:0 auto}
+.cond{font-family:"Barlow Semi Condensed",system-ui,-apple-system,sans-serif}
+
+:where(button,input,summary):focus-visible{
+  outline:2.5px solid var(--now);outline-offset:2px;border-radius:3px;
+}
+
+/* ============================ header ============================ */
+.masthead{
+  display:flex;flex-wrap:wrap;gap:18px;
+  align-items:flex-end;justify-content:space-between;
+  border-bottom:3px solid var(--line);padding-bottom:14px;
+}
+.eyebrow{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--dev);margin-bottom:4px;
+}
+h1{
+  font-family:"Archivo",system-ui,sans-serif;
+  font-size:clamp(28px,4.6vw,46px);font-weight:800;letter-spacing:-.03em;line-height:.95;
+}
+h1 em{font-style:normal;color:var(--dev)}
+.sub{font-size:14px;color:var(--muted);margin-top:7px;max-width:52ch}
+.stamp{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-top:8px;
+}
+.stamp i{font-style:normal;color:var(--now)}
+
+.controls{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.ctl{display:flex;flex-direction:column;gap:4px}
+.ctl label{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.dobrow{display:flex;gap:6px;align-items:stretch}
+.ctl input[type=date]{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:15px;padding:7px 9px;border:1.5px solid var(--line);border-radius:3px;
+  background:var(--inset);color:var(--ink);min-height:38px;
+}
+.mini{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12px;font-weight:600;letter-spacing:.04em;
+  padding:0 10px;min-height:38px;cursor:pointer;
+  border:1.5px solid var(--line);border-radius:3px;
+  background:var(--inset);color:var(--muted);
+}
+.mini:hover{color:var(--ink)}
+.agebox{
+  border:1.5px solid var(--now);border-radius:3px;background:var(--inset);
+  padding:6px 13px 7px;min-width:132px;
+}
+.agebox .n{
+  font-family:"Archivo",system-ui,sans-serif;
+  font-size:25px;font-weight:800;line-height:1;color:var(--now);letter-spacing:-.02em;
+}
+.agebox .s{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12px;color:var(--muted);letter-spacing:.05em;margin-top:2px;
+}
+#theme{
+  display:flex;align-items:center;gap:6px;
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12.5px;font-weight:600;letter-spacing:.06em;
+  padding:0 11px;min-height:38px;cursor:pointer;
+  border:1.5px solid var(--line);border-radius:3px;
+  background:var(--inset);color:var(--ink);
+}
+#theme svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* ============================ right now ============================ */
+.now-panel{
+  margin-top:18px;background:var(--panel);
+  border:1.5px solid var(--line);border-left:7px solid var(--now);
+  border-radius:4px;padding:14px 16px 15px;
+}
+.now-head{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--now);margin-bottom:9px;
+}
+.now-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px 22px}
+.now-col h4{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  margin-bottom:5px;padding-bottom:3px;border-bottom:1px solid var(--grid2);
+}
+.now-col ul{list-style:none;font-size:13.5px;line-height:1.42}
+.now-col li{padding:2px 0 2px 12px;position:relative}
+.now-col li:before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.55}
+.now-col.empty p{font-size:13px;color:var(--muted);font-style:italic}
+.soon{
+  margin-top:12px;padding-top:11px;border-top:1px solid var(--grid2);
+  font-size:13.5px;display:flex;flex-wrap:wrap;gap:6px 8px;align-items:baseline;
+}
+.soon b{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+}
+.soon span{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:13px;background:var(--inset);border:1px solid var(--grid2);border-radius:3px;padding:3px 8px;
+}
+.soon span i{font-style:normal;color:var(--now);font-weight:700}
+
+/* ============================ toolbar ============================ */
+.toolbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:20px 0 9px}
+.filt{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12.5px;font-weight:600;letter-spacing:.04em;
+  padding:6px 11px;min-height:34px;border-radius:3px;cursor:pointer;
+  border:1.5px solid currentColor;background:transparent;
+}
+.filt[aria-pressed="false"]{opacity:.34}
+.spacer{flex:1}
+.jump{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12.5px;font-weight:600;padding:6px 11px;min-height:34px;cursor:pointer;
+  border:1.5px solid var(--line);background:var(--ink);color:var(--paper);border-radius:3px;
+}
+.hint{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12px;color:var(--muted);letter-spacing:.03em;
+}
+
+/* ============================ chart ============================ */
+.chart{
+  border:1.5px solid var(--line);border-radius:4px;background:var(--panel);
+  overflow:auto;max-height:74vh;position:relative;
+  overscroll-behavior-x:contain;
+}
+.canvas{position:relative;width:calc(var(--labw) + var(--trackw));min-width:100%}
+
+.row{display:flex;height:var(--lane);align-items:center}
+.row.grp{height:29px}
+.lab{
+  width:var(--labw);min-width:var(--labw);
+  position:sticky;left:0;z-index:8;
+  background:var(--panel);
+  border-right:2px solid var(--line);
+  padding:0 10px 0 13px;
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:13px;line-height:1.12;
+  display:flex;align-items:center;height:100%;
+  overflow:hidden;hyphens:auto;
+}
+.row.grp .lab{
+  font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--barink);
+}
+.track{
+  position:relative;height:100%;
+  width:var(--trackw);min-width:var(--trackw);
+}
+
+/* today line, drawn per track so it survives both layouts */
+.track:after{
+  content:"";position:absolute;top:0;bottom:0;left:var(--today,50%);
+  width:2px;margin-left:-1px;background:var(--now);
+  z-index:5;pointer-events:none;display:var(--today-vis,block);
+}
+
+/* ruler */
+.ruler{position:sticky;top:0;z-index:10;display:flex;height:var(--rulerh)}
+.ruler .lab{
+  z-index:11;border-bottom:2px solid var(--line);
+  font-weight:700;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);
+}
+.ruler .track{background:var(--panel);border-bottom:2px solid var(--line)}
+.mo{
+  position:absolute;top:3px;
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12.5px;font-weight:700;color:var(--ink);
+  transform:translateX(-50%);white-space:nowrap;
+}
+/* the first and last labels sit on the track edges, so they anchor
+   inward instead of centering and getting cut off */
+.mo.edge-start{transform:none;padding-left:3px}
+.mo.edge-end{transform:translateX(-100%);padding-right:3px}
+.wk{
+  position:absolute;bottom:4px;
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:11px;color:var(--muted);
+  transform:translateX(-50%);white-space:nowrap;
+}
+.rtick{position:absolute;bottom:0;width:1px;height:7px;background:var(--grid2)}
+.todaytag{
+  position:absolute;top:21px;left:var(--today,50%);
+  transform:translateX(-50%);z-index:12;
+  background:var(--now);color:var(--nowink);
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:11.5px;font-weight:700;letter-spacing:.08em;
+  padding:2px 7px 3px;border-radius:3px;white-space:nowrap;
+  display:var(--today-vis,block);pointer-events:none;
+}
+
+/* group header colour */
+.grp[data-c="dev"] .lab{background:var(--dev)}
+.grp[data-c="body"] .lab{background:var(--body)}
+.grp[data-c="seen"] .lab{background:var(--seen)}
+.grp[data-c="safe"] .lab{background:var(--safe)}
+.grp[data-c="train"] .lab{background:var(--train)}
+.grp .track{background:var(--grptint);border-top:1px solid var(--grid2);border-bottom:1px solid var(--grid2)}
+
+/* four-week gridlines, fluid at any track width */
+.row:not(.grp):not(.ruler) .track{
+  background-image:repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px calc(100% / 28));
+}
+
+/* bars */
+.bar{
+  position:absolute;top:50%;transform:translateY(-50%);
+  height:17px;min-width:8px;border-radius:2.5px;cursor:pointer;
+  display:flex;align-items:center;padding:0 7px;
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12px;font-weight:600;color:var(--barink);white-space:nowrap;
+  border:1px solid var(--barbd);
+  transition:filter .12s, outline-color .12s;
+  outline:2px solid transparent;outline-offset:1px;
+  overflow:hidden;
+}
+/* invisible padding so a 17px bar is still a comfortable tap target */
+.bar:before{content:"";position:absolute;top:-7px;bottom:-7px;left:-5px;right:-5px}
+.bar .bt{overflow:hidden;text-overflow:clip}
+.bar:hover{filter:brightness(1.14)}
+.bar.sel{outline-color:var(--ink)}
+.bar[data-c="dev"]{background:var(--dev)}
+.bar[data-c="body"]{background:var(--body)}
+.bar[data-c="seen"]{background:var(--seen)}
+.bar[data-c="safe"]{background:var(--safe)}
+.bar[data-c="train"]{background:var(--train)}
+.bar.soft{opacity:var(--softop)}
+.bar.avoid{
+  background:repeating-linear-gradient(-45deg,var(--hatchA) 0 6px,var(--hatchB) 6px 12px);
+  color:var(--hatchink);
+}
+.bar.open{
+  border-right:none;
+  -webkit-mask-image:linear-gradient(90deg,#000 76%,transparent 100%);
+  mask-image:linear-gradient(90deg,#000 76%,transparent 100%);
+}
+.bar.shuts:after{
+  content:"";position:absolute;right:-3px;top:-4px;bottom:-4px;width:4px;
+  background:var(--now);border-radius:1px;
+}
+.blabel-out{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12px;color:var(--muted);white-space:nowrap;pointer-events:none;
+}
+.mark{
+  position:absolute;top:50%;width:11px;height:11px;padding:0;
+  transform:translate(-50%,-50%) rotate(45deg);
+  border:1.5px solid var(--panel);cursor:pointer;
+}
+.mark:before{content:"";position:absolute;top:-9px;bottom:-9px;left:-9px;right:-9px}
+.mark[data-c="body"]{background:var(--body)}
+.mark[data-c="dev"]{background:var(--dev)}
+
+/* ============================ detail ============================ */
+.detail{
+  margin-top:14px;background:var(--panel);border:1.5px solid var(--line);border-radius:4px;
+  padding:14px 16px;min-height:92px;position:relative;
+}
+.detail .dh{
+  font-family:"Archivo",system-ui,sans-serif;
+  font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px;padding-right:34px;
+}
+.detail .dm{
+  font-family:"Barlow Semi Condensed",system-ui,sans-serif;
+  font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:8px;
+}
+.detail p{font-size:14.5px;max-width:88ch}
+.detail .idle{color:var(--muted);font-style:italic;font-size:14px}
+#detailClose{
+  display:none;position:absolute;top:9px;right:9px;
+  width:32px;height:32px;border-radius:50%;cursor:pointer;
+  border:1.5px solid var(--grid2);background:var(--inset);color:var(--ink);
+  font-size:19px;line-height:1;
+}
+
+/* ============================ legend / footer ============================ */
+.legend{
+  margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:10px 24px;border-top:1.5px solid var(--line);padding-top:12px;
+}
+.lg{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--muted)}
+.lg b{color:var(--ink)}
+.sw{width:26px;min-width:26px;height:13px;border-radius:2.5px;margin-top:3px;border:1px solid var(--barbd)}
+.sw.avoid{background:repeating-linear-gradient(-45deg,var(--hatchA) 0 5px,var(--hatchB) 5px 10px)}
+.sw.shuts{background:var(--dev);box-shadow:3px 0 0 var(--now)}
+.sw.soft{background:var(--train);opacity:var(--softop)}
+.sw.openend{background:linear-gradient(90deg,var(--safe) 60%,transparent)}
+.foot{
+  margin-top:16px;padding-top:11px;border-top:1px solid var(--grid2);
+  font-size:12.5px;color:var(--muted);line-height:1.5;max-width:100ch;
+}
+.foot a{color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ============================ phone ============================ */
+@media (max-width:760px){
+  body{padding:16px 12px 44px}
+  .masthead{gap:14px}
+  .controls{width:100%;gap:10px}
+  .ctl{flex:1 1 160px}
+  .ctl input[type=date]{width:100%}
+  .agebox{flex:1 1 130px}
+
+  .hint{display:none}
+  .toolbar{gap:6px}
+  .filt{flex:1 1 auto;text-align:center}
+
+  /* The chart stops being a horizontal scroller. Every row stacks:
+     its label on one line, its own full-width 0-to-2-year track below. */
+  .chart{
+    max-height:none;overflow:visible;border:none;border-radius:0;
+    background:transparent;
+  }
+  .canvas{width:auto;min-width:0}
+
+  .row{display:block;height:auto;padding:0}
+  .row .lab{
+    position:static;width:auto;min-width:0;height:auto;
+    background:transparent;border-right:none;
+    padding:9px 2px 4px;font-size:13px;line-height:1.25;
+    overflow:visible;
+  }
+  .row .track{
+    width:100%;min-width:0;height:22px;
+    border:1px solid var(--grid2);border-radius:3px;background-color:var(--panel);
+  }
+  .bar .bt,.blabel-out{display:none}
+  .bar{height:14px;border-radius:2px}
+
+  .row.grp{height:auto;padding:0}
+  .row.grp .lab{
+    margin:18px 0 2px;padding:6px 11px;border-radius:3px;
+    font-size:11px;letter-spacing:.14em;
+  }
+  .row.grp .track{display:none}
+
+  .row.ruler{
+    display:block;position:sticky;top:0;z-index:20;height:auto;
+    background:var(--paper);padding:0 0 6px;
+    box-shadow:0 6px 10px -8px var(--shadow);
+  }
+  .row.ruler .lab{display:none}
+  .row.ruler .track{
+    height:38px;border:none;border-bottom:2px solid var(--line);
+    border-radius:0;background:transparent;
+  }
+  .ruler .wk,.ruler .rtick{display:none}
+  .ruler .mo{font-size:11.5px;top:2px}
+  .ruler .mo:not(.major){display:none}
+  .todaytag{top:18px;font-size:11px;padding:1px 6px 2px}
+
+  /* the detail becomes a bottom sheet, because the inline pane is
+     off-screen by the time you tap a bar */
+  .detail{
+    position:fixed;left:0;right:0;bottom:0;z-index:60;margin:0;
+    max-height:64vh;overflow:auto;
+    border-width:1.5px 0 0;border-radius:14px 14px 0 0;
+    box-shadow:0 -10px 30px var(--shadow);
+    padding:16px 16px calc(18px + env(safe-area-inset-bottom));
+    transform:translateY(105%);transition:transform .22s ease;
+    min-height:0;
+  }
+  .detail.open{transform:translateY(0)}
+  .detail .idle{display:none}
+  #detailClose{display:block}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">Paws and effect &middot; a puppy&rsquo;s first two years</div>
+      <h1>What She Can <em>Handle</em>, Week by Week</h1>
+      <p class="sub">Brain stages, body limits, normal bad behavior, what is physically safe to do, and what to train. The red line is today.</p>
+      <div class="stamp" id="stamp"></div>
+    </div>
+    <div class="controls">
+      <div class="ctl">
+        <label for="dob">Date of birth</label>
+        <div class="dobrow">
+          <input type="date" id="dob" value="2026-05-18">
+          <button class="mini" id="dobReset" type="button" title="Back to May 18, 2026">Reset</button>
+        </div>
+      </div>
+      <div class="agebox">
+        <div class="n" id="ageN">&mdash;</div>
+        <div class="s" id="ageS">&nbsp;</div>
+      </div>
+      <button id="theme" type="button" aria-label="Change color theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true" id="themeIcon"></svg>
+        <span id="themeLabel">Auto</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="now-panel" aria-label="Right now">
+    <div class="now-head">Right now</div>
+    <div class="now-cols" id="nowCols"></div>
+    <div class="soon" id="soon"></div>
+  </section>
+
+  <div class="toolbar" id="toolbar">
+    <button class="filt" data-c="dev"   type="button" aria-pressed="true" style="color:var(--dev)">Brain &amp; stages</button>
+    <button class="filt" data-c="body"  type="button" aria-pressed="true" style="color:var(--body)">Body &amp; vet</button>
+    <button class="filt" data-c="seen"  type="button" aria-pressed="true" style="color:var(--seen)">What you&rsquo;ll see</button>
+    <button class="filt" data-c="safe"  type="button" aria-pressed="true" style="color:var(--safe)">Safe to do</button>
+    <button class="filt" data-c="train" type="button" aria-pressed="true" style="color:var(--train)">Training plan</button>
+    <span class="spacer"></span>
+    <span class="hint">Scroll sideways &middot; tap any bar</span>
+    <button class="jump" id="jump" type="button">Go to today</button>
+  </div>
+
+  <div class="chart" id="chart">
+    <div class="canvas" id="canvas"></div>
+  </div>
+
+  <section class="detail" id="detail" aria-live="polite">
+    <button id="detailClose" type="button" aria-label="Close">&times;</button>
+    <p class="idle">Tap any bar to see what it means and what to do about it.</p>
+  </section>
+
+  <div class="legend">
+    <div class="lg"><span class="sw shuts"></span><span><b>Red end cap</b> &mdash; this window closes for good. You cannot redo it later.</span></div>
+    <div class="lg"><span class="sw avoid"></span><span><b>Hatched</b> &mdash; not yet. Wait until the bar ends.</span></div>
+    <div class="lg"><span class="sw openend"></span><span><b>Faded right edge</b> &mdash; continues past two years.</span></div>
+    <div class="lg"><span class="sw soft"></span><span><b>Pale</b> &mdash; keep it going, but it is no longer the main job.</span></div>
+  </div>
+
+  <p class="foot">
+    Ages are typical ranges, not deadlines. Small breeds mature toward the early end and giant breeds toward the late end, sometimes past it. Vaccination timing, spay or neuter timing, and joint readiness are veterinary decisions that depend on your dog and your area, so treat those bars as conversation starters with your vet, not instructions. For fear, aggression, or biting that breaks skin, get a certified trainer or a veterinary behaviorist involved early rather than waiting it out.
+  </p>
+
+</div>
+
+<script>
+"use strict";
+
+const WEEKS = 112;            // 0 – 112 weeks (~26 months)
+const MONTH = 4.345;          // weeks per month
+const DEFAULT_DOB = '2026-05-18';
+const KEY_DOB = 'pae.dob';
+const KEY_THEME = 'pae.theme';
+const PHONE = window.matchMedia('(max-width: 760px)');
+
+/* localStorage throws in some privacy modes and on file:// origins. */
+const store = {
+  get(k){ try { return localStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { localStorage.setItem(k,v); } catch(e){} },
+  del(k){ try { localStorage.removeItem(k); } catch(e){} }
+};
+
+const GROUPS = [
+  { c:'dev', name:'Brain & stages', items:[
+    {t:'Socialization window', a:3, b:16, shuts:true,
+     d:'The one window that truly closes. Whatever she meets and enjoys now gets filed as safe for life; after about 16 weeks her default flips to suspicious. Aim for calm, positive exposure to many kinds of people, surfaces, sounds, and handling. Quality over quantity, and always let her choose to approach.'},
+    {t:'First fear period', a:8, b:11,
+     d:'A normal jumpy patch. Scares that land here can stick for years. Do not flood her, do not force her toward anything, and do not scold fear. Let her retreat, then let her investigate on her own terms and pay her for it.'},
+    {t:'Follow instinct (easy recall)', a:8, b:14,
+     d:'Puppies are wired to stay near you, and it fades as confidence grows. This is the cheapest recall you will ever get, so bank hundreds of reps now. Never call her to something she dislikes.'},
+    {t:'Juvenile: the easy stretch', a:16, b:26,
+     d:'Between puppy chaos and adolescence there is usually a cooperative window. Use it to build skills in easy places so they are fluent before adolescence tests them.'},
+    {t:'Adolescence', a:26, b:78, open:true,
+     d:'Grown body, unfinished brain. Expect selective hearing, bigger reactions, and more interest in the environment than in you. This is when most owners quit training, right before it would have paid off. Manage, lower your criteria, keep paying well.'},
+    {t:'Second fear period', a:26, b:52,
+     d:'A confident dog suddenly spooks at something ordinary. Same rules as the first one: no scolding, no forcing, let her look and leave. Usually passes in a few weeks.'},
+    {t:'Impulse control developing', a:16, b:104, open:true,
+     d:'Self control is hardware that grows in slowly and is not adult until well into the second year. Before that you are building habits and fluency, not testing willpower. Keep her under threshold rather than proving a point.'},
+    {t:'Social maturity', a:52, b:112, open:true,
+     d:'Adult personality settles here. Dog-to-dog preferences often narrow, and a dog who loved every dog at eight months may become selective. That is normal maturity, not a training failure.'},
+  ]},
+
+  { c:'body', name:'Body & vet', items:[
+    {t:'Sleeps 18–20 hr a day', a:0, b:26,
+     d:'Puppies need this much sleep and rarely take it voluntarily. Most evening land-shark episodes are overtired puppies. Enforce naps in a crate or pen on a schedule instead of waiting for her to settle on her own.'},
+    {t:'Puppy vaccine series', a:6, b:16,
+     d:'Usually a series of boosters every two to four weeks until about 16 weeks, with rabies commonly around 12 to 16 weeks. Exact schedule is your vet\u2019s call.'},
+    {t:'Not fully covered yet', a:0, b:18, avoid:true,
+     d:'Until roughly two weeks after the final booster, she is not fully protected. Avoid dog parks, pet store floors, rest stops, and unknown dogs. Do not use this as a reason to skip socialization: carry her, use clean private yards, and meet vaccinated adult dogs you know.'},
+    {t:'Teething', a:12, b:26,
+     d:'Adult teeth push in and gums hurt, so chewing and mouthing spike. Give frozen toys and wet frozen washcloths. Check around 26 weeks that all baby teeth, especially canines, have actually fallen out.'},
+    {t:'Adult teeth in', a:26, b:26, mark:true,
+     d:'By roughly six months the adult set is usually in and mouthing drops sharply. Retained baby teeth need a vet look.'},
+    {t:'Bladder control maturing', a:0, b:26,
+     d:'Rough guide: hours she can hold is about her age in months plus one, and less when excited or asleep-deprived. Before four to six months, accidents are plumbing, not disobedience. Keep the schedule tight and reward outside every time.'},
+    {t:'Growth plates open', a:0, b:78, shuts:true,
+     d:'Soft growth plates at the ends of long bones are injury-prone. They close roughly 12 to 18 months in small and medium dogs and later in large and giant breeds. Until your vet confirms closure, limit repetitive impact: no long runs on pavement, no repeated jumping, no forced stairs, no tight agility turns.'},
+    {t:'Sexual maturity / first heat', a:26, b:52,
+     d:'Often six to twelve months, later in big breeds. Expect marking, roaming interest, humping, and more dog-dog friction whether or not you plan to neuter.'},
+    {t:'Spay or neuter decision', a:26, b:78, soft:true,
+     d:'Timing is genuinely debated and depends on breed, size, sex, and lifestyle. Larger breeds are often recommended to wait until growth is finished for joint reasons. Have this conversation with your vet rather than defaulting to a number.'},
+    {t:'Switch to adult food', a:48, b:78, soft:true,
+     d:'Around 12 months for small and medium dogs, closer to 18 to 24 months for large and giant breeds. Large-breed puppies need controlled calcium and calories while growing.'},
+  ]},
+
+  { c:'seen', name:'What you\u2019ll see (normal)', items:[
+    {t:'Nipping and land sharking', a:9, b:26,
+     d:'Peaks with teething and fades by five to seven months. Redirect to a toy, end the game when teeth hit skin, and check whether she is simply overtired before you correct anything.'},
+    {t:'Destructive chewing', a:12, b:52,
+     d:'Two waves: teething pain, then adolescent boredom. Manage the environment, rotate real chew outlets, and crate or pen her when unsupervised. Punishing after the fact teaches nothing.'},
+    {t:'Recall falls apart', a:26, b:60,
+     d:'Almost universal, and it is the number one reason adolescent dogs get lost. Go back to a long line, raise the pay, and stop calling her when you know she will not come. Never punish a slow recall.'},
+    {t:'Testing boundaries', a:30, b:70,
+     d:'Known cues get ignored, especially with an audience. This is arousal and environment, not spite. Reduce distraction, reward faster, and keep sessions short.'},
+    {t:'Marking / leg lifting', a:26, b:52,
+     d:'Starts with sexual maturity in males and some females. Manage with leash control on walks and prompt cleanup indoors.'},
+    {t:'New fears or reactivity', a:26, b:78,
+     d:'Barking and lunging at dogs, people, or bikes often shows up here. Distance is your tool: stay far enough away that she can eat, and pay her for looking calmly. If it escalates, get professional help early.'},
+    {t:'Resource guarding can start', a:8, b:52,
+     d:'Stiffening over food, chews, or spots. Never take things away to prove a point. Trade up, add value to your approach, and call a professional at the first growl rather than the first bite.'},
+    {t:'Humping and over-arousal', a:26, b:65,
+     d:'Usually excitement or stress rather than dominance. Interrupt calmly, give a break, and lower the intensity of play before it boils over.'},
+  ]},
+
+  { c:'safe', name:'Safe to do (physical)', items:[
+    {t:'Carry outside, clean surfaces', a:0, b:12,
+     d:'Before full vaccine coverage, get her out in the world in your arms or a sling: traffic noise, crowds, elevators, umbrellas. All the exposure with far less disease risk.'},
+    {t:'Puppy class, vaccinated pups', a:8, b:16,
+     d:'Well-run indoor puppy classes are recommended by veterinary behavior groups because the behavioral risk of under-socializing outweighs the small disease risk in a clean, screened class.'},
+    {t:'Walks: 5 min per month of age', a:10, b:52,
+     d:'A common rule of thumb: about five minutes of formal leash walking per month of age, once or twice a day. So 10 minutes at two months, 25 at five months. Free sniffing and play in a yard are gentler on joints than steady road walking.'},
+    {t:'Repeated stairs \u2014 not yet', a:0, b:16, avoid:true,
+     d:'Carry her down stairs while she is small. Repeated stair descent loads soft joints and is linked with higher hip risk in very young puppies. A few supervised steps up on carpet is fine.'},
+    {t:'Stairs, supervised and limited', a:16, b:52,
+     d:'Normal household stairs are fine now in moderation. Skip long flights, slippery hardwood, and racing up and down as a game. Use a runner or rug for traction.'},
+    {t:'Stairs freely', a:52, b:112, open:true,
+     d:'Once growth is finished, stairs are just stairs, unless your vet has flagged joints.'},
+    {t:'Pet stores, patios, public floors', a:18, b:112, open:true,
+     d:'Roughly two weeks after the final puppy booster. Keep visits short and positive rather than long and overwhelming.'},
+    {t:'Dog parks — not yet', a:0, b:52, avoid:true,
+     d:'Off-leash parks are the most common place adolescent dogs learn to be afraid of or rude with other dogs. There is no screening, no supervision, and one bad experience during a fear period can cost you years. Use known, well-matched playmates instead.'},
+    {t:'Dog park, only if she suits it', a:52, b:112, open:true, soft:true,
+     d:'Even at maturity this is optional, not a milestone. Good candidates are dogs who are genuinely social, recall well, and disengage easily. Plenty of well-adjusted adult dogs should never go, and that is fine.'},
+    {t:'Off-leash in a fenced space', a:16, b:112, open:true,
+     d:'Fenced yards and empty tennis courts let you practice recall with real freedom and no risk. Start before adolescence so the habit predates the hard part.'},
+    {t:'Long line in open areas', a:20, b:112, open:true,
+     d:'A 15 to 30 foot line clipped to a harness gives freedom while keeping the option to prevent a failed recall. This is your main tool through the whole adolescent slump.'},
+    {t:'Swimming, supervised', a:26, b:112, open:true,
+     d:'Low impact and joint friendly, but never assume she can swim. Use a life vest, start in water she can stand in, and always give her a clear way out.'},
+    {t:'Boarding, daycare, groomer', a:26, b:112, open:true, soft:true,
+     d:'Do short, positive trial visits well before you actually need them. Screen daycares for group size, staff ratio, and enforced rest breaks; bad daycare teaches rude, over-aroused play.'},
+    {t:'Jogging with you', a:52, b:78, avoid:true,
+     d:'Hold off on steady road running until your vet confirms growth plates have closed, which is later in big breeds. Build distance gradually after that.'},
+    {t:'Jogging, build up slowly', a:78, b:112, open:true,
+     d:'Start with short distances on soft ground, add roughly ten percent a week, and check her feet and gait afterwards.'},
+    {t:'Hiking longer distances', a:52, b:112, open:true,
+     d:'Trails are more forgiving than pavement. Watch heat, pad wear, and her willingness to keep going rather than a target mileage.'},
+    {t:'Jumping and dog sports', a:78, b:112, open:true,
+     d:'Foundation and flatwork can start much earlier, but full-height jumps, weave poles, and hard turns wait for confirmed skeletal maturity.'},
+  ]},
+
+  { c:'train', name:'Training plan', items:[
+    {t:'Handling and husbandry', a:3, b:16,
+     d:'Paws, ears, mouth, collar grabs, nail clippers, brush, being held still. Pair every touch with food. Ten seconds a day now saves years of fighting at the vet and the groomer.'},
+    {t:'Keep husbandry topped up', a:16, b:112, open:true, soft:true,
+     d:'A quick weekly session keeps it fluent. Do not let the first nail trim in six months be an emergency one.'},
+    {t:'Name and food-based recall', a:8, b:16,
+     d:'Say her name, pay her, every time. Run away and reward her for chasing you. Use her actual meals for this.'},
+    {t:'Crate and time alone', a:8, b:26,
+     d:'Build up in seconds and minutes with something good to chew. Alone time is a trained skill, and skipping it is a common route to separation problems.'},
+    {t:'Sit, down, luring, marker word', a:8, b:20,
+     d:'Easy wins that teach her how learning works. Keep sessions to two or three minutes and always stop while she still wants more.'},
+    {t:'Place and mat settle, short reps', a:10, b:26,
+     d:'Feed frequently while she is on the mat rather than once at the end, add a clear release word, and vary the duration instead of always pushing longer. Reward calm body language, not just position.'},
+    {t:'Leave it, drop it, trade', a:14, b:40,
+     d:'Trading beats taking. A dog who believes hands approaching means something good rarely develops guarding, and drop it is the cue that saves her from what she swallowed on the trail.'},
+    {t:'Loose leash foundation', a:16, b:52,
+     d:'Reward position rather than punishing pulling. Practice in boring places first; a busy sidewalk is an exam, not a lesson.'},
+    {t:'Proof recall vs distraction', a:26, b:78,
+     d:'Work up through easy, medium, and hard distractions on the long line. Keep an emergency recall word that is only ever used for real and always pays enormously.'},
+    {t:'Duration stays, settle at meals', a:40, b:104, open:true,
+     d:'Now the brain can hold it. Build with variable durations, add distance and distraction one at a time, and use her own dinner delivered on the mat so food stops being the enemy of the mat.'},
+    {t:'Off-leash reliability', a:52, b:104, open:true,
+     d:'Earned, not granted, and it is fragile in adolescence. Keep the long line on until she is right nine times out of ten in that specific place.'},
+    {t:'Re-proof everything', a:30, b:60,
+     d:'Assume every cue needs retraining in every context. This is not lost progress; it is normal, and dogs who are trained through it come out far ahead of dogs who are not.'},
+  ]},
+];
+
+/* ---------- build chart ----------
+   Everything is positioned as a percentage of the track, so the same DOM
+   works for the wide scrolling timeline and the stacked phone layout. */
+const canvas = document.getElementById('canvas');
+const pct = w => (w / WEEKS) * 100;
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+const MAJOR_MONTHS = new Set([0, 6, 12, 18, 24]);
+let html = '';
+
+// ruler
+const months = [];
+for (let m = 0; m * MONTH <= WEEKS; m++) {
+  if (m > 12 && m % 3 !== 0) continue;
+  months.push(m);
+}
+html += '<div class="row ruler"><div class="lab">Age</div><div class="track">';
+months.forEach((m, i) => {
+  const text = m === 0 ? 'birth' : (m < 24 ? m + ' mo' : '2 yr');
+  let cls = 'mo';
+  if (MAJOR_MONTHS.has(m)) cls += ' major';
+  if (i === 0) cls += ' edge-start';
+  else if (i === months.length - 1 && pct(m * MONTH) > 94) cls += ' edge-end';
+  html += '<div class="' + cls + '" style="left:' + pct(m * MONTH).toFixed(3) + '%">' + text + '</div>';
+});
+for (let w = 0; w <= WEEKS; w += 2) {
+  const tall = w % 8 === 0;
+  html += '<div class="rtick" style="left:' + pct(w).toFixed(3) + '%' + (tall ? ';height:11px' : '') + '"></div>';
+  if (tall) html += '<div class="wk" style="left:' + pct(w).toFixed(3) + '%">wk ' + w + '</div>';
+}
+html += '<div class="todaytag" id="todayTag"></div>';
+html += '</div></div>';
+
+GROUPS.forEach(g => {
+  html += '<div class="row grp" data-c="' + g.c + '" data-grp="' + g.c + '">'
+        + '<div class="lab">' + esc(g.name) + '</div><div class="track"></div></div>';
+
+  g.items.forEach((it, ii) => {
+    const id = g.c + '-' + ii;
+    const left = pct(it.a).toFixed(3);
+    const title = esc(it.t);
+    let inner;
+
+    if (it.mark) {
+      inner = '<button class="mark" type="button" data-c="' + g.c + '" data-id="' + id + '"'
+            + ' style="left:' + left + '%" aria-label="' + title + '"></button>'
+            + '<div class="blabel-out" style="left:calc(' + left + '% + 11px)">' + title + '</div>';
+    } else {
+      let cls = 'bar';
+      if (it.avoid) cls += ' avoid';
+      if (it.open)  cls += ' open';
+      if (it.shuts) cls += ' shuts';
+      if (it.soft)  cls += ' soft';
+      const wdt = pct(Math.max(it.b - it.a, 0)).toFixed(3);
+      inner = '<button class="' + cls + '" type="button" data-c="' + g.c + '" data-id="' + id + '"'
+            + ' style="left:' + left + '%;width:' + wdt + '%"><span class="bt">' + title + '</span></button>'
+            + '<div class="blabel-out" data-for="' + id + '" style="left:calc(' + left + '% + ' + wdt + '% + 7px)">' + title + '</div>';
+    }
+
+    html += '<div class="row" data-grp="' + g.c + '">'
+          + '<div class="lab" title="' + title + '">' + title + '</div>'
+          + '<div class="track">' + inner + '</div></div>';
+  });
+});
+
+canvas.innerHTML = html;
+
+/* ---------- bar label placement ----------
+   A title sits inside its bar when it fits, and beside the bar when it does
+   not. Widths are percentages now, so this has to be measured after layout
+   and again whenever the chart is resized. */
+const bars = Array.from(canvas.querySelectorAll('.bar'));
+const measure = document.createElement('span');
+measure.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;'
+  + 'font-family:"Barlow Semi Condensed",system-ui,sans-serif;font-size:12px;font-weight:600';
+document.body.appendChild(measure);
+
+function placeLabels() {
+  if (PHONE.matches) return;                 // phone hides both labels
+  bars.forEach(bar => {
+    const out = canvas.querySelector('.blabel-out[data-for="' + bar.dataset.id + '"]');
+    const span = bar.querySelector('.bt');
+    measure.textContent = span.textContent;
+    const fits = bar.clientWidth >= measure.offsetWidth + 16;
+    span.style.visibility = fits ? '' : 'hidden';
+    if (out) out.style.display = fits ? 'none' : '';
+  });
+}
+
+/* ---------- lookup ---------- */
+const BYID = {};
+GROUPS.forEach(g => g.items.forEach((it, ii) => { BYID[g.c + '-' + ii] = Object.assign({}, it, { group: g.name, c: g.c }); }));
+
+/* ---------- detail ---------- */
+const detail = document.getElementById('detail');
+const detailClose = document.getElementById('detailClose');
+
+function fmtRange(it) {
+  if (it.mark) return 'about week ' + it.a;
+  const s = 'week ' + it.a + ' to ' + (it.open ? 'past week ' + it.b : 'week ' + it.b);
+  const trim = w => (w / MONTH).toFixed(1).replace(/\.0$/, '');
+  return s + '  ·  ' + trim(it.a) + ' to ' + trim(it.b) + ' months';
+}
+
+function select(id, el) {
+  canvas.querySelectorAll('.sel').forEach(b => b.classList.remove('sel'));
+  if (el) el.classList.add('sel');
+  const it = BYID[id];
+  if (!it) return;
+  detail.innerHTML = '<button id="detailClose" type="button" aria-label="Close">&times;</button>'
+    + '<div class="dh">' + esc(it.t) + '</div>'
+    + '<div class="dm" style="color:var(--' + it.c + ')">' + esc(it.group) + ' &nbsp;·&nbsp; ' + fmtRange(it) + '</div>'
+    + '<p>' + esc(it.d) + '</p>';
+  detail.classList.add('open');
+}
+
+function closeDetail() {
+  detail.classList.remove('open');
+  canvas.querySelectorAll('.sel').forEach(b => b.classList.remove('sel'));
+}
+
+canvas.addEventListener('click', e => {
+  const el = e.target.closest('.bar,.mark');
+  if (!el) return;
+  select(el.dataset.id, el);
+});
+detail.addEventListener('click', e => { if (e.target.closest('#detailClose')) closeDetail(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+/* ---------- filters ---------- */
+document.getElementById('toolbar').addEventListener('click', e => {
+  const b = e.target.closest('.filt');
+  if (!b) return;
+  const on = b.getAttribute('aria-pressed') !== 'true';
+  b.setAttribute('aria-pressed', String(on));
+  canvas.querySelectorAll('[data-grp="' + b.dataset.c + '"]').forEach(r => {
+    r.style.display = on ? '' : 'none';
+  });
+  placeLabels();
+});
+
+/* ---------- theme ---------- */
+const themeBtn = document.getElementById('theme');
+const themeIcon = document.getElementById('themeIcon');
+const themeLabel = document.getElementById('themeLabel');
+const ICONS = {
+  auto:  '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/>',
+  light: '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>',
+  dark:  '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/>'
+};
+const ORDER = ['auto', 'light', 'dark'];
+
+function paintTheme(mode) {
+  if (mode === 'auto') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', mode);
+  themeIcon.innerHTML = ICONS[mode];
+  themeLabel.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+  themeBtn.setAttribute('aria-label', 'Color theme: ' + mode + '. Click to change.');
+}
+
+let themeMode = store.get(KEY_THEME);
+if (ORDER.indexOf(themeMode) < 0) themeMode = 'auto';
+paintTheme(themeMode);
+
+themeBtn.addEventListener('click', () => {
+  themeMode = ORDER[(ORDER.indexOf(themeMode) + 1) % ORDER.length];
+  if (themeMode === 'auto') store.del(KEY_THEME); else store.set(KEY_THEME, themeMode);
+  paintTheme(themeMode);
+});
+
+/* ---------- date, today line, right now ---------- */
+const dob = document.getElementById('dob');
+const dobReset = document.getElementById('dobReset');
+const chart = document.getElementById('chart');
+const stamp = document.getElementById('stamp');
+const todayTag = document.getElementById('todayTag');
+
+const savedDob = store.get(KEY_DOB);
+if (savedDob && /^\d{4}-\d{2}-\d{2}$/.test(savedDob)) dob.value = savedDob;
+
+function startOfToday() {
+  const n = new Date();
+  return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+}
+
+function ageWeeks() {
+  if (!dob.value) return null;
+  const parts = dob.value.split('-').map(Number);
+  const b = new Date(parts[0], parts[1] - 1, parts[2]);
+  if (isNaN(b.getTime())) return null;
+  return (Date.now() - b.getTime()) / (1000 * 60 * 60 * 24 * 7);
+}
+
+function label(w) {
+  if (w < 0) return 'not born yet';
+  const mo = w / MONTH;
+  if (mo < 3) return w.toFixed(1).replace(/\.0$/, '') + ' weeks';
+  return mo.toFixed(1).replace(/\.0$/, '') + ' months';
+}
+
+function render() {
+  const w = ageWeeks();
+  const ageN = document.getElementById('ageN');
+  const ageS = document.getElementById('ageS');
+  const nowCols = document.getElementById('nowCols');
+  const soon = document.getElementById('soon');
+
+  stamp.innerHTML = 'Today is <i>' + startOfToday().toLocaleDateString(undefined,
+    { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + '</i>';
+
+  if (w === null) {
+    ageN.textContent = '—';
+    ageS.textContent = 'pick a date';
+    canvas.style.setProperty('--today-vis', 'none');
+    nowCols.innerHTML = '<div class="now-col empty"><p>Set a date of birth to see active stages.</p></div>';
+    soon.innerHTML = '';
+    return;
+  }
+
+  ageN.textContent = label(w);
+  ageS.textContent = w < 0 ? 'due soon' : 'old today';
+
+  if (w >= 0 && w <= WEEKS) {
+    canvas.style.setProperty('--today-vis', 'block');
+    canvas.style.setProperty('--today', pct(w).toFixed(3) + '%');
+    todayTag.textContent = 'TODAY · ' + label(w);
+    placeTodayTag(w);
+  } else {
+    canvas.style.setProperty('--today-vis', 'none');
+  }
+
+  // active phases
+  const cols = {};
+  GROUPS.forEach(g => {
+    const act = g.items.filter(it => it.mark ? false : (w >= it.a && w < it.b));
+    if (act.length) cols[g.c] = { name: g.name, items: act };
+  });
+
+  nowCols.innerHTML = Object.entries(cols).map(([c, v]) =>
+    '<div class="now-col" style="color:var(--' + c + ')"><h4>' + esc(v.name) + '</h4><ul>'
+    + v.items.map(i => '<li><span style="color:var(--ink)">' + esc(i.t) + '</span></li>').join('')
+    + '</ul></div>'
+  ).join('') || '<div class="now-col empty"><p>'
+    + (w < 0 ? 'Nothing yet. She has not been born.' : 'Past two years. She is all grown up.')
+    + '</p></div>';
+
+  // next boundaries
+  const events = [];
+  GROUPS.forEach(g => g.items.forEach(it => {
+    if (it.a > w) events.push({ w: it.a, txt: (it.avoid ? 'starts: ' : 'can start: ') + it.t });
+    if (it.b > w && !it.open && !it.mark) events.push({ w: it.b, txt: (it.avoid ? 'cleared: ' : 'ends: ') + it.t });
+  }));
+  events.sort((a, b) => a.w - b.w);
+  const seen = new Set();
+  const next = events.filter(e => { if (seen.has(e.txt)) return false; seen.add(e.txt); return true; }).slice(0, 5);
+  soon.innerHTML = next.length
+    ? '<b>Coming up</b>' + next.map(e =>
+        '<span><i>' + (Math.round(e.w - w) < 1 ? 'now' : '+' + Math.round(e.w - w) + ' wk')
+        + '</i> &nbsp;' + esc(e.txt) + '</span>').join('')
+    : '';
+}
+
+/* The tag is centered on the today line, which pushes it off the track at
+   both ends. Hold it inside the track instead. */
+function placeTodayTag(w) {
+  const track = canvas.querySelector('.ruler .track');
+  if (!track) return;
+  const trackW = track.clientWidth;
+  const half = todayTag.offsetWidth / 2;
+  if (!trackW || !half) return;
+  const x = Math.min(Math.max(trackW * (w / WEEKS), half), Math.max(half, trackW - half));
+  todayTag.style.left = x.toFixed(1) + 'px';
+}
+
+function goToToday() {
+  const w = ageWeeks();
+  if (w === null) return;
+  if (PHONE.matches) {
+    chart.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+  const trackW = canvas.querySelector('.ruler .track').clientWidth;
+  const labW = canvas.querySelector('.ruler .lab').clientWidth;
+  const x = labW + trackW * (w / WEEKS);
+  chart.scrollTo({ left: Math.max(0, x - chart.clientWidth * 0.32), behavior: 'smooth' });
+}
+
+dob.addEventListener('change', () => {
+  if (dob.value) store.set(KEY_DOB, dob.value); else store.del(KEY_DOB);
+  render();
+  goToToday();
+});
+dobReset.addEventListener('click', () => {
+  dob.value = DEFAULT_DOB;
+  store.del(KEY_DOB);
+  render();
+  goToToday();
+});
+document.getElementById('jump').addEventListener('click', goToToday);
+
+/* Keep the page honest about the date if it is left open, or if the device
+   wakes up on a different day. */
+let lastDay = startOfToday().getTime();
+function refreshIfNewDay() {
+  const d = startOfToday().getTime();
+  if (d !== lastDay) { lastDay = d; render(); }
+}
+setInterval(refreshIfNewDay, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refreshIfNewDay(); });
+window.addEventListener('focus', refreshIfNewDay);
+
+function relayout() {
+  placeLabels();
+  const w = ageWeeks();
+  if (w !== null && w >= 0 && w <= WEEKS) placeTodayTag(w);
+}
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(relayout, 120);
+});
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+
+render();
+placeLabels();
+requestAnimationFrame(() => {
+  if (PHONE.matches) return;
+  const w = ageWeeks();
+  if (w === null || w < 0) return;
+  const trackW = canvas.querySelector('.ruler .track').clientWidth;
+  const labW = canvas.querySelector('.ruler .lab').clientWidth;
+  chart.scrollTo({ left: Math.max(0, labW + trackW * (w / WEEKS) - chart.clientWidth * 0.32) });
+});
+</script>
+</body>
+</html>
