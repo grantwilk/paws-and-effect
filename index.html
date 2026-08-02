@@ -3,17 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Paws and Effect — What Your Dog Can Handle, Week by Week</title>
-<meta name="description" content="A week-by-week timeline of a dog's first two years. It shows brain stages, body limits, normal bad behavior, what is safe to do, and what to train.">
+<title>Paws and Effect — Puppy Development Timeline by Week</title>
+<meta name="description" content="A week-by-week timeline of a dog’s first two years: brain stages, body limits, normal behavior, what is safe, and what to train. Every entry is sourced.">
+<link rel="canonical" href="https://grantwilk.com/paws-and-effect/">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#EDF0EA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141713" media="(prefers-color-scheme: dark)">
-<meta property="og:title" content="Paws and Effect — What Your Dog Can Handle, Week by Week">
-<meta property="og:description" content="What your dog can handle, week by week.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://grantwilk.com/paws-and-effect/">
+<meta property="og:site_name" content="Paws and Effect">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Paws and Effect — Puppy Development Timeline by Week">
+<meta property="og:description" content="A week-by-week timeline of a dog’s first two years: brain stages, body limits, normal behavior, what is safe, and what to train. Every entry is sourced.">
+<meta property="og:image" content="https://grantwilk.com/paws-and-effect/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Paws and Effect: a timeline of a dog’s first two years, with a red line marking today.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Paws and Effect — Puppy Development Timeline by Week">
+<meta name="twitter:description" content="A week-by-week timeline of a dog’s first two years: brain stages, body limits, normal behavior, what is safe, and what to train. Every entry is sourced.">
+<meta name="twitter:image" content="https://grantwilk.com/paws-and-effect/social-card.png">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Paws and Effect",
+  "url": "https://grantwilk.com/paws-and-effect/",
+  "description": "A week-by-week timeline of a dog’s first two years: brain stages, body limits, normal behavior, what is safe, and what to train. Every entry is sourced.",
+  "applicationCategory": "ReferenceApplication",
+  "operatingSystem": "Any web browser",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "image": "https://grantwilk.com/paws-and-effect/social-card.png",
+  "author": { "@type": "Person", "name": "Grant Wilk", "url": "https://grantwilk.com/" },
+  "about": [
+    { "@type": "Thing", "name": "Puppy development" },
+    { "@type": "Thing", "name": "Dog training" },
+    { "@type": "Thing", "name": "Puppy socialization" }
+  ]
+}
+</script>
 <script>
   /* Runs before first paint so the page never flashes the wrong theme. */
   (function () {
@@ -268,19 +302,6 @@ h1 em{font-style:normal;color:var(--cat-dev)}
 .soon span i{font-style:normal;color:var(--now);font-weight:700}
 
 /* ---------- start-here prompt ---------- */
-/* Both cues are driven by one condition: no date of birth has been saved yet.
-   The page is useless without that date, so it gets shouted about until it
-   exists, and then goes quiet forever. */
-.here{display:none}
-.needs-dob .here{
-  display:inline;color:var(--now);font-weight:800;
-}
-.needs-dob .here:after{content:" \2193 \00a0"}
-.needs-dob .dobctl{
-  margin:-7px -9px;padding:7px 9px;
-  border:2px solid var(--now);border-radius:4px;background:var(--inset);
-}
-
 .intro{
   /* The page reset sets margin:0 on everything, which overrides the margin:auto
      that a browser uses to center a modal dialog. Put it back. */
@@ -480,6 +501,10 @@ h1 em{font-style:normal;color:var(--cat-dev)}
 .mark{background:var(--c)}
 
 /* ============================ detail ============================ */
+.nojs{
+  font-size:15px;line-height:1.5;color:var(--ink);
+  background:var(--panel);border:1.5px solid var(--line);border-radius:4px;padding:14px 16px;
+}
 .detail{
   margin-top:14px;background:var(--panel);border:1.5px solid var(--line);border-radius:4px;
   padding:14px 16px;min-height:92px;position:relative;
@@ -649,8 +674,8 @@ h1 em{font-style:normal;color:var(--cat-dev)}
       <p class="sub">Brain stages, body limits, normal bad behavior, what is safe to do, and what to train. The red line is today.</p>
     </div>
     <div class="controls">
-      <div class="ctl dobctl">
-        <label for="dob"><span class="here">Start here</span>Date of birth</label>
+      <div class="ctl">
+        <label for="dob">Date of birth</label>
         <div class="dobrow">
           <input type="date" id="dob" value="2026-05-18">
           <button class="mini" id="dobReset" type="button" title="Return to May 18, 2026" aria-label="Reset the date of birth to May 18, 2026">Reset</button>
@@ -690,6 +715,13 @@ h1 em{font-style:normal;color:var(--cat-dev)}
       <div class="lg"><span class="sw dia"></span><span><b>Diamond</b> &mdash; one event, not a period of time.</span></div>
     </div>
   </details>
+
+  <noscript>
+    <p class="nojs">This timeline is drawn by JavaScript, which is turned off in
+    your browser. Turn it on to see a dog&rsquo;s first two years, week by week:
+    brain stages, body limits, normal bad behavior, where a dog can safely go,
+    and what to train at each age.</p>
+  </noscript>
 
   <div class="chart" id="chart" tabindex="0" role="group" aria-label="Timeline, birth to two years">
     <div class="canvas" id="canvas"></div>
@@ -1406,7 +1438,6 @@ function goToToday({ instant = false } = {}) {
 function setDob(value) {
   dob.value = value;
   if (value) store.set(KEY_DOB, value); else store.del(KEY_DOB);
-  markNeedsDob();
   render();
   goToToday();
 }
@@ -1415,26 +1446,22 @@ dob.addEventListener('change', () => setDob(dob.value));
 dobReset.addEventListener('click', () => {
   dob.value = DEFAULT_DOB;
   store.del(KEY_DOB);          // the default is a placeholder, not a choice
-  markNeedsDob();
   render();
   goToToday();
 });
 
 /* ---------- start here ----------
    The date of birth is the only input the page has, and every number on it is
-   wrong until that date is right. Until one is saved, the field is outlined
-   and flagged, and a first-time visitor is asked for it directly. */
+   wrong until that date is right, so a first-time visitor is asked for it
+   before anything else. This dialog is the only place the page says
+   "start here". */
 const intro = document.getElementById('intro');
 const introDob = document.getElementById('introDob');
 const introErr = document.getElementById('introErr');
 
-function markNeedsDob() {
-  document.body.classList.toggle('needs-dob', !store.get(KEY_DOB));
-}
-markNeedsDob();
-
 if (!store.get(KEY_INTRO) && typeof intro.showModal === 'function') {
   introDob.max = todayISO();
+  introDob.value = store.get(KEY_DOB) || DEFAULT_DOB;
   intro.showModal();
   introDob.focus();
 }

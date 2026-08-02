@@ -22,8 +22,9 @@ Live site: https://grantwilk.com/paws-and-effect/
 - **Phone and desktop layouts.** Wide screens get the full scrolling timeline.
   Phones get a stacked view with the same bars, the same today line, and the
   same detail text.
-- **A prompt to start.** On the first visit a dialog asks for the date of birth.
-  If you skip it, the date field stays flagged until you enter a date.
+- **A prompt to start.** On the first visit a dialog asks for the date of birth,
+  already filled in with the default. It is the only place the page says
+  "start here", and it does not come back after you answer it or skip it.
 - **Sources on every entry.** Open any bar to see where its dates come from.
 
 ## The six sections
@@ -45,6 +46,8 @@ Live site: https://grantwilk.com/paws-and-effect/
 | `favicon.svg` | The tab icon. It has two palettes and changes with the browser theme. |
 | `favicon-32.png`, `apple-touch-icon.png` | Raster copies of the icon, rendered from `favicon.svg`, for browsers that do not accept an SVG icon. |
 | `.nojekyll` | Tells GitHub Pages to copy the files as they are. |
+| `sitemap.xml` | One entry, for search engines. |
+| `social-card.png` | The 1200x630 preview image for links shared on social sites. |
 
 The timeline data is the `GROUPS` array near the top of the script in
 `index.html`. Each entry has a title, a start week, an end week, a description,
@@ -83,6 +86,20 @@ that matter most here:
   "verify", or "confirm".
 - No names, and no pronouns for the dog. The text says "the dog" or
   "the puppy", so any reader can use the page for any dog.
+
+## Search engines
+
+The page declares a canonical URL, a description, Open Graph and Twitter card
+tags, and `WebApplication` structured data. `sitemap.xml` holds the one URL.
+
+Two things live outside this repository:
+
+- `robots.txt` is served from the root of `grantwilk.com`, which is a different
+  repository. It already permits crawling.
+- The root sitemap does not list this page, so submit
+  `https://grantwilk.com/paws-and-effect/sitemap.xml` in Google Search Console,
+  and add a link to this page from the portfolio site. A link from a page
+  Google already crawls is the fastest way to get indexed.
 
 ## Where the dates come from
 
