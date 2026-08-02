@@ -71,6 +71,7 @@
   --track-w:calc(112 * var(--week-w));
   --ruler-h:52px;
 }
+:root[data-theme="light"]{ color-scheme:light }
 :root[data-theme="dark"]{ color-scheme:dark }
 @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){ color-scheme:dark } }
 
@@ -402,13 +403,13 @@ h1 em{font-style:normal;color:var(--cat-dev)}
   border:1px solid var(--bar-edge);
   transition:filter .12s, outline-color .12s;
   outline:2px solid transparent;outline-offset:1px;
-  overflow:hidden;
 }
 /* invisible padding so a 17px bar is still a comfortable tap target */
 .bar:before{content:"";position:absolute;top:-7px;bottom:-7px;left:-5px;right:-5px}
-.bar .bt{overflow:hidden;text-overflow:clip}
+.bar .bt{overflow:hidden;min-width:0;text-overflow:clip}
 .bar:hover{filter:brightness(1.14)}
 .bar.sel{outline-color:var(--ink)}
+.bar:focus-visible{outline:2.5px solid var(--now);outline-offset:2px}
 .bar[data-c="dev"]{background:var(--cat-dev)}
 .bar[data-c="body"]{background:var(--cat-body)}
 .bar[data-c="seen"]{background:var(--cat-seen)}
@@ -586,10 +587,12 @@ h1 em{font-style:normal;color:var(--cat-dev)}
     border-width:1.5px 0 0;border-radius:14px 14px 0 0;
     box-shadow:0 -10px 30px var(--shadow);
     padding:16px 16px calc(18px + env(safe-area-inset-bottom));
-    transform:translateY(105%);transition:transform .22s ease;
+    transform:translateY(105%);
+    transition:transform .22s ease, visibility 0s .22s;
     min-height:0;
   }
-  .detail.open{transform:translateY(0)}
+  .detail:not(.open){visibility:hidden}
+  .detail.open{transform:translateY(0);transition:transform .22s ease}
   .detail .idle{display:none}
   #detailClose{display:block}
 }
@@ -603,7 +606,7 @@ h1 em{font-style:normal;color:var(--cat-dev)}
       <div class="eyebrow">Paws and effect &middot; a puppy&rsquo;s first two years</div>
       <h1>What She Can <em>Handle</em>, Week by Week</h1>
       <p class="sub">Brain stages, body limits, normal bad behavior, what is physically safe to do, and what to train. The red line is today.</p>
-      <div class="stamp" id="stamp"></div>
+      <div class="stamp">Today is <i id="stampDate"></i></div>
     </div>
     <div class="controls">
       <div class="ctl">
@@ -655,13 +658,15 @@ h1 em{font-style:normal;color:var(--cat-dev)}
     </div>
   </details>
 
-  <div class="chart" id="chart">
+  <div class="chart" id="chart" tabindex="0" role="group" aria-label="Timeline, birth to two years">
     <div class="canvas" id="canvas"></div>
   </div>
 
-  <section class="detail" id="detail" role="region" aria-label="Details" aria-live="polite">
+  <section class="detail" id="detail" role="region" aria-label="Details">
     <button id="detailClose" type="button" aria-label="Close">&times;</button>
-    <p class="idle">Tap any bar to see what it means and what to do about it.</p>
+    <div id="detailBody" aria-live="polite">
+      <p class="idle">Tap any bar to see what it means and what to do about it.</p>
+    </div>
   </section>
 
   <p class="foot">
@@ -679,6 +684,10 @@ const DEFAULT_DOB = '2026-05-18';
 const KEY_DOB = 'pae.dob';
 const KEY_THEME = 'pae.theme';
 const PHONE = window.matchMedia('(max-width: 760px)');
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
+/* An explicit scroll behavior overrides the CSS scroll-behavior property,
+   so the reduced-motion preference has to be read here too. */
+const scrollEase = () => (REDUCED_MOTION.matches ? 'auto' : 'smooth');
 
 /* localStorage throws in some privacy modes and on file:// origins. */
 const store = {
@@ -857,7 +866,7 @@ function buildChartHTML() {
     let cls = 'mo';
     if (MAJOR_MONTHS.has(m)) cls += ' major';
     if (i === 0) cls += ' edge-start';
-    else if (i === months.length - 1 && pct(m * MONTH) > 94) cls += ' edge-end';
+    else if (i === months.length - 1 && pct(m * MONTH) > 92) cls += ' edge-end';
     html += '<div class="' + cls + '" style="left:' + pct(m * MONTH).toFixed(3) + '%">' + text + '</div>';
   });
   for (let w = 0; w <= WEEKS; w += 2) {
@@ -889,7 +898,9 @@ function buildChartHTML() {
         if (it.soft)  cls += ' soft';
         const wdt = pct(Math.max(it.b - it.a, 0)).toFixed(3);
         inner = '<button class="' + cls + '" type="button" data-c="' + g.c + '" data-id="' + id + '"'
-              + ' style="left:' + left + '%;width:' + wdt + '%"><span class="bt">' + title + '</span></button>'
+              + ' aria-label="' + title + '"'
+              + ' style="left:' + left + '%;width:' + wdt + '%">'
+              + '<span class="bt" aria-hidden="true">' + title + '</span></button>'
               + '<div class="blabel-out" data-for="' + id + '" style="left:calc(' + left + '% + ' + wdt + '% + 7px)">' + title + '</div>';
       }
 
@@ -909,7 +920,11 @@ canvas.innerHTML = buildChartHTML();
    not. Widths are percentages, so this has to be measured after layout and
    again whenever the chart is resized. The measurer must stay typographically
    identical to .bar, or every fit decision is wrong. */
-const bars = Array.from(canvas.querySelectorAll('.bar'));
+const bars = Array.from(canvas.querySelectorAll('.bar')).map(bar => ({
+  bar,
+  span: bar.querySelector('.bt'),
+  out: canvas.querySelector('.blabel-out[data-for="' + bar.dataset.id + '"]')
+}));
 const measure = document.createElement('span');
 measure.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;'
   + 'font-family:var(--sans);font-size:12px;font-weight:600';
@@ -917,13 +932,13 @@ document.body.appendChild(measure);
 
 function placeLabels() {
   if (PHONE.matches) return;                 // phone hides both labels
-  bars.forEach(bar => {
-    const out = canvas.querySelector('.blabel-out[data-for="' + bar.dataset.id + '"]');
-    const span = bar.querySelector('.bt');
-    measure.textContent = span.textContent;
-    const fits = bar.clientWidth >= measure.offsetWidth + 16;
-    span.style.visibility = fits ? '' : 'hidden';
-    if (out) out.style.display = fits ? 'none' : '';
+  const fits = bars.map(b => {
+    measure.textContent = b.span.textContent;
+    return b.bar.clientWidth >= measure.offsetWidth + 16;
+  });
+  bars.forEach((b, i) => {
+    b.span.style.visibility = fits[i] ? '' : 'hidden';
+    if (b.out) b.out.style.display = fits[i] ? 'none' : '';
   });
 }
 
@@ -935,6 +950,8 @@ GROUPS.forEach(g => g.items.forEach((it, ii) => {
 
 /* ---------- detail ---------- */
 const detail = document.getElementById('detail');
+const detailBody = document.getElementById('detailBody');
+const detailClose = document.getElementById('detailClose');
 
 function fmtRange(it) {
   if (it.mark) return 'about week ' + it.a;
@@ -951,19 +968,21 @@ function select(id, el) {
   const it = ITEMS_BY_ID[id];
   if (!it) return;
   lastSelected = el;
-  detail.innerHTML = '<button id="detailClose" type="button" aria-label="Close">&times;</button>'
-    + '<div class="dh">' + esc(it.t) + '</div>'
-    + '<div class="dm" data-c="' + it.c + '">' + esc(it.group) + ' &nbsp;·&nbsp; ' + fmtRange(it) + '</div>'
+  detailBody.innerHTML = '<div class="dh">' + esc(it.t) + '</div>'
+    + '<div class="dm" data-c="' + it.c + '">' + esc(it.group) + ' &nbsp;·&nbsp; ' + esc(fmtRange(it)) + '</div>'
     + '<p>' + esc(it.d) + '</p>';
   detail.classList.add('open');
-  if (PHONE.matches) detail.querySelector('#detailClose').focus();
+  if (PHONE.matches) detailClose.focus();
   else detail.scrollIntoView({ block: 'nearest' });
 }
+
+const IDLE_HTML = '<p class="idle">Tap any bar to see what it means and what to do about it.</p>';
 
 function closeDetail() {
   if (!detail.classList.contains('open')) return;
   detail.classList.remove('open');
   canvas.querySelectorAll('.sel').forEach(b => b.classList.remove('sel'));
+  detailBody.innerHTML = IDLE_HTML;
   if (lastSelected && document.contains(lastSelected)) lastSelected.focus();
   lastSelected = null;
 }
@@ -973,7 +992,7 @@ canvas.addEventListener('click', e => {
   if (!el) return;
   select(el.dataset.id, el);
 });
-detail.addEventListener('click', e => { if (e.target.closest('#detailClose')) closeDetail(); });
+detailClose.addEventListener('click', closeDetail);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
 
 /* ---------- filters ---------- */
@@ -1033,11 +1052,22 @@ PHONE.addEventListener('change', syncLegend);
 const dob = document.getElementById('dob');
 const dobReset = document.getElementById('dobReset');
 const chart = document.getElementById('chart');
-const stamp = document.getElementById('stamp');
+const stampDate = document.getElementById('stampDate');
 const todayTag = document.getElementById('todayTag');
 
+/* A rolled-over date is worse than a rejected one: "2026-13-45" becomes
+   Feb 2027 rather than failing, so check the round trip. */
+function parseDob(v) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v || '');
+  if (!m) return null;
+  const y = +m[1], mo = +m[2], d = +m[3];
+  const date = new Date(y, mo - 1, d);
+  if (date.getFullYear() !== y || date.getMonth() !== mo - 1 || date.getDate() !== d) return null;
+  return date;
+}
+
 const savedDob = store.get(KEY_DOB);
-if (savedDob && /^\d{4}-\d{2}-\d{2}$/.test(savedDob)) dob.value = savedDob;
+if (parseDob(savedDob)) dob.value = savedDob; else store.del(KEY_DOB);
 
 function startOfToday() {
   const n = new Date();
@@ -1045,10 +1075,8 @@ function startOfToday() {
 }
 
 function ageWeeks() {
-  if (!dob.value) return null;
-  const parts = dob.value.split('-').map(Number);
-  const b = new Date(parts[0], parts[1] - 1, parts[2]);
-  if (isNaN(b.getTime())) return null;
+  const b = parseDob(dob.value);
+  if (!b) return null;
   return (Date.now() - b.getTime()) / (1000 * 60 * 60 * 24 * 7);
 }
 
@@ -1064,8 +1092,8 @@ function render() {
   const ageN = document.getElementById('ageN');
   const ageS = document.getElementById('ageS');
 
-  stamp.innerHTML = 'Today is <i>' + startOfToday().toLocaleDateString(undefined,
-    { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + '</i>';
+  stampDate.textContent = startOfToday().toLocaleDateString(undefined,
+    { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
   if (w === null) {
     ageN.textContent = '—';
@@ -1154,17 +1182,18 @@ function placeTodayTag(w) {
   todayTag.style.left = x.toFixed(1) + 'px';
 }
 
-function goToToday(behavior) {
+function goToToday({ instant = false } = {}) {
   const w = ageWeeks();
   if (w === null || w < 0) return;
+  const behavior = instant ? 'auto' : scrollEase();
   if (PHONE.matches) {
-    chart.scrollIntoView({ behavior: behavior || 'smooth', block: 'start' });
+    chart.scrollIntoView({ behavior, block: 'start' });
     return;
   }
   const trackW = canvas.querySelector('.ruler .track').clientWidth;
   const labW = canvas.querySelector('.ruler .lab').clientWidth;
   const x = labW + trackW * (w / WEEKS);
-  chart.scrollTo({ left: Math.max(0, x - chart.clientWidth * 0.32), behavior: behavior || 'smooth' });
+  chart.scrollTo({ left: Math.max(0, x - chart.clientWidth * 0.32), behavior });
 }
 
 dob.addEventListener('change', () => {
@@ -1178,7 +1207,7 @@ dobReset.addEventListener('click', () => {
   render();
   goToToday();
 });
-document.getElementById('jump').addEventListener('click', goToToday);
+document.getElementById('jump').addEventListener('click', () => goToToday());
 
 /* Keep the page honest about the date if it is left open, or if the device
    wakes up on a different day. */
@@ -1207,7 +1236,7 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 syncLegend();
 render();
 placeLabels();
-requestAnimationFrame(() => { if (!PHONE.matches) goToToday('auto'); });
+requestAnimationFrame(() => { if (!PHONE.matches) goToToday({ instant: true }); });
 </script>
 </body>
 </html>
