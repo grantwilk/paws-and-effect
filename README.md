@@ -1,10 +1,11 @@
 # Paws and Effect
 
-What your dog can handle, week by week.
+A one-page timeline of a dog's first two years. It shows brain stages, body
+limits, normal bad behavior, where the dog can safely go, and what to train. A
+red line marks today.
 
-This is a one-page timeline of a dog's first two years. It shows brain stages,
-body limits, normal bad behavior, what is safe to do, and what to train. A red
-line marks today.
+Every one of the 76 entries cites the source it came from. The citation is in
+the detail panel, under the description.
 
 Live site: https://grantwilk.com/paws-and-effect/
 
@@ -21,6 +22,20 @@ Live site: https://grantwilk.com/paws-and-effect/
 - **Phone and desktop layouts.** Wide screens get the full scrolling timeline.
   Phones get a stacked view with the same bars, the same today line, and the
   same detail text.
+- **A prompt to start.** On the first visit a dialog asks for the date of birth.
+  If you skip it, the date field stays flagged until you enter a date.
+- **Sources on every entry.** Open any bar to see where its dates come from.
+
+## The six sections
+
+| Section | What it holds |
+|---|---|
+| Brain & stages | Windows in brain development, such as socialization and adolescence. |
+| Body & vet | Vaccines, parasites, teeth, growth plates, weight, and neutering. |
+| What you will see | Normal, unwelcome behavior, and when to expect it. |
+| Body limits & safety | How much the growing body can take, plus heat and poisons. |
+| Places & other dogs | Where the dog can go, and which dogs it can meet. |
+| Training & household | What to teach, and when to teach it. |
 
 ## Files
 
@@ -30,6 +45,10 @@ Live site: https://grantwilk.com/paws-and-effect/
 | `favicon.svg` | The tab icon. It has two palettes and changes with the browser theme. |
 | `favicon-32.png`, `apple-touch-icon.png` | Raster copies of the icon, rendered from `favicon.svg`, for browsers that do not accept an SVG icon. |
 | `.nojekyll` | Tells GitHub Pages to copy the files as they are. |
+
+The timeline data is the `GROUPS` array near the top of the script in
+`index.html`. Each entry has a title, a start week, an end week, a description,
+optional shape flags, and one or two sources.
 
 ## Running it locally
 
@@ -65,8 +84,20 @@ that matter most here:
 - No names, and no pronouns for the dog. The text says "the dog" or
   "the puppy", so any reader can use the page for any dog.
 
-## A note on the content
+## Where the dates come from
 
-These ages are typical ranges, not deadlines. Vaccination dates, spay or neuter
-dates, and joint readiness are veterinary decisions. Use those bars as questions
-for your vet, not as instructions.
+Each entry cites one or two sources, and the page links to all of them. The
+sources are of three kinds:
+
+- **Veterinary guidelines**, for medical timing. AAHA, WSAVA, AVMA, AVSAB, the
+  Companion Animal Parasite Council, and the American Heartworm Society.
+- **Peer-reviewed studies**, for behavior and for growth.
+- **Named, experienced trainers and certifying bodies**, for training timing.
+  Training research often does not give a week number, and good trainers do.
+
+Content marketing from pet retailers and pet food companies is not used.
+
+These ages are typical ranges, not deadlines. Small breeds mature near the early
+end of each range, and giant breeds near the late end. Vaccination dates, spay
+or neuter dates, and joint readiness are veterinary decisions. Use those bars as
+questions for your vet, not as instructions.
