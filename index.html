@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Paws and Effect — A Puppy's First Two Years</title>
-<meta name="description" content="A week-by-week timeline of a puppy's first two years: brain stages, body limits, normal bad behavior, what is physically safe to do, and what to train.">
+<title>Paws and Effect — What Your Dog Can Handle, Week by Week</title>
+<meta name="description" content="A week-by-week timeline of a dog's first two years. It shows brain stages, body limits, normal bad behavior, what is safe to do, and what to train.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#EDF0EA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#141713" media="(prefers-color-scheme: dark)">
-<meta property="og:title" content="Paws and Effect — A Puppy's First Two Years">
-<meta property="og:description" content="What she can handle, week by week.">
+<meta property="og:title" content="Paws and Effect — What Your Dog Can Handle, Week by Week">
+<meta property="og:description" content="What your dog can handle, week by week.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
 <script>
@@ -168,7 +168,13 @@ h1{
   font-size:clamp(28px,4.6vw,46px);font-weight:800;letter-spacing:-.03em;line-height:.95;
 }
 h1 em{font-style:normal;color:var(--cat-dev)}
-.sub{font-size:14px;color:var(--muted);margin-top:7px;max-width:52ch}
+
+.tagline{
+  font-family:var(--display);
+  font-size:clamp(16px,2.1vw,21px);font-weight:600;letter-spacing:-.015em;
+  color:var(--ink);margin-top:7px;
+}
+.sub{font-size:14px;color:var(--muted);margin-top:6px;max-width:52ch}
 .stamp{
   font-family:var(--sans);
   font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
@@ -196,18 +202,6 @@ h1 em{font-style:normal;color:var(--cat-dev)}
   background:var(--inset);color:var(--muted);
 }
 .mini:hover{color:var(--ink)}
-.agebox{
-  border:1.5px solid var(--now);border-radius:3px;background:var(--inset);
-  padding:6px 13px 7px;min-width:132px;
-}
-.agebox .n{
-  font-family:var(--display);
-  font-size:25px;font-weight:800;line-height:1;color:var(--now);letter-spacing:-.02em;
-}
-.agebox .s{
-  font-family:var(--sans);
-  font-size:12px;color:var(--muted);letter-spacing:.05em;margin-top:2px;
-}
 #theme{
   display:flex;align-items:center;gap:6px;
   font-family:var(--sans);
@@ -226,9 +220,23 @@ h1 em{font-style:normal;color:var(--cat-dev)}
   border-radius:4px;padding:14px 16px 15px;
 }
 .now-head{
+  display:flex;flex-wrap:wrap;gap:2px 16px;
+  align-items:baseline;justify-content:space-between;
+  margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--grid-strong);
+}
+.now-head h2{
   font-family:var(--sans);
   font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--now);margin-bottom:9px;
+  color:var(--now);
+}
+.agenow{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.agenow b{
+  font-family:var(--display);
+  font-size:27px;font-weight:800;line-height:1;letter-spacing:-.02em;color:var(--now);
+}
+.agenow span{
+  font-family:var(--sans);
+  font-size:12.5px;letter-spacing:.05em;color:var(--muted);
 }
 /* Multi-column rather than grid: the five groups have very different
    lengths, and a grid leaves a ragged hole under the short ones. */
@@ -525,7 +533,8 @@ h1 em{font-style:normal;color:var(--cat-dev)}
   .controls{width:100%;gap:10px}
   .ctl{flex:1 1 160px}
   .ctl input[type=date]{width:100%}
-  .agebox{flex:1 1 130px}
+  .now-head{gap:4px 12px}
+  .agenow{width:100%}
 
   .toolbar{gap:6px}
   .filt{flex:1 1 auto;text-align:center}
@@ -603,9 +612,10 @@ h1 em{font-style:normal;color:var(--cat-dev)}
 
   <header class="masthead">
     <div>
-      <div class="eyebrow">Paws and effect &middot; a puppy&rsquo;s first two years</div>
-      <h1>What She Can <em>Handle</em>, Week by Week</h1>
-      <p class="sub">Brain stages, body limits, normal bad behavior, what is physically safe to do, and what to train. The red line is today.</p>
+      <div class="eyebrow">A dog&rsquo;s first two years</div>
+      <h1>Paws and <em>Effect</em></h1>
+      <p class="tagline">What your dog can handle, week by week</p>
+      <p class="sub">Brain stages, body limits, normal bad behavior, what is safe to do, and what to train. The red line is today.</p>
       <div class="stamp">Today is <i id="stampDate"></i></div>
     </div>
     <div class="controls">
@@ -613,12 +623,8 @@ h1 em{font-style:normal;color:var(--cat-dev)}
         <label for="dob">Date of birth</label>
         <div class="dobrow">
           <input type="date" id="dob" value="2026-05-18">
-          <button class="mini" id="dobReset" type="button" title="Back to May 18, 2026" aria-label="Reset date of birth to May 18, 2026">Reset</button>
+          <button class="mini" id="dobReset" type="button" title="Return to May 18, 2026" aria-label="Reset the date of birth to May 18, 2026">Reset</button>
         </div>
-      </div>
-      <div class="agebox">
-        <div class="n" id="ageN">&mdash;</div>
-        <div class="s" id="ageS">&nbsp;</div>
       </div>
       <div class="ctl">
         <label for="theme">Theme</label>
@@ -630,8 +636,11 @@ h1 em{font-style:normal;color:var(--cat-dev)}
     </div>
   </header>
 
-  <section class="now-panel" aria-label="Right now">
-    <div class="now-head">Right now</div>
+  <section class="now-panel" aria-labelledby="nowHead">
+    <div class="now-head">
+      <h2 id="nowHead">Right now</h2>
+      <p class="agenow"><b id="ageN">&mdash;</b><span id="ageS">no date set</span></p>
+    </div>
     <div class="now-cols" id="nowCols"></div>
     <div class="soon" id="soon"></div>
   </section>
@@ -639,22 +648,22 @@ h1 em{font-style:normal;color:var(--cat-dev)}
   <div class="toolbar" id="toolbar">
     <button class="filt" data-c="dev"   type="button" aria-pressed="true">Brain &amp; stages</button>
     <button class="filt" data-c="body"  type="button" aria-pressed="true">Body &amp; vet</button>
-    <button class="filt" data-c="seen"  type="button" aria-pressed="true">What you&rsquo;ll see</button>
+    <button class="filt" data-c="seen"  type="button" aria-pressed="true">What you will see</button>
     <button class="filt" data-c="safe"  type="button" aria-pressed="true">Safe to do</button>
     <button class="filt" data-c="train" type="button" aria-pressed="true">Training plan</button>
     <span class="spacer"></span>
-    <span class="hint"><span class="wide-only">Scroll sideways &middot; </span>tap any bar for details</span>
+    <span class="hint"><span class="wide-only">Scroll sideways. </span>Tap any bar for details.</span>
     <button class="jump" id="jump" type="button">Go to today</button>
   </div>
 
   <details class="legend" id="legend">
     <summary>What the bars and symbols mean</summary>
     <div class="legend-grid">
-      <div class="lg"><span class="sw shuts"></span><span><b>Red end cap</b> &mdash; this window closes for good. You cannot redo it later.</span></div>
+      <div class="lg"><span class="sw shuts"></span><span><b>Red end cap</b> &mdash; this window closes for good. You cannot open it again.</span></div>
       <div class="lg"><span class="sw avoid"></span><span><b>Striped</b> &mdash; not yet. Wait until the bar ends.</span></div>
-      <div class="lg"><span class="sw openend"></span><span><b>Faded right edge</b> &mdash; continues past two years.</span></div>
-      <div class="lg"><span class="sw soft"></span><span><b>Pale</b> &mdash; keep it going, but it is no longer the main job.</span></div>
-      <div class="lg"><span class="sw dia"></span><span><b>Diamond</b> &mdash; a single milestone, not a stretch of time.</span></div>
+      <div class="lg"><span class="sw openend"></span><span><b>Faded right edge</b> &mdash; this continues after two years.</span></div>
+      <div class="lg"><span class="sw soft"></span><span><b>Pale</b> &mdash; continue this, but it is no longer the main job.</span></div>
+      <div class="lg"><span class="sw dia"></span><span><b>Diamond</b> &mdash; one event, not a period of time.</span></div>
     </div>
   </details>
 
@@ -665,12 +674,12 @@ h1 em{font-style:normal;color:var(--cat-dev)}
   <section class="detail" id="detail" role="region" aria-label="Details">
     <button id="detailClose" type="button" aria-label="Close">&times;</button>
     <div id="detailBody" aria-live="polite">
-      <p class="idle">Tap any bar to see what it means and what to do about it.</p>
+      <p class="idle">Tap any bar to see what it means and what to do.</p>
     </div>
   </section>
 
   <p class="foot">
-    Ages are typical ranges, not deadlines. Small breeds mature toward the early end and giant breeds toward the late end, sometimes past it. Vaccination timing, spay or neuter timing, and joint readiness are veterinary decisions that depend on your dog and your area, so treat those bars as conversation starters with your vet, not instructions. For fear, aggression, or biting that breaks skin, get a certified trainer or a veterinary behaviorist involved early rather than waiting it out.
+    These ages are typical ranges, not deadlines. Small breeds mature near the early end of each range, and giant breeds near the late end. Vaccination dates, spay or neuter dates, and joint readiness are veterinary decisions. They depend on the dog and on your area. Use those bars to start a conversation with your vet, not as instructions. If the dog shows fear or aggression, or bites hard enough to break skin, get a certified trainer or a veterinary behaviorist early.
   </p>
 
 </div>
@@ -710,127 +719,127 @@ const store = {
 const GROUPS = [
   { c:'dev', name:'Brain & stages', items:[
     {t:'Socialization window', a:3, b:16, shuts:true,
-     d:'The one window that truly closes. Whatever she meets and enjoys now gets filed as safe for life; after about 16 weeks her default flips to suspicious. Aim for calm, positive exposure to many kinds of people, surfaces, sounds, and handling. Quality over quantity, and always let her choose to approach.'},
+     d:'This is the one window that closes for good. What the puppy meets and enjoys now stays safe for life. After about 16 weeks, the default reaction becomes suspicion. Give calm, positive contact with many kinds of people, surfaces, sounds, and handling. Quality is more important than quantity. Always let the puppy choose to approach.'},
     {t:'First fear period', a:8, b:11,
-     d:'A normal jumpy patch. Scares that land here can stick for years. Do not flood her, do not force her toward anything, and do not scold fear. Let her retreat, then let her investigate on her own terms and pay her for it.'},
+     d:'This is a normal nervous phase. A scare in this period can last for years. Do not overwhelm the puppy. Do not force the puppy toward anything. Do not punish fear. Let the puppy retreat. Then let the puppy investigate alone, and give a reward.'},
     {t:'Follow instinct (easy recall)', a:8, b:14,
-     d:'Puppies are wired to stay near you, and it fades as confidence grows. This is the cheapest recall you will ever get, so bank hundreds of reps now. Never call her to something she dislikes.'},
+     d:'Puppies stay near you by instinct, and this instinct becomes weaker as confidence grows. Recall is easiest now, so practice it hundreds of times. Never call the dog to something unpleasant.'},
     {t:'Juvenile: the easy stretch', a:16, b:26,
-     d:'Between puppy chaos and adolescence there is usually a cooperative window. Use it to build skills in easy places so they are fluent before adolescence tests them.'},
+     d:'Between puppy chaos and adolescence there is usually a cooperative period. Build skills in easy places now. Then the skills are fluent before adolescence tests them.'},
     {t:'Adolescence', a:26, b:78, open:true,
-     d:'Grown body, unfinished brain. Expect selective hearing, bigger reactions, and more interest in the environment than in you. This is when most owners quit training, right before it would have paid off. Manage, lower your criteria, keep paying well.'},
+     d:'The body is grown, but the brain is not. Expect selective hearing, bigger reactions, and more interest in the environment than in you. Most people stop training in this period, immediately before the training starts to work. Lower your criteria and give better rewards.'},
     {t:'Second fear period', a:26, b:52,
-     d:'A confident dog suddenly spooks at something ordinary. Same rules as the first one: no scolding, no forcing, let her look and leave. Usually passes in a few weeks.'},
+     d:'A confident dog is suddenly afraid of something ordinary. Use the same rules as the first fear period. Do not punish, and do not force. Let the dog look, then move away. This usually ends in a few weeks.'},
     {t:'Impulse control developing', a:16, b:104, open:true,
-     d:'Self control is hardware that grows in slowly and is not adult until well into the second year. Before that you are building habits and fluency, not testing willpower. Keep her under threshold rather than proving a point.'},
+     d:'Self control develops slowly and is not adult until late in the second year. Until then you build habits and fluency. You do not test willpower. Keep the dog below its stress threshold.'},
     {t:'Social maturity', a:52, b:112, open:true,
-     d:'Adult personality settles here. Dog-to-dog preferences often narrow, and a dog who loved every dog at eight months may become selective. That is normal maturity, not a training failure.'},
+     d:'The adult personality settles in this period. Preferences about other dogs often narrow. A dog that liked every dog at eight months can become selective. This is normal maturity, not a training failure.'},
   ]},
 
   { c:'body', name:'Body & vet', items:[
-    {t:'Sleeps 18–20 hr a day', a:0, b:26,
-     d:'Puppies need this much sleep and rarely take it voluntarily. Most evening land-shark episodes are overtired puppies. Enforce naps in a crate or pen on a schedule instead of waiting for her to settle on her own.'},
+    {t:'Sleeps 18\u201320 hr a day', a:0, b:26,
+     d:'Puppies need this much sleep, but they rarely take it without help. Most evening biting attacks come from an overtired puppy. Put the puppy in a crate or pen for naps on a schedule. Do not wait for the puppy to settle alone.'},
     {t:'Puppy vaccine series', a:6, b:16,
-     d:'Usually a series of boosters every two to four weeks until about 16 weeks, with rabies commonly around 12 to 16 weeks. Exact schedule is your vet\u2019s call.'},
+     d:'This is usually a series of boosters every two to four weeks, until about 16 weeks. Rabies usually comes at 12 to 16 weeks. Your vet sets the exact schedule.'},
     {t:'Not fully covered yet', a:0, b:18, avoid:true,
-     d:'Until roughly two weeks after the final booster, she is not fully protected. Avoid dog parks, pet store floors, rest stops, and unknown dogs. Do not use this as a reason to skip socialization: carry her, use clean private yards, and meet vaccinated adult dogs you know.'},
+     d:'The puppy is not fully protected until about two weeks after the last booster. Keep away from dog parks, pet store floors, rest stops, and unknown dogs. Do not skip socialization for this reason. Carry the puppy, use clean private yards, and meet vaccinated adult dogs that you know.'},
     {t:'Teething', a:12, b:26,
-     d:'Adult teeth push in and gums hurt, so chewing and mouthing spike. Give frozen toys and wet frozen washcloths. Check around 26 weeks that all baby teeth, especially canines, have actually fallen out.'},
+     d:'Adult teeth come in and the gums hurt, so the puppy chews and mouths much more. Give frozen toys and wet frozen washcloths. At about 26 weeks, make sure that all the baby teeth fell out, especially the canines.'},
     {t:'Adult teeth in', a:26, b:26, mark:true,
-     d:'By roughly six months the adult set is usually in and mouthing drops sharply. Retained baby teeth need a vet look.'},
+     d:'At about six months the adult teeth are usually complete, and mouthing decreases sharply. A baby tooth that stays needs a veterinary examination.'},
     {t:'Bladder control maturing', a:0, b:26,
-     d:'Rough guide: hours she can hold is about her age in months plus one, and less when excited or asleep-deprived. Before four to six months, accidents are plumbing, not disobedience. Keep the schedule tight and reward outside every time.'},
+     d:'As a rough guide, the hours a puppy can wait is the age in months plus one. The time is shorter when the puppy is excited or short of sleep. Before four to six months, accidents are physical, not disobedience. Keep to a tight schedule, and give a reward outside every time.'},
     {t:'Growth plates open', a:0, b:78, shuts:true,
-     d:'Soft growth plates at the ends of long bones are injury-prone. They close roughly 12 to 18 months in small and medium dogs and later in large and giant breeds. Until your vet confirms closure, limit repetitive impact: no long runs on pavement, no repeated jumping, no forced stairs, no tight agility turns.'},
+     d:'The soft growth plates at the ends of the long bones are easy to injure. They close at 12 to 18 months in small and medium dogs, and later in large breeds. Until your vet confirms that the plates are closed, limit repeated impact. Do not permit long runs on pavement, repeated jumps, forced stairs, or tight agility turns.'},
     {t:'Sexual maturity / first heat', a:26, b:52,
-     d:'Often six to twelve months, later in big breeds. Expect marking, roaming interest, humping, and more dog-dog friction whether or not you plan to neuter.'},
+     d:'This is often six to twelve months, and later in big breeds. Expect marking, interest in roaming, humping, and more friction with other dogs. This happens whether or not you plan to neuter.'},
     {t:'Spay or neuter decision', a:26, b:78, soft:true,
-     d:'Timing is genuinely debated and depends on breed, size, sex, and lifestyle. Larger breeds are often recommended to wait until growth is finished for joint reasons. Have this conversation with your vet rather than defaulting to a number.'},
+     d:'Experts disagree about the best time, which depends on breed, size, sex, and lifestyle. For larger breeds, many vets advise you to wait until growth is complete, to protect the joints. Discuss this with your vet. Do not use a standard age.'},
     {t:'Switch to adult food', a:48, b:78, soft:true,
-     d:'Around 12 months for small and medium dogs, closer to 18 to 24 months for large and giant breeds. Large-breed puppies need controlled calcium and calories while growing.'},
+     d:'Change at about 12 months for small and medium dogs. Change at 18 to 24 months for large and giant breeds. Large-breed puppies need controlled calcium and calories during growth.'},
   ]},
 
-  { c:'seen', name:'What you\u2019ll see (normal)', items:[
+  { c:'seen', name:'What you will see (normal)', items:[
     {t:'Nipping and land sharking', a:9, b:26,
-     d:'Peaks with teething and fades by five to seven months. Redirect to a toy, end the game when teeth hit skin, and check whether she is simply overtired before you correct anything.'},
+     d:'This is worst during teething and decreases by five to seven months. Move the dog to a toy. When teeth touch skin, stop the game. Before you correct the dog, make sure that it is not overtired.'},
     {t:'Destructive chewing', a:12, b:52,
-     d:'Two waves: teething pain, then adolescent boredom. Manage the environment, rotate real chew outlets, and crate or pen her when unsupervised. Punishing after the fact teaches nothing.'},
-    {t:'Recall falls apart', a:26, b:60,
-     d:'Almost universal, and it is the number one reason adolescent dogs get lost. Go back to a long line, raise the pay, and stop calling her when you know she will not come. Never punish a slow recall.'},
+     d:'There are two waves: teething pain, then adolescent boredom. Control the environment, and give a rotation of real chew toys. If nobody watches the dog, use a crate or a pen. Punishment after the event teaches nothing.'},
+    {t:'Recall stops working', a:26, b:60,
+     d:'This happens to almost every dog, and it is the main reason adolescent dogs get lost. Return to a long line and increase the reward. If you know that the dog will not come, do not call. Never punish a slow recall.'},
     {t:'Testing boundaries', a:30, b:70,
-     d:'Known cues get ignored, especially with an audience. This is arousal and environment, not spite. Reduce distraction, reward faster, and keep sessions short.'},
+     d:'The dog ignores known cues, especially in front of an audience. The cause is excitement and environment, not spite. Reduce the distraction, give the reward faster, and keep the sessions short.'},
     {t:'Marking / leg lifting', a:26, b:52,
-     d:'Starts with sexual maturity in males and some females. Manage with leash control on walks and prompt cleanup indoors.'},
+     d:'This starts at sexual maturity in males, and in some females. Control it with the leash on walks. Clean indoor marks immediately.'},
     {t:'New fears or reactivity', a:26, b:78,
-     d:'Barking and lunging at dogs, people, or bikes often shows up here. Distance is your tool: stay far enough away that she can eat, and pay her for looking calmly. If it escalates, get professional help early.'},
+     d:'Barking and lunging at dogs, people, or bikes often appears in this period. Distance is your tool. Stay far enough away that the dog can still eat. Give a reward when the dog looks calmly. If the behavior becomes worse, get professional help early.'},
     {t:'Resource guarding can start', a:8, b:52,
-     d:'Stiffening over food, chews, or spots. Never take things away to prove a point. Trade up, add value to your approach, and call a professional at the first growl rather than the first bite.'},
+     d:'The dog becomes stiff over food, chews, or a place. Never remove an item to prove a point. Trade for something better, so that your approach becomes good news. Call a professional at the first growl, not the first bite.'},
     {t:'Humping and over-arousal', a:26, b:65,
-     d:'Usually excitement or stress rather than dominance. Interrupt calmly, give a break, and lower the intensity of play before it boils over.'},
+     d:'The cause is usually excitement or stress, not dominance. Interrupt calmly and give the dog a break. Decrease the intensity of play before it becomes too much.'},
   ]},
 
   { c:'safe', name:'Safe to do (physical)', items:[
     {t:'Carry outside, clean surfaces', a:0, b:12,
-     d:'Before full vaccine coverage, get her out in the world in your arms or a sling: traffic noise, crowds, elevators, umbrellas. All the exposure with far less disease risk.'},
+     d:'Before the vaccines are complete, take the puppy outside in your arms or in a sling. Show traffic noise, crowds, elevators, and umbrellas. This gives all the exposure with much less risk of disease.'},
     {t:'Puppy class, vaccinated pups', a:8, b:16,
-     d:'Well-run indoor puppy classes are recommended by veterinary behavior groups because the behavioral risk of under-socializing outweighs the small disease risk in a clean, screened class.'},
+     d:'Veterinary behavior groups recommend good indoor puppy classes. In a clean class with screened dogs, the risk of poor socialization is larger than the small risk of disease.'},
     {t:'Walks: 5 min per month of age', a:10, b:52,
-     d:'A common rule of thumb: about five minutes of formal leash walking per month of age, once or twice a day. So 10 minutes at two months, 25 at five months. Free sniffing and play in a yard are gentler on joints than steady road walking.'},
+     d:'A common rule gives about five minutes of leash walking for each month of age, once or twice a day. This is 10 minutes at two months, and 25 minutes at five months. Free play and sniffing in a yard are easier on the joints than steady road walking.'},
     {t:'Repeated stairs \u2014 not yet', a:0, b:16, avoid:true,
-     d:'Carry her down stairs while she is small. Repeated stair descent loads soft joints and is linked with higher hip risk in very young puppies. A few supervised steps up on carpet is fine.'},
+     d:'While the puppy is small, carry it down stairs. Repeated descent loads the soft joints, and it is linked to a higher hip risk in very young puppies. A few supervised steps up on carpet are safe.'},
     {t:'Stairs, supervised and limited', a:16, b:52,
-     d:'Normal household stairs are fine now in moderation. Skip long flights, slippery hardwood, and racing up and down as a game. Use a runner or rug for traction.'},
+     d:'Normal household stairs are safe now, in moderation. Avoid long flights, slippery hardwood, and races up and down as a game. Use a runner or a rug for traction.'},
     {t:'Stairs freely', a:52, b:112, open:true,
-     d:'Once growth is finished, stairs are just stairs, unless your vet has flagged joints.'},
+     d:'After growth is complete, stairs are no longer a risk, unless your vet identified a joint problem.'},
     {t:'Pet stores, patios, public floors', a:18, b:112, open:true,
-     d:'Roughly two weeks after the final puppy booster. Keep visits short and positive rather than long and overwhelming.'},
-    {t:'Dog parks — not yet', a:0, b:52, avoid:true,
-     d:'Off-leash parks are the most common place adolescent dogs learn to be afraid of or rude with other dogs. There is no screening, no supervision, and one bad experience during a fear period can cost you years. Use known, well-matched playmates instead.'},
-    {t:'Dog park, only if she suits it', a:52, b:112, open:true, soft:true,
-     d:'Even at maturity this is optional, not a milestone. Good candidates are dogs who are genuinely social, recall well, and disengage easily. Plenty of well-adjusted adult dogs should never go, and that is fine.'},
+     d:'Start about two weeks after the last puppy booster. Keep the visits short and positive, not long and overwhelming.'},
+    {t:'Dog parks \u2014 not yet', a:0, b:52, avoid:true,
+     d:'Off-leash parks are the most common place where adolescent dogs learn fear or rude behavior with other dogs. There is no screening and no supervision. One bad experience during a fear period can cost you years. Use known, well-matched playmates instead.'},
+    {t:'Dog park, only if it suits the dog', a:52, b:112, open:true, soft:true,
+     d:'Even at maturity this is optional, not a milestone. Good candidates are dogs that are truly social, that recall well, and that disengage easily. Many well-adjusted adult dogs never go, and that is correct for them.'},
     {t:'Off-leash in a fenced space', a:16, b:112, open:true,
-     d:'Fenced yards and empty tennis courts let you practice recall with real freedom and no risk. Start before adolescence so the habit predates the hard part.'},
+     d:'Fenced yards and empty tennis courts let you practice recall with real freedom and no risk. Start before adolescence, so that the habit is in place before the difficult period.'},
     {t:'Long line in open areas', a:20, b:112, open:true,
-     d:'A 15 to 30 foot line clipped to a harness gives freedom while keeping the option to prevent a failed recall. This is your main tool through the whole adolescent slump.'},
+     d:'A 15 to 30 foot line on a harness gives freedom, and it still lets you prevent a failed recall. This is your main tool through the whole adolescent period.'},
     {t:'Swimming, supervised', a:26, b:112, open:true,
-     d:'Low impact and joint friendly, but never assume she can swim. Use a life vest, start in water she can stand in, and always give her a clear way out.'},
+     d:'Swimming has low impact and is good for the joints. Never assume that the dog can swim. Use a life vest. Start in water where the dog can stand. Always give the dog a clear way out.'},
     {t:'Boarding, daycare, groomer', a:26, b:112, open:true, soft:true,
-     d:'Do short, positive trial visits well before you actually need them. Screen daycares for group size, staff ratio, and enforced rest breaks; bad daycare teaches rude, over-aroused play.'},
+     d:'Do short, positive trial visits long before you need them. Examine a daycare for group size, staff ratio, and enforced rest breaks. A bad daycare teaches rude, over-excited play.'},
     {t:'Jogging with you', a:52, b:78, avoid:true,
-     d:'Hold off on steady road running until your vet confirms growth plates have closed, which is later in big breeds. Build distance gradually after that.'},
-    {t:'Jogging, build up slowly', a:78, b:112, open:true,
-     d:'Start with short distances on soft ground, add roughly ten percent a week, and check her feet and gait afterwards.'},
+     d:'Wait for steady road running until your vet confirms that the growth plates are closed. This is later in big breeds. Then increase the distance gradually.'},
+    {t:'Jogging, increase slowly', a:78, b:112, open:true,
+     d:'Start with short distances on soft ground. Increase by about ten percent each week. After each run, examine the feet and the gait.'},
     {t:'Hiking longer distances', a:52, b:112, open:true,
-     d:'Trails are more forgiving than pavement. Watch heat, pad wear, and her willingness to keep going rather than a target mileage.'},
+     d:'Trails are easier on the body than pavement. Watch the heat, the wear on the pads, and the willingness of the dog to continue. Do not use a target distance.'},
     {t:'Jumping and dog sports', a:78, b:112, open:true,
-     d:'Foundation and flatwork can start much earlier, but full-height jumps, weave poles, and hard turns wait for confirmed skeletal maturity.'},
+     d:'Foundation work and flatwork can start much earlier. Full-height jumps, weave poles, and hard turns must wait for confirmed skeletal maturity.'},
   ]},
 
   { c:'train', name:'Training plan', items:[
     {t:'Handling and husbandry', a:3, b:16,
-     d:'Paws, ears, mouth, collar grabs, nail clippers, brush, being held still. Pair every touch with food. Ten seconds a day now saves years of fighting at the vet and the groomer.'},
-    {t:'Keep husbandry topped up', a:16, b:112, open:true, soft:true,
-     d:'A quick weekly session keeps it fluent. Do not let the first nail trim in six months be an emergency one.'},
+     d:'Touch the paws, ears, mouth, and collar. Use the nail clippers and the brush, and hold the dog still. Give food with every touch. Ten seconds a day now saves years of trouble at the vet and the groomer.'},
+    {t:'Keep husbandry current', a:16, b:112, open:true, soft:true,
+     d:'A short weekly session keeps these skills fluent. Do not let the first nail trim in six months be an emergency.'},
     {t:'Name and food-based recall', a:8, b:16,
-     d:'Say her name, pay her, every time. Run away and reward her for chasing you. Use her actual meals for this.'},
+     d:'Say the name and give food, every time. Run away, and give a reward when the dog chases you. Use the daily meals for this.'},
     {t:'Crate and time alone', a:8, b:26,
-     d:'Build up in seconds and minutes with something good to chew. Alone time is a trained skill, and skipping it is a common route to separation problems.'},
+     d:'Increase the time in seconds and minutes, and give something good to chew. Time alone is a trained skill. If you omit this training, separation problems are common.'},
     {t:'Sit, down, luring, marker word', a:8, b:20,
-     d:'Easy wins that teach her how learning works. Keep sessions to two or three minutes and always stop while she still wants more.'},
+     d:'These are easy wins that teach the dog how learning works. Keep each session to two or three minutes. Always stop while the dog still wants more.'},
     {t:'Place and mat settle, short reps', a:10, b:26,
-     d:'Feed frequently while she is on the mat rather than once at the end, add a clear release word, and vary the duration instead of always pushing longer. Reward calm body language, not just position.'},
+     d:'Give food often while the dog is on the mat, not once at the end. Add a clear release word. Vary the duration instead of always making it longer. Reward calm body language, not only the position.'},
     {t:'Leave it, drop it, trade', a:14, b:40,
-     d:'Trading beats taking. A dog who believes hands approaching means something good rarely develops guarding, and drop it is the cue that saves her from what she swallowed on the trail.'},
+     d:'A trade is better than a removal. A dog that expects good news from your hands rarely develops guarding. \u201cDrop it\u201d is the cue that removes a dangerous object found on the trail.'},
     {t:'Loose leash foundation', a:16, b:52,
-     d:'Reward position rather than punishing pulling. Practice in boring places first; a busy sidewalk is an exam, not a lesson.'},
+     d:'Reward the correct position instead of punishing the pull. Practice in quiet places first. A busy sidewalk is an examination, not a lesson.'},
     {t:'Proof recall vs distraction', a:26, b:78,
-     d:'Work up through easy, medium, and hard distractions on the long line. Keep an emergency recall word that is only ever used for real and always pays enormously.'},
+     d:'Work through easy, medium, and hard distractions on the long line. Keep one emergency recall word. Use this word only in a real emergency, and always give a large reward.'},
     {t:'Duration stays, settle at meals', a:40, b:104, open:true,
-     d:'Now the brain can hold it. Build with variable durations, add distance and distraction one at a time, and use her own dinner delivered on the mat so food stops being the enemy of the mat.'},
+     d:'The brain can hold a stay now. Build with variable durations. Add distance and distraction one at a time. Give the dinner on the mat, so that food no longer pulls the dog off the mat.'},
     {t:'Off-leash reliability', a:52, b:104, open:true,
-     d:'Earned, not granted, and it is fragile in adolescence. Keep the long line on until she is right nine times out of ten in that specific place.'},
+     d:'The dog earns this, and it is fragile in adolescence. Keep the long line until the dog is correct nine times out of ten in that specific place.'},
     {t:'Re-proof everything', a:30, b:60,
-     d:'Assume every cue needs retraining in every context. This is not lost progress; it is normal, and dogs who are trained through it come out far ahead of dogs who are not.'},
+     d:'Assume that every cue needs retraining in every context. This is not lost progress. It is normal. Dogs that continue training through this period do much better than dogs that stop.'},
   ]},
 ];
 
@@ -976,7 +985,7 @@ function select(id, el) {
   else detail.scrollIntoView({ block: 'nearest' });
 }
 
-const IDLE_HTML = '<p class="idle">Tap any bar to see what it means and what to do about it.</p>';
+const IDLE_HTML = '<p class="idle">Tap any bar to see what it means and what to do.</p>';
 
 function closeDetail() {
   if (!detail.classList.contains('open')) return;
@@ -1097,16 +1106,16 @@ function render() {
 
   if (w === null) {
     ageN.textContent = '—';
-    ageS.textContent = 'pick a date';
+    ageS.textContent = 'no date set';
     canvas.style.setProperty('--today-vis', 'none');
     document.getElementById('nowCols').innerHTML =
-      '<div class="now-col empty"><p>Set a date of birth to see active stages.</p></div>';
+      '<div class="now-col empty"><p>Enter a date of birth to see the active stages.</p></div>';
     document.getElementById('soon').innerHTML = '';
     return;
   }
 
   ageN.textContent = formatAge(w);
-  ageS.textContent = w < 0 ? 'due soon' : 'old today';
+  ageS.textContent = w < 0 ? '' : 'old today';
 
   if (w >= 0 && w <= WEEKS) {
     canvas.style.setProperty('--today-vis', 'block');
@@ -1135,14 +1144,14 @@ function renderNowColumns(w) {
         + (i.avoid ? '<em>wait</em>' : '') + '</li>').join('')
     + '</ul></div>'
   ).join('') || '<div class="now-col empty"><p>'
-    + (w < 0 ? 'Nothing yet. She has not been born.' : 'Past two years. She is all grown up.')
+    + (w < 0 ? 'Nothing yet. This date is in the future.' : 'More than two years old. The timeline is complete.')
     + '</p></div>';
 }
 
-/* "can start" and "ends" mean opposite things depending on whether a bar is a
-   skill window, a phase she goes through, or a restriction. Pick the verb from
-   the category so the chip reads as a sentence about the puppy. */
-const STARTS = { dev: 'starts', body: 'starts', seen: 'may start', safe: 'you can start', train: 'you can start' };
+/* "starts" and "ends" mean different things for a skill window, a phase the
+   dog goes through, and a restriction. Pick the verb from the category so the
+   chip reads as a sentence about the dog. */
+const STARTS = { dev: 'starts', body: 'starts', seen: 'can start', safe: 'you can start', train: 'you can start' };
 
 function eventText(it, group, isStart) {
   const name = it.t.replace(/\s*[\u2014-]\s*not yet$/i, '');
